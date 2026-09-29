@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>摸魚模式(搞笑版)</title>
+<style>
+:root{--bg:#33ca33;--taginkc:#000;--ink:#000;--font:-apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;--tagfont:"Kaiti TC","BiauKai","DFKai-SB",serif;--serialfont:-apple-system,"Helvetica Neue",Arial,sans-serif;--tagbg:none;box-sizing:border-box;padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font-family:var(--font)}
+header{background:#000;color:#fff;text-align:center;font-weight:600;font-size:1.2rem;padding:calc(16px + env(safe-area-inset-top,0px)) 16px 16px;position:relative}
+.menu{position:absolute;left:16px;bottom:12px;width:36px;height:36px;border-radius:50%;background:#1c1c1e;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:4px}
+.menu i{display:block;width:20px;height:3px;background:#fff;border-radius:2px}
+.ver{text-align:right;font-size:1.15rem;font-weight:500;padding:2px 12px 0 0;line-height:1.1}
+main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
+.end{white-space:nowrap;font-size:min(2.4rem,6.6vw);font-weight:400;margin:0 0 68px;line-height:1.15}
+.mode{font-size:4.5rem;font-weight:500;line-height:1.1;margin:0 0 60px;letter-spacing:.02em}
+.clock{white-space:nowrap;font-size:min(2.8rem,8.2vw);font-weight:800;font-variant-numeric:tabular-nums;margin:0 0 16px}
+.btn{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;border:0;border-radius:14px;background:#8fcc8f;font:inherit;font-size:1.3rem;padding:2px 18px;margin:0 auto 14px;cursor:pointer}
+.btn .dot{width:16px;height:16px;border-radius:50%}
+#lockBtn{color:#5f7d5a}#lockBtn .dot{background:#50cc50}
+#unlockBtn{color:#3c67f4}#unlockBtn .dot{background:#e63946}
+.tag{position:relative;margin:20px auto;width:85%;background:#33ca33 var(--tagbg) center/cover no-repeat;border:1px solid transparent;border-radius:16px;padding:14px 10px;overflow:hidden}
+.tag .t1,.tag .t2,.tag .sn{color:var(--taginkc)}
+.tag .t1{font-family:var(--tagfont);font-size:1.6rem;letter-spacing:1px}
+.tag .t2{font-family:var(--tagfont);font-size:1.5rem;letter-spacing:1px;margin-top:6px}
+.tag .sn{font-family:var(--serialfont);font-size:2.2rem;font-weight:800;margin-top:6px}
+.info{font-size:1.4rem;font-weight:500;line-height:1.4;margin-top:16px}
+.warn{color:#e00;text-align:center;font-size:1.1rem;font-weight:600;margin-top:2px}
+.set{margin-top:28px;background:rgba(255,255,255,.4);border-radius:18px;padding:16px;text-align:left}
+.set h2{margin:0 0 8px;font-size:1.05rem}
+.set label{display:block;font-size:.9rem;margin:10px 0 4px}
+.set input,.set select{width:100%;font:inherit;font-size:1rem;padding:8px 10px;border-radius:10px;border:1px solid rgba(0,0,0,.25);background:#fff}
+.set button{margin-top:10px;font:inherit;padding:8px 12px;border-radius:10px;border:1px solid rgba(0,0,0,.25);background:#fff}
+.hint{font-size:.8rem;opacity:.75;margin-top:10px}
+</style>
+</head>
+<body>
+<header><div class="menu"><i></i><i></i><i></i></div><span id="hd"></span></header>
+<div class="ver" id="ver">iOS:摸魚版</div>
+<main>
+<p class="end" id="endText"></p>
+<div class="mode" id="modeText">摸魚模式</div>
+<div class="clock" id="clock"></div>
+<button class="btn" id="lockBtn" style="margin-bottom:26px"><span class="dot"></span><span id="lt"></span></button>
+<button class="btn" id="unlockBtn"><span class="dot"></span><span id="ut"></span></button>
+<div class="tag" id="tag">
+<div class="t1" id="t1">虛構休閒中心</div>
+<div class="t2" id="t2">摸魚器材標籤</div>
+<div class="sn" id="sn">MOYU000001</div>
+</div>
+<div class="info">上鎖時間:<span id="lockedAt"></span><br>設定檔:<span id="prof"></span></div>
+<div class="warn">仿冒必究</div>
+
+<section class="set">
+<h2>自訂設定</h2>
+<label>頂部標題</label><input id="ihd" value="摸魚 MDM V0.1(搞笑版)">
+<label>設定檔文字</label><input id="iprof" value="V0.01 (搞笑版)">
+<label>上鎖按鈕文字</label><input id="ilt" value="上鎖:進入摸魚模式">
+<label>解鎖按鈕文字</label><input id="iut" value="解鎖:離開摸魚模式">
+<label>右上角文字</label><input id="iver" value="iOS:摸魚版">
+<label>大標文字(原「摸魚模式」)</label><input id="imode" value="摸魚模式">
+<label>標籤文字顏色</label><input type="color" id="icolor" value="#000000">
+<label><input type="checkbox" id="iclear" style="width:auto"> 透明色(標籤文字隱形)</label>
+<label>標題(上)</label><input id="i1" value="虛構休閒中心">
+<label>標題(下)</label><input id="i2" value="摸魚器材標籤">
+<label>序號</label><input id="isn" value="MOYU000001">
+<label>標籤文字字型</label>
+<select id="ftag"></select>
+<label>序號字型</label>
+<select id="fsn"></select>
+<label>整體字型</label>
+<select id="fall"></select>
+<label>標籤底圖(選你自己的圖片)</label>
+<input type="file" id="img" accept="image/*">
+<button id="clrImg">清除底圖</button>
+<label>上鎖時間</label><input type="datetime-local" id="sIn" step="1">
+<label>結束時間</label><input type="datetime-local" id="eIn" step="1">
+<div class="hint">本頁為搞笑練習用,非任何真實系統畫面。設定儲存在瀏覽器中。</div>
+</section>
+</main>
+<script>
+(function(){
+var K='moyu.v1',st={start:null,end:null,active:true,t1:'虛構休閒中心',t2:'摸魚器材標籤',sn:'MOYU000001',ftag:0,fsn:0,fall:0,img:null,modeName:'摸魚模式',ver:'iOS:摸魚版',lt:'上鎖:進入摸魚模式',ut:'解鎖:離開摸魚模式',hd:'摸魚 MDM V0.1(搞笑版)',prof:'V0.01 (搞笑版)',color:'#000000',clear:false};
+var $=function(i){return document.getElementById(i)};
+var FONTS=[
+['標楷體','"DFKai-SB","BiauKai","標楷體","Kaiti TC",serif'],
+['楷體','"Kaiti TC","BiauKai","DFKai-SB",serif'],
+['黑體','-apple-system,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif'],
+['宋體','"Songti TC","PMingLiU",serif'],
+['圓體','"Yuanti TC","Arial Rounded MT Bold",sans-serif'],
+['等寬','ui-monospace,Menlo,monospace'],
+['Helvetica','"Helvetica Neue",Arial,sans-serif']];
+['ftag','fsn','fall'].forEach(function(id){FONTS.forEach(function(f,i){var o=document.createElement('option');o.value=i;o.textContent=f[0];$(id).appendChild(o)})});
+function load(){try{var s=localStorage.getItem(K);if(s)st=Object.assign(st,JSON.parse(s))}catch(e){}}
+function save(){try{localStorage.setItem(K,JSON.stringify(st))}catch(e){}}
+function p(n){return String(n).padStart(2,'0')}
+function roc(d){return(d.getFullYear()-1911)+'/'+p(d.getMonth()+1)+'/'+p(d.getDate())}
+function hm(d){return p(d.getHours())+':'+p(d.getMinutes())}
+function hms(d){return hm(d)+':'+p(d.getSeconds())}
+function li(ms){var d=new Date(ms);return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate())+'T'+hms(d)}
+function fi(v){return v?new Date(v).getTime():null}
+function render(){
+var n=new Date(),r=document.documentElement.style;
+$('clock').textContent=roc(n)+' '+hms(n);
+$('modeText').textContent=st.active?st.modeName:'一般模式';
+r.setProperty('--taginkc',st.clear?'transparent':st.color);
+$('ver').textContent=st.ver;$('lt').textContent=st.lt;$('ut').textContent=st.ut;$('hd').textContent=st.hd;$('prof').textContent=st.prof;$('t1').textContent=st.t1;$('t2').textContent=st.t2;$('sn').textContent=st.sn;
+r.setProperty('--tagfont',FONTS[st.ftag][1]);
+r.setProperty('--serialfont',FONTS[st.fsn][1]);
+r.setProperty('--font',FONTS[st.fall][1]);
+r.setProperty('--tagbg',st.img?'url("'+st.img+'")':'none');
+if(st.end){var e=new Date(st.end);$('endText').textContent='結束時間:'+roc(e)+' '+hm(e)}
+if(st.start)$('lockedAt').textContent=roc(new Date(st.start))+' '+hms(new Date(st.start));
+}
+load();if(!st.start)st.start=Date.now();
+if(!st.end)st.end=Date.now()+4*864e5;
+$('iver').value=st.ver;$('ilt').value=st.lt;$('iut').value=st.ut;$('ihd').value=st.hd;$('iprof').value=st.prof;$('imode').value=st.modeName;$('icolor').value=st.color;$('iclear').checked=!!st.clear;$('i1').value=st.t1;$('i2').value=st.t2;$('isn').value=st.sn;
+$('ftag').value=st.ftag;$('fsn').value=st.fsn;$('fall').value=st.fall;
+$('sIn').value=li(st.start);$('eIn').value=li(st.end);
+[['ilt','lt'],['iut','ut'],['ihd','hd'],['iprof','prof'],['iver','ver'],['imode','modeName'],['i1','t1'],['i2','t2'],['isn','sn']].forEach(function(a){$(a[0]).addEventListener('input',function(){st[a[1]]=this.value;save();render()})});
+[['ftag','ftag'],['fsn','fsn'],['fall','fall']].forEach(function(a){$(a[0]).addEventListener('change',function(){st[a[1]]=+this.value;save();render()})});
+$('icolor').addEventListener('input',function(){st.color=this.value;save();render()});
+$('iclear').addEventListener('change',function(){st.clear=this.checked;save();render()});
+$('sIn').addEventListener('change',function(){st.start=fi(this.value);save();render()});
+$('eIn').addEventListener('change',function(){st.end=fi(this.value);save();render()});
+$('lockBtn').onclick=function(){st.active=true;save();render()};
+$('unlockBtn').onclick=function(){st.active=false;save();render()};
+$('img').addEventListener('change',function(){var f=this.files[0];if(!f)return;var rd=new FileReader();rd.onload=function(){st.img=rd.result;save();render()};rd.readAsDataURL(f)});
+$('clrImg').onclick=function(){st.img=null;save();render()};
+render();setInterval(render,250);
+})();
+</script>
+</body>
+</html>
