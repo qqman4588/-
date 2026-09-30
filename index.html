@@ -60,7 +60,7 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 .mdm-item.bold { }
 .mdm-item.disabled { color: #CCCCCC; }
 
-/* --- 紀錄-查詢 頁面樣式 --- */
+/* --- 新增：紀錄-查詢 頁面樣式 --- */
 #query-overlay {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background: rgba(0, 0, 0, 0.5); z-index: 2000; display: none;
@@ -105,6 +105,7 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 .log-item:last-child { border-bottom: 0; }
 .log-item .log-title { font-size: 1.05rem; font-weight: 600; color: #e63946; margin-bottom: 6px; }
 .log-item .log-time, .log-item .log-status { font-size: 1rem; color: #000; margin-bottom: 4px; }
+/* ---------------------------------- */
 </style>
 </head>
 <body>
@@ -146,8 +147,9 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
     <div class="mdm-item">安裝訊息加密軟體</div>
     <div class="mdm-item">疑難雜症</div>
 </div>
+<!-- 側邊選單結束 -->
 
-<!-- 紀錄-查詢 頁面結構 -->
+<!-- 新增：紀錄-查詢 頁面結構 -->
 <div id="query-overlay"></div>
 <div id="query-panel">
     <div class="query-header">
@@ -155,13 +157,13 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
         <span>紀錄-查詢</span>
     </div>
     <div class="query-form">
-        <鎖div class="form-row">
-            <div class="label時間">分類：</div>
-            <div</ class="value-tag">全部</div>
+        <div class="form-row">
+            <div class="label">分類：</div>
+            <div class="value-tag">全部</div>
             <div class="version-info">iOS:26.1<br>MDM:9.1</div>
-       label </div>
-        <div class="date-section-title">請輸入起><迄日期查詢：</div>
-       input <div class="date-input-row">
+        </div>
+        <div class="date-section-title">請輸入起迄日期查詢：</div>
+        <div class="date-input-row">
             <div class="date-label">起：</div>
             <input type="text" id="qStart">
         </div>
@@ -176,6 +178,7 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
     </div>
     <div class="log-list" id="logList"></div>
 </div>
+<!-- 紀錄-查詢 頁面結束 -->
 
 <header>
     <div class="menu" id="menuBtn"><i></i><i></i><i></i></div>
@@ -218,7 +221,7 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 <label>標籤底圖(選你自己的圖片)</label>
 <input type="file" id="img" accept="image/*">
 <button id="clrImg">清除底圖</button>
-<label>上 type="datetime-local" id="sIn" step="1">
+<label>上鎖時間</label><input type="datetime-local" id="sIn" step="1">
 <label>結束時間</label><input type="datetime-local" id="eIn" step="1">
 <div class="hint">本頁為搞笑練習用,非任何真實系統畫面。設定儲存在瀏覽器中。</div>
 </section>
@@ -286,13 +289,14 @@ overlay.addEventListener('click', function() {
     sidebar.classList.remove('open');
     overlay.classList.remove('open');
 });
+// 點擊「國軍MDM」標題收合選單
 var mdmHeader = document.getElementById('mdmHeader');
 mdmHeader.addEventListener('click', function() {
     sidebar.classList.remove('open');
     overlay.classList.remove('open');
 });
 
-// --- 紀錄-查詢 頁面邏輯 ---
+// --- 新增：查詢功能邏輯 ---
 var queryPanel = document.getElementById('query-panel');
 var queryOverlay = document.getElementById('query-overlay');
 var queryBtn = document.getElementById('queryBtn');
@@ -359,6 +363,7 @@ queryBtn.addEventListener('click', function() {
 doQueryBtn.addEventListener('click', function() {
     renderLogs();
 });
+// --- 查詢功能邏輯結束 ---
 
 render();setInterval(render,250);
 })();
