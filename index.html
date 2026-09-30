@@ -42,19 +42,22 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 }
 #sidebar-overlay.open { display: block; opacity: 1; }
 #sidebar {
-    position: fixed; top: 0; left: -100%; width: 75%; max-width: 320px;
+    /* 這裡將寬度改為 100%，並移除 max-width 限制，與照片同寬 */
+    position: fixed; top: 0; left: -100%; width: 100%;
     height: 100%; background: #f7f7f7; z-index: 1001; overflow-y: auto;
     transition: left 0.3s ease-in-out; box-shadow: 2px 0 8px rgba(0,0,0,0.2);
     font-family: -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
     -webkit-overflow-scrolling: touch;
 }
 #sidebar.open { left: 0; }
+/* 最上方標題顏色維持 #1e2d3c */
 .mdm-header {
-    background: #3f4e61; color: #fff;
+    background: #1e2d3c; color: #fff;
     padding: calc(16px + env(safe-area-inset-top, 0px)) 16px 16px;
     font-size: 1.1rem; font-weight: 600;
 }
-.mdm-group { background: #3f4e61; color: #fff; padding: 8px 16px; font-size: 0.95rem; font-weight: 600; }
+/* 這裡已將其他深色區塊顏色改為 #30475e */
+.mdm-group { background: #30475e; color: #fff; padding: 8px 16px; font-size: 0.95rem; font-weight: 600; }
 .mdm-item { padding: 14px 16px; font-size: 0.95rem; border-bottom: 1px solid #e0e0e0; color: #000; background: #fff; cursor: pointer; }
 .mdm-item.bold { font-weight: 600; }
 .mdm-item.disabled { color: #999; }
@@ -150,7 +153,6 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 
 <script>
 (function(){
-// 更改了儲存鍵為 moyu.v2，避免讀取到舊的設定值
 var K='moyu.v2',st={start:null,end:null,active:true,t1:'虛構休閒中心',t2:'摸魚器材標籤',sn:'MOYU000001',ftag:0,fsn:0,fall:0,img:null,modeName:'任務模式',ver:'iOS:26.1',lt:'上鎖:進入管制模式',ut:'解鎖:離開管制模式',hd:'國軍MDM V9.1',prof:'V1.07(05/12 14:05:13)',color:'#000000',clear:true};
 var $=function(i){return document.getElementById(i)};
 var FONTS=[
