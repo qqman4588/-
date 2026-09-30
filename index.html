@@ -103,7 +103,7 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 .log-list { padding: 0 16px 32px; }
 .log-item { padding: 16px 0; border-bottom: 1px solid #e0e0e0; }
 .log-item:last-child { border-bottom: 0; }
-/* 紅色字體變細且改色 */
+/* 1. 紅色字體變細且改色 */
 .log-item .log-title { font-size: 1.05rem; font-weight: 400; color: #FE0000; margin-bottom: 6px; }
 .log-item .log-time, .log-item .log-status { font-size: 1rem; color: #000; margin-bottom: 4px; }
 </style>
@@ -137,9 +137,9 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
     <div class="mdm-group">設定</div>
     <div class="mdm-item">上鎖提醒設定</div>
     <div class="mdm-group">其它</div>
-   clock <div class="mdm-item">" id最新="消息</div>
-    <div class="mdclockm-item">手機裝置資訊</div>
-"></    <div class="mdm-item">黑名單 APP 查詢</div>
+    <div class="mdm-item">最新消息</div>
+    <div class="mdm-item">手機裝置資訊</div>
+    <div class="mdm-item">黑名單 APP 查詢</div>
     <div class="mdm-item">定位狀況查詢</div>
     <div class="mdm-item">船艦模式解鎖點列表</div>
     <div class="mdm-item">使用規範</div>
@@ -188,7 +188,7 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 <main>
 <p class="end" id="endText"></p>
 <div class="mode" id="modeText">摸魚模式</div>
-<div class="div>
+<div class="clock" id="clock"></div>
 <button class="btn" id="lockBtn" style="margin-bottom:26px"><span class="dot"></span><span id="lt"></span></button>
 <button class="btn" id="unlockBtn"><span class="dot"></span><span id="ut"></span></button>
 <div class="tag" id="tag">
@@ -260,8 +260,7 @@ r.setProperty('--font',FONTS[st.fall][1]);
 r.setProperty('--tagbg',st.img?'url("'+st.img+'")':'none');
 if(st.end){var e=new Date(st.end);$('endText').textContent='結束時間:'+roc(e)+' '+hm(e)}
 if(st.start)$('lockedAt').textContent=roc(new Date(st.start))+' '+hms(new Date(st.start));
-
-// 連動查詢頁面的版本資訊
+// 2. 右上角版本連動
 var verEl = $('queryVersionInfo');
 if(verEl){
     var mdmVer = st.hd.replace('國軍MDM ', '').replace('國軍MDM', '').trim();
