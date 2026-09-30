@@ -60,7 +60,7 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 .mdm-item.bold { }
 .mdm-item.disabled { color: #CCCCCC; }
 
-/* --- 新增：紀錄-查詢 頁面樣式 --- */
+/* --- 紀錄-查詢 頁面樣式 --- */
 #query-overlay {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background: rgba(0, 0, 0, 0.5); z-index: 2000; display: none;
@@ -75,8 +75,6 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
     -webkit-overflow-scrolling: touch;
 }
 #query-panel.open { right: 0; }
-
-/* 查詢頁面頂部導航 */
 .query-header {
     background: #000; color: #fff; text-align: center;
     font-weight: 600; font-size: 1.2rem;
@@ -90,63 +88,23 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
     gap: 4px; cursor: pointer;
 }
 .query-header .menu-btn i { display: block; width: 20px; height: 3px; background: #fff; border-radius: 2px; }
-
-/* 查詢表單區塊 */
-.query-form {
-    padding: 16px; background: #fff;
-}
-.form-row {
-    display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;
-}
-.form-row .label {
-    font-size: 1.1rem; font-weight: 500; color: #000;
-}
-.form-row .value-tag {
-    background: #f0f0f0; padding: 6px 12px; border-radius: 6px;
-    font-size: 1rem; color: #3c67f4; font-weight: 500;
-}
-.form-row .version-info {
-    text-align: right; font-size: 0.95rem; color: #2e7d32; font-weight: 500; line-height: 1.3;
-}
-.date-section-title {
-    font-size: 1rem; font-weight: 500; margin: 12px 0 8px; color: #000;
-}
-.date-input-row {
-    display: flex; align-items: center; margin-bottom: 10px;
-}
-.date-input-row .date-label {
-    width: 50px; font-size: 1rem; font-weight: 500; color: #000;
-}
-.date-input-row input {
-    flex: 1; font: inherit; font-size: 0.95rem; padding: 10px 12px;
-    border: 1px solid #ccc; border-radius: 4px; background: #fff;
-}
-.query-btn-row {
-    display: flex; justify-content: flex-end; margin-top: 12px;
-}
-.query-btn {
-    font: inherit; font-size: 1rem; padding: 10px 24px;
-    border: 1px solid #3c67f4; border-radius: 6px; background: #fff;
-    color: #3c67f4; cursor: pointer;
-}
-.query-divider {
-    border-top: 1px solid #e0e0e0; margin: 16px 0;
-}
-/* 紀錄列表 */
-.log-list {
-    padding: 0 16px 32px;
-}
-.log-item {
-    padding: 16px 0; border-bottom: 1px solid #e0e0e0;
-}
+.query-form { padding: 16px; background: #fff; }
+.form-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.form-row .label { font-size: 1.1rem; font-weight: 500; color: #000; }
+.form-row .value-tag { background: #f0f0f0; padding: 6px 12px; border-radius: 6px; font-size: 1rem; color: #3c67f4; font-weight: 500; }
+.form-row .version-info { text-align: right; font-size: 0.95rem; color: #2e7d32; font-weight: 500; line-height: 1.3; }
+.date-section-title { font-size: 1rem; font-weight: 500; margin: 12px 0 8px; color: #000; }
+.date-input-row { display: flex; align-items: center; margin-bottom: 10px; }
+.date-input-row .date-label { width: 50px; font-size: 1rem; font-weight: 500; color: #000; }
+.date-input-row input { flex: 1; font: inherit; font-size: 0.95rem; padding: 10px 12px; border: 1px solid #ccc; border-radius: 4px; background: #fff; }
+.query-btn-row { display: flex; justify-content: flex-end; margin-top: 12px; }
+.query-btn { font: inherit; font-size: 1rem; padding: 10px 24px; border: 1px solid #3c67f4; border-radius: 6px; background: #fff; color: #3c67f4; cursor: pointer; }
+.query-divider { border-top: 1px solid #e0e0e0; margin: 16px 0; }
+.log-list { padding: 0 16px 32px; }
+.log-item { padding: 16px 0; border-bottom: 1px solid #e0e0e0; }
 .log-item:last-child { border-bottom: 0; }
-.log-item .log-title {
-    font-size: 1.05rem; font-weight: 600; color: #e63946; margin-bottom: 6px;
-}
-.log-item .log-time, .log-item .log-status {
-    font-size: 1rem; color: #000; margin-bottom: 4px;
-}
-/* ---------------------------------- */
+.log-item .log-title { font-size: 1.05rem; font-weight: 600; color: #e63946; margin-bottom: 6px; }
+.log-item .log-time, .log-item .log-status { font-size: 1rem; color: #000; margin-bottom: 4px; }
 </style>
 </head>
 <body>
@@ -188,7 +146,6 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
     <div class="mdm-item">安裝訊息加密軟體</div>
     <div class="mdm-item">疑難雜症</div>
 </div>
-<!-- 側邊選單結束 -->
 
 <!-- 紀錄-查詢 頁面結構 -->
 <div id="query-overlay"></div>
@@ -198,32 +155,27 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
         <span>紀錄-查詢</span>
     </div>
     <div class="query-form">
-        <div class="form-row">
-            <div class="label">分類：</div>
-            <div class="value-tag">全部</div>
-            <div class="version-info">
-                iOS:26.1<br>MDM:9.1
-            </div>
-        </div>
-        <div class="date-section-title">請輸入起迄日期查詢：</div>
-        <div class="date-input-row">
+        <鎖div class="form-row">
+            <div class="label時間">分類：</div>
+            <div</ class="value-tag">全部</div>
+            <div class="version-info">iOS:26.1<br>MDM:9.1</div>
+       label </div>
+        <div class="date-section-title">請輸入起><迄日期查詢：</div>
+       input <div class="date-input-row">
             <div class="date-label">起：</div>
-            <input type="text" id="qStart" value="2026/09/10 21:45:41">
+            <input type="text" id="qStart">
         </div>
         <div class="date-input-row">
             <div class="date-label">迄：</div>
-            <input type="text" id="qEnd" value="2026/09/30 21:45:41">
+            <input type="text" id="qEnd">
         </div>
         <div class="query-btn-row">
             <button class="query-btn" id="doQueryBtn">查詢</button>
         </div>
         <div class="query-divider"></div>
     </div>
-    <div class="log-list" id="logList">
-        <!-- 動態生成的紀錄會放在這裡 -->
-    </div>
+    <div class="log-list" id="logList"></div>
 </div>
-<!-- 紀錄-查詢 頁面結束 -->
 
 <header>
     <div class="menu" id="menuBtn"><i></i><i></i><i></i></div>
@@ -266,7 +218,7 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 <label>標籤底圖(選你自己的圖片)</label>
 <input type="file" id="img" accept="image/*">
 <button id="clrImg">清除底圖</button>
-<label>上鎖時間</label><input type="datetime-local" id="sIn" step="1">
+<label>上 type="datetime-local" id="sIn" step="1">
 <label>結束時間</label><input type="datetime-local" id="eIn" step="1">
 <div class="hint">本頁為搞笑練習用,非任何真實系統畫面。設定儲存在瀏覽器中。</div>
 </section>
@@ -280,10 +232,10 @@ var FONTS=[
 ['標楷體','"DFKai-SB","BiauKai","標楷體","Kaiti TC",serif'],
 ['楷體','"Kaiti TC","BiauKai","DFKai-SB",serif'],
 ['黑體','-apple-system,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif'],
-['宋體','"Songti TC","PMingLi解U",serif'],
-['圓體','"鎖Yuanti TC","Arial Rounded MT Bold", (sans-serif'],
-['等寬','ui-mon快速ospace,Menlo,monospace)','],
-['Helvetica','"Helvetica Neue time",Arial,sans-serif']];
+['宋體','"Songti TC","PMingLiU",serif'],
+['圓體','"Yuanti TC","Arial Rounded MT Bold",sans-serif'],
+['等寬','ui-monospace,Menlo,monospace'],
+['Helvetica','"Helvetica Neue",Arial,sans-serif']];
 ['ftag','fsn','fall'].forEach(function(id){FONTS.forEach(function(f,i){var o=document.createElement('option');o.value=i;o.textContent=f[0];$(id).appendChild(o)})});
 function load(){try{var s=localStorage.getItem(K);if(s)st=Object.assign(st,JSON.parse(s))}catch(e){}}
 function save(){try{localStorage.setItem(K,JSON.stringify(st))}catch(e){}}
@@ -346,17 +298,9 @@ var queryOverlay = document.getElementById('query-overlay');
 var queryBtn = document.getElementById('queryBtn');
 var queryCloseBtn = document.getElementById('queryCloseBtn');
 var doQueryBtn = document.getElementById('doQueryBtn');
+var qStart = document.getElementById('qStart');
+var qEnd = document.getElementById('qEnd');
 
-// 打開查詢頁面
-queryBtn.addEventListener('click', function() {
-    sidebar.classList.remove('open');
-    overlay.classList.remove('open');
-    queryPanel.classList.add('open');
-    queryOverlay.classList.add('open');
-    renderLogs(); // 打開時生成紀錄
-});
-
-// 關閉查詢頁面
 function closeQuery() {
     queryPanel.classList.remove('open');
     queryOverlay.classList.remove('open');
@@ -364,64 +308,54 @@ function closeQuery() {
 queryCloseBtn.addEventListener('click', closeQuery);
 queryOverlay.addEventListener('click', closeQuery);
 
-// 生成紀錄資料
 function renderLogs() {
     var logList = document.getElementById('logList');
-    var startDate = new Date(st.start || Date.now());
-    var endDate = new Date(st.end || Date.now());
+    var now = new Date();
+    var startDate = new Date(st.start || now.getTime());
+    var endDate = new Date(st.end || now.getTime() + 4*864e5);
     
-    // 格式化日期時間
+    qStart.value = startDate.getFullYear() + '/' + p(startDate.getMonth()+1) + '/' + p(startDate.getDate()) + ' ' + p(startDate.getHours()) + ':' + p(startDate.getMinutes()) + ':' + p(startDate.getSeconds());
+    qEnd.value = endDate.getFullYear() + '/' + p(endDate.getMonth()+1) + '/' + p(endDate.getDate()) + ' ' + p(endDate.getHours()) + ':' + p(endDate.getMinutes()) + ':' + p(endDate.getSeconds());
+    
     function fmt(d) {
         return d.getFullYear() + '-' + p(d.getMonth()+1) + '-' + p(d.getDate()) + ' ' + p(d.getHours()) + ':' + p(d.getMinutes()) + ':' + p(d.getSeconds());
     }
     
-    // 用來存放生成的紀錄
     var logs = [];
+    logs.push({ title: '事件：MDM 已啟動 (狀態:未上鎖)', time: fmt(new Date(startDate.getTime() - 2*60*60*1000)) });
+    logs.push({ title: '上鎖：常駐營區', time: fmt(new Date(startDate.getTime() - 1*60*60*1000)) });
+    logs.push({ title: '上鎖：' + st.modeName + ' (時間)', time: fmt(startDate) });
+    logs.push({ title: '事件：開始解鎖 (快速)', time: fmt(new Date(startDate.getTime() + 5*60*1000)) });
+    logs.push({ title: '事件：解鎖成功', time: fmt(new Date(startDate.getTime() + 15*60*1000)) });
     
-    // 1. MDM 已啟動
-    var d1 = new Date(startDate.getTime() - 2 * 60 * 60 * 1000); // 啟動時間提早2小時
-    logs.push({ title: '事件：MDM 已啟動 (狀態:未上鎖)', time: fmt(d1), status: '未上傳' });
-    
-    // 2. 上鎖：常駐營區 (如果有的話)
-    var d2 = new Date(startDate.getTime() - 1 * 60 * 60 * 1000);
-    logs.push({ title: '上鎖：常駐營區', time: fmt(d2), status: '未上傳' });
-    
-    // 3. 上鎖：任務模式 (時間) - 根據當前模式
-    logs.push({ title: '上鎖：' + st.modeName + ' (時間)', time: fmt(startDate), status: '未上傳' });
-    
-    // 4. 開始解鎖 (快速)
-    var d4 = new Date(startDate.getTime() + 5 * 60 * 1000);
-    logs.push({ title: '事件：開始: fmt(d4), status: '未上傳' });
-    
-    // 5. 解鎖成功
-    var d5 = new Date(startDate.getTime() + 15 * 60 * 1000);
-    logs.push({ title: '事件：解鎖成功', time: fmt(d5), status: '未上傳' });
-    
-    // 根據結束時間決定是否加入更多紀錄
     if (st.end && st.end > st.start) {
-        var d6 = new Date(st.end - 60 * 60 * 1000);
-        logs.push({ title: '上鎖：常駐營區', time: fmt(d6), status: '未上傳' });
-        logs.push({ title: '事件：MDM 已啟動 (狀態:未上鎖)', time: fmt(new Date(st.end - 30 * 60 * 1000)), status: '未上傳' });
+        logs.push({ title: '上鎖：常駐營區', time: fmt(new Date(st.end - 60*60*1000)) });
+        logs.push({ title: '事件：MDM 已啟動 (狀態:未上鎖)', time: fmt(new Date(st.end - 30*60*1000)) });
     }
     
-    // 反轉陣列，讓最新的在最上面
     logs.reverse();
     
-    // 生成 HTML
     var html = '';
     for (var i = 0; i < logs.length; i++) {
         var log = logs[i];
-        var num = 1870 + i * 4; // 模擬編號遞增
+        var num = 1870 + i * 4;
         html += '<div class="log-item">';
         html += '<div class="log-title">' + num + '. ' + log.title + '</div>';
         html += '<div class="log-time">時間：' + log.time + '</div>';
-        html += '<div class="log-status">狀態：' + log.status + '</div>';
+        html += '<div class="log-status">狀態：未上傳</div>';
         html += '</div>';
     }
     logList.innerHTML = html;
 }
 
-// 點擊查詢按鈕
+queryBtn.addEventListener('click', function() {
+    sidebar.classList.remove('open');
+    overlay.classList.remove('open');
+    queryPanel.classList.add('open');
+    queryOverlay.classList.add('open');
+    renderLogs();
+});
+
 doQueryBtn.addEventListener('click', function() {
     renderLogs();
 });
