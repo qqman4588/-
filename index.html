@@ -60,7 +60,7 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 .mdm-item.bold { }
 .mdm-item.disabled { color: #CCCCCC; }
 
-/* --- 新增：紀錄-查詢 頁面樣式 --- */
+/* --- 紀錄-查詢 頁面樣式 --- */
 #query-overlay {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background: rgba(0, 0, 0, 0.5); z-index: 2000; display: none;
@@ -103,9 +103,9 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 .log-list { padding: 0 16px 32px; }
 .log-item { padding: 16px 0; border-bottom: 1px solid #e0e0e0; }
 .log-item:last-child { border-bottom: 0; }
-.log-item .log-title { font-size: 1.05rem; font-weight: 600; color: #e63946; margin-bottom: 6px; }
+/* 紅色字體變細且改色 */
+.log-item .log-title { font-size: 1.05rem; font-weight: 400; color: #FE0000; margin-bottom: 6px; }
 .log-item .log-time, .log-item .log-status { font-size: 1rem; color: #000; margin-bottom: 4px; }
-/* ---------------------------------- */
 </style>
 </head>
 <body>
@@ -137,9 +137,9 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
     <div class="mdm-group">設定</div>
     <div class="mdm-item">上鎖提醒設定</div>
     <div class="mdm-group">其它</div>
-    <div class="mdm-item">最新消息</div>
-    <div class="mdm-item">手機裝置資訊</div>
-    <div class="mdm-item">黑名單 APP 查詢</div>
+   clock <div class="mdm-item">" id最新="消息</div>
+    <div class="mdclockm-item">手機裝置資訊</div>
+"></    <div class="mdm-item">黑名單 APP 查詢</div>
     <div class="mdm-item">定位狀況查詢</div>
     <div class="mdm-item">船艦模式解鎖點列表</div>
     <div class="mdm-item">使用規範</div>
@@ -149,7 +149,7 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 </div>
 <!-- 側邊選單結束 -->
 
-<!-- 新增：紀錄-查詢 頁面結構 -->
+<!-- 紀錄-查詢 頁面結構 -->
 <div id="query-overlay"></div>
 <div id="query-panel">
     <div class="query-header">
@@ -160,7 +160,7 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
         <div class="form-row">
             <div class="label">分類：</div>
             <div class="value-tag">全部</div>
-            <div class="version-info">iOS:26.1<br>MDM:9.1</div>
+            <div class="version-info" id="queryVersionInfo">iOS:26.1<br>MDM:9.1</div>
         </div>
         <div class="date-section-title">請輸入起迄日期查詢：</div>
         <div class="date-input-row">
@@ -188,7 +188,7 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 <main>
 <p class="end" id="endText"></p>
 <div class="mode" id="modeText">摸魚模式</div>
-<div class="clock" id="clock"></div>
+<div class="div>
 <button class="btn" id="lockBtn" style="margin-bottom:26px"><span class="dot"></span><span id="lt"></span></button>
 <button class="btn" id="unlockBtn"><span class="dot"></span><span id="ut"></span></button>
 <div class="tag" id="tag">
@@ -260,6 +260,14 @@ r.setProperty('--font',FONTS[st.fall][1]);
 r.setProperty('--tagbg',st.img?'url("'+st.img+'")':'none');
 if(st.end){var e=new Date(st.end);$('endText').textContent='結束時間:'+roc(e)+' '+hm(e)}
 if(st.start)$('lockedAt').textContent=roc(new Date(st.start))+' '+hms(new Date(st.start));
+
+// 連動查詢頁面的版本資訊
+var verEl = $('queryVersionInfo');
+if(verEl){
+    var mdmVer = st.hd.replace('國軍MDM ', '').replace('國軍MDM', '').trim();
+    var iosVer = st.ver.replace('iOS:', '').trim();
+    verEl.innerHTML = 'iOS:' + iosVer + '<br>MDM:' + mdmVer;
+}
 }
 load();if(!st.start)st.start=Date.now();
 if(!st.end)st.end=Date.now()+4*864e5;
@@ -296,7 +304,7 @@ mdmHeader.addEventListener('click', function() {
     overlay.classList.remove('open');
 });
 
-// --- 新增：查詢功能邏輯 ---
+// --- 查詢功能邏輯 ---
 var queryPanel = document.getElementById('query-panel');
 var queryOverlay = document.getElementById('query-overlay');
 var queryBtn = document.getElementById('queryBtn');
