@@ -42,24 +42,26 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 }
 #sidebar-overlay.open { display: block; opacity: 1; }
 #sidebar {
-    /* 這裡將寬度改為 100%，並移除 max-width 限制，與照片同寬 */
-    position: fixed; top: 0; left: -100%; width: 100%;
+    /* 寬度改為 90% */
+    position: fixed; top: 0; left: -100%; width: 90%;
     height: 100%; background: #f7f7f7; z-index: 1001; overflow-y: auto;
     transition: left 0.3s ease-in-out; box-shadow: 2px 0 8px rgba(0,0,0,0.2);
     font-family: -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
     -webkit-overflow-scrolling: touch;
 }
 #sidebar.open { left: 0; }
-/* 最上方標題顏色維持 #1e2d3c */
+/* 最上方標題顏色維持 #1e2d3c，並加入點擊收合效果 */
 .mdm-header {
     background: #1e2d3c; color: #fff;
     padding: calc(16px + env(safe-area-inset-top, 0px)) 16px 16px;
     font-size: 1.1rem; font-weight: 600;
+    cursor: pointer;
 }
-/* 這裡已將其他深色區塊顏色改為 #30475e */
-.mdm-group { background: #30475e; color: #fff; padding: 8px 16px; font-size: 0.95rem; font-weight: 600; }
+/* 深色區塊文字顏色改為 #7a8896 */
+.mdm-group { background: #30475e; color: #7a8896; padding: 8px 16px; font-size: 0.95rem; font-weight: 600; }
 .mdm-item { padding: 14px 16px; font-size: 0.95rem; border-bottom: 1px solid #e0e0e0; color: #000; background: #fff; cursor: pointer; }
-.mdm-item.bold { font-weight: 600; }
+/* 移除了 .mdm-item.bold 的 font-weight: 600，讓字型與白底項目相同 */
+.mdm-item.bold { }
 .mdm-item.disabled { color: #999; }
 </style>
 </head>
@@ -68,7 +70,7 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 <!-- 側邊選單結構 -->
 <div id="sidebar-overlay"></div>
 <div id="sidebar">
-    <div class="mdm-header">國軍MDM</div>
+    <div class="mdm-header" id="mdmHeader">國軍MDM</div>
     <div class="mdm-group">上鎖</div>
     <div class="mdm-item disabled">常駐營區</div>
     <div class="mdm-item disabled">出差 (WiFi)</div>
@@ -210,6 +212,12 @@ menuBtn.addEventListener('click', function() {
     overlay.classList.add('open');
 });
 overlay.addEventListener('click', function() {
+    sidebar.classList.remove('open');
+    overlay.classList.remove('open');
+});
+// 點擊「國軍MDM」標題收合選單
+var mdmHeader = document.getElementById('mdmHeader');
+mdmHeader.addEventListener('click', function() {
     sidebar.classList.remove('open');
     overlay.classList.remove('open');
 });
