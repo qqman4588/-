@@ -42,7 +42,6 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 }
 #sidebar-overlay.open { display: block; opacity: 1; }
 #sidebar {
-    /* 寬度改為 97% */
     position: fixed; top: 0; left: -100%; width: 97%;
     height: 100%; background: #f7f7f7; z-index: 1001; overflow-y: auto;
     transition: left 0.3s ease-in-out; box-shadow: 2px 0 8px rgba(0,0,0,0.2);
@@ -50,18 +49,15 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
     -webkit-overflow-scrolling: touch;
 }
 #sidebar.open { left: 0; }
-/* 最上方標題字體顏色維持 #5c646c */
 .mdm-header {
     background: #1e2d3c; color: #5c646c;
     padding: calc(16px + env(safe-area-inset-top, 0px)) 16px 16px;
     font-size: 1.1rem; font-weight: 600;
     cursor: pointer;
 }
-/* 深色區塊文字顏色維持白色 */
 .mdm-group { background: #30475e; color: #fff; padding: 8px 16px; font-size: 0.95rem; font-weight: 600; }
 .mdm-item { padding: 14px 16px; font-size: 0.95rem; border-bottom: 1px solid #e0e0e0; color: #000; background: #fff; cursor: pointer; }
 .mdm-item.bold { }
-/* 灰色文字顏色調深為 #d1d5d9 */
 .mdm-item.disabled { color: #d1d5d9; }
 </style>
 </head>
