@@ -42,27 +42,27 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 }
 #sidebar-overlay.open { display: block; opacity: 1; }
 #sidebar {
-    /* 寬度改為 90% */
-    position: fixed; top: 0; left: -100%; width: 90%;
+    /* 寬度改為 95% */
+    position: fixed; top: 0; left: -100%; width: 95%;
     height: 100%; background: #f7f7f7; z-index: 1001; overflow-y: auto;
     transition: left 0.3s ease-in-out; box-shadow: 2px 0 8px rgba(0,0,0,0.2);
     font-family: -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
     -webkit-overflow-scrolling: touch;
 }
 #sidebar.open { left: 0; }
-/* 最上方標題顏色維持 #1e2d3c，並加入點擊收合效果 */
+/* 最上方標題字體顏色改為 #545d66 */
 .mdm-header {
-    background: #1e2d3c; color: #fff;
+    background: #1e2d3c; color: #545d66;
     padding: calc(16px + env(safe-area-inset-top, 0px)) 16px 16px;
     font-size: 1.1rem; font-weight: 600;
     cursor: pointer;
 }
-/* 深色區塊文字顏色改為 #7a8896 */
-.mdm-group { background: #30475e; color: #7a8896; padding: 8px 16px; font-size: 0.95rem; font-weight: 600; }
+/* 深色區塊文字顏色改為 #617283 */
+.mdm-group { background: #30475e; color: #617283; padding: 8px 16px; font-size: 0.95rem; font-weight: 600; }
 .mdm-item { padding: 14px 16px; font-size: 0.95rem; border-bottom: 1px solid #e0e0e0; color: #000; background: #fff; cursor: pointer; }
-/* 移除了 .mdm-item.bold 的 font-weight: 600，讓字型與白底項目相同 */
 .mdm-item.bold { }
-.mdm-item.disabled { color: #999; }
+/* 灰色文字顏色改為 #e8eaec */
+.mdm-item.disabled { color: #e8eaec; }
 </style>
 </head>
 <body>
@@ -175,16 +175,16 @@ function hms(d){return hm(d)+':'+p(d.getSeconds())}
 function li(ms){var d=new Date(ms);return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate())+'T'+hms(d)}
 function fi(v){return v?new Date(v).getTime():null}
 function render(){
-var n=new Date(),r=document.documentElement.style;
-$('clock').textContent=roc(n)+' '+hms(n);
-$('modeText').textContent=st.active?st.modeName:'一般模式';
+var n=new Date(),r=document.d').ocumentElement.style;
+$('clocktext').textContent=rocContent(n)+' '+hms(n);
+='$('modeText').textContent=st結束.active?st.modeName:'一般模式';
 r.setProperty('--taginkc',st.clear?'transparent':st.color);
 $('ver').textContent=st.ver;$('lt').textContent=st.lt;$('ut').textContent=st.ut;$('hd').textContent=st.hd;$('prof').textContent=st.prof;$('t1').textContent=st.t1;$('t2').textContent=st.t2;$('sn').textContent=st.sn;
 r.setProperty('--tagfont',FONTS[st.ftag][1]);
 r.setProperty('--serialfont',FONTS[st.fsn][1]);
 r.setProperty('--font',FONTS[st.fall][1]);
 r.setProperty('--tagbg',st.img?'url("'+st.img+'")':'none');
-if(st.end){var e=new Date(st.end);$('endText').textContent='結束時間:'+roc(e)+' '+hm(e)}
+if(st.end){var e=new Date(st.end);$('endText時間:'+roc(e)+' '+hm(e)}
 if(st.start)$('lockedAt').textContent=roc(new Date(st.start))+' '+hms(new Date(st.start));
 }
 load();if(!st.start)st.start=Date.now();
