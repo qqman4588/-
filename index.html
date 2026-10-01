@@ -106,10 +106,10 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 .log-item .log-title { font-size: 1.05rem; font-weight: 400; color: #FE0000; margin-bottom: 6px; }
 .log-item .log-time, .log-item .log-status { font-size: 1rem; color: #000; margin-bottom: 4px; }
 
-/* --- 任務模式彈窗樣式（完全依照你上傳的版本） --- */
+/* --- 任務模式彈窗樣式 --- */
 #taskModalOverlay { position:fixed; inset:0; z-index:3000; display:none; align-items:flex-end; justify-content:center; padding:0 26px max(54px, env(safe-area-inset-bottom)); background:rgba(0,0,0,.65); }
 #taskModalOverlay.open { display:flex; animation:taskFade .25s ease-out; }
-.task-modal-card { width:min(100%,520px); height:min(86vh,760px); max-height:calc(100dvh - 85px); overflow-y:auto; border-radius:8px; background:#fff; color:#111; padding:25px 10px 28px; box-shadow:0 8px 30px rgba(0,0,0,.15); animation:taskUp .34s cubic-bezier(.2,.8,.2,1); }
+.task-modal-card { width:min(100%,520px); height:auto; max-height:calc(100dvh - 100px); overflow-y:auto; border-radius:8px; background:#fff; color:#111; padding:25px 10px 28px; box-shadow:0 8px 30px rgba(0,0,0,.15); animation:taskUp .34s cubic-bezier(.2,.8,.2,1); }
 .task-modal-title { margin:0; text-align:center; font-size:1.8rem; font-weight:800; line-height:1.25; }
 .task-modal-desc { margin:33px 19px 0; font-size:1.15rem; font-weight:600; line-height:1.55; }
 .task-modal-input-row { display:flex; align-items:center; gap:12px; margin:49px 0 0; }
@@ -127,7 +127,7 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 @media (prefers-reduced-motion:reduce) { #taskModalOverlay.open,.task-modal-card { animation:none; } }
 @media(max-width:639px){.desktop-break{display:none}}
 
-/* --- 新增：版本檢查彈窗樣式 --- */
+/* --- 版本檢查彈窗樣式 --- */
 #versionCheckModal {
     position: fixed; inset: 0; z-index: 4000; display: none;
     align-items: center; justify-content: center;
@@ -221,7 +221,7 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 </div>
 <!-- 紀錄-查詢 頁面結束 -->
 
-<!-- 任務模式彈窗（完全依照你上傳的版本） -->
+<!-- 任務模式彈窗 -->
 <div id="taskModalOverlay">
     <div class="task-modal-card" role="dialog" aria-modal="true" aria-labelledby="taskTitle">
         <h2 id="taskTitle" class="task-modal-title">結束時間設定</h2>
@@ -240,7 +240,7 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 </div>
 <!-- 任務模式彈窗結束 -->
 
-<!-- 新增：版本檢查彈窗 -->
+<!-- 版本檢查彈窗 -->
 <div id="versionCheckModal">
     <div class="vc-card">
         <div id="checkView1" class="check-view">
@@ -459,7 +459,7 @@ doQueryBtn.addEventListener('click', function() {
 });
 // --- 查詢功能邏輯結束 ---
 
-// --- 任務模式彈窗邏輯（完全依照你上傳的版本，一字不差） ---
+// --- 任務模式彈窗邏輯 ---
 var taskModalOverlay=$('taskModalOverlay'),taskTimeInput=$('taskTimeInput'),taskError=$('taskError');
 function closeTask(){taskModalOverlay.classList.remove('open');taskError.hidden=true;taskError.textContent='';}
 function showError(text){taskError.textContent=text;taskError.hidden=false;taskTimeInput.setAttribute('aria-invalid','true');}
@@ -494,7 +494,7 @@ $('taskConfirmBtn').addEventListener('click',submitTask);
 taskTimeInput.addEventListener('keydown',function(e){if(e.key==='Enter')submitTask()});
 // --- 任務模式彈窗邏輯結束 ---
 
-// --- 新增：版本檢查彈窗邏輯 ---
+// --- 版本檢查彈窗邏輯 ---
 var vcModal = document.getElementById('versionCheckModal');
 var checkVersionBtn = document.getElementById('checkVersionBtn');
 var vcCancelBtn = document.getElementById('vcCancelBtn');
@@ -546,6 +546,14 @@ vcModal.addEventListener('click', function(e) {
 // --- 版本檢查彈窗邏輯結束 ---
 
 document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeTask();closeQuery();closeVersionCheck();sidebar.classList.remove('open');overlay.classList.remove('open')}});
+
+// ★ 強制初始化：確保網頁一打開時，所有彈窗與側邊欄都是關閉的
+taskModalOverlay.classList.remove('open');
+vcModal.classList.remove('open');
+queryPanel.classList.remove('open');
+queryOverlay.classList.remove('open');
+sidebar.classList.remove('open');
+overlay.classList.remove('open');
 
 render();setInterval(render,250);
 })();
