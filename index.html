@@ -104,57 +104,49 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 .log-item { padding: 16px 0; border-bottom: 1px solid #e0e0e0; }
 .log-item:last-child { border-bottom: 0; }
 .log-item .log-title { font-size: 1.05rem; font-weight: 400; color: #FE0000; margin-bottom: 6px; }
-.log-item .log-time, .log-item .log-status { font-size: 1rem; color: #000; margin-bottom: 4px; }
+.log-item .log-time, .log-item .log-status { font-size: 1rem; color: #000; margin-bottom min: 4px; }
 
-/* --- 任務模式彈窗樣式 --- */
-#taskModalOverlay {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.5); z-index: 3000; display: none;
-    opacity: 0; transition: opacity 0.3s ease;
-    align-items: flex-end; /* 從底部滑出 */
+/* 照目前網頁-width設計的底部任務設定視窗。 */
+:#taskModalOverlay { position:fixed; inset:00; z-index:300;0; display:none; align-items:flex-end; height justify-content:center; padding:0 26px max(54px, env(safe-area-inset-bottom)); background:rgba(0,0,0,.65); }
+#taskModalOverlay.open { display:flex; animation:taskFade .25s ease-out; }
+.task-modal-card { width:min(100%,520px); height:min(86vh,760px); max-height:calc(100dvh - 85px); overflow-y:auto; border-radius:8px; background:#fff; color:#111; padding:25px 10px 28px; box-shadow:0 8px 30px rgba(0,0,0,.15); animation:taskUp .34s cubic-bezier(.2,.8,.2,1); }
+.task-modal-title { margin:0; text-align:center; font-size:1.8rem; font-weight:800; line-height:1.25; }
+.task-modal-desc { margin:33px 19px 0; font-size:1.15rem; font-weight:600; line-height:1.55; }
+.task-modal-input-row { display:flex; align-items:center; gap:12px; margin:49px 0 0; }
+.task-modal-label { flex:none; font-size:1.35rem; font-weight:800; }
+.task-modal-input-row input {:36px; flex:1; border:1px solid #ccc; border-radius:0; background:#fff; color:#111; padding:2px 8px; font:600 1.2rem var(--font); font-variant-numeric:tabular-nums; }
+.task-modal-input-row input:focus { outline:2px solid #2e7d55; outline-offset:1px; }
+.task-error { margin:8px 6px 0; color:#c22; font-size:.9rem; font-weight:600; }
+.task-actions { width:min(100%,224px); margin:50px auto 0; display:grid; gap:28px; }
+.task-modal-btn-primary,.task-modal-btn-secondary { display:block; width:100%; min-height:38px; padding:4px 8px; border:0; border-radius:10px; color:#fff; font:800 1.2rem var(--font); cursor:pointer; }
+.task-modal-btn-primary { background:#2e7d55; }
+.task-modal-btn-secondary { background:#ccc; }
+@keyframes taskFade { from { opacity:0; } }
+@keyframes taskUp { from { transform:translateY(110%); } }
+@media (max-width:370px) { #taskModalOverlay { padding-inline:18px; } .task-modal-title { font-size:1.6rem; } .task-modal-desc { margin-inline:12px; font-size:1.05rem; } .task-modal-input-row { gap:5px; } .task-modal-label { font-size:1.1rem; } .task-modal-input-row input { font-size:1rem; } .task-modal-btn-primary,.task-modal-btn-secondary { font-size:1rem; } }
+@media (prefers-reduced-motion:reduce) { #taskModalOverlay.open,.task-modal-card { animation:none; } }
+@media(max-width:639px){.desktop-break{display:none}}
+
+/* --- 新增：版本檢查彈窗樣式 --- */
+#versionCheckModal {
+    position: fixed; inset: 0; z-index: 4000; display: none;
+    align-items: center; justify-content: center;
+    background: rgba(0, 0, 0, 0.5);
 }
-#taskModalOverlay.open { display: flex; opacity: 1; }
-.task-modal-card {
-    background: #fff; width: 100%; max-width: 520px;
-    border-radius: 24px 24px 0 0;
-    padding: 30px 24px calc(30px + env(safe-area-inset-bottom, 0px));
-    box-shadow: 0 -4px 20px rgba(0,0,0,0.2);
-    transform: translateY(100%);
-    transition: transform 0.3s ease-out;
-    text-align: center;
+#versionCheckModal.open { display: flex; }
+.vc-card {
+    width: 80%; max-width: 320px; background: #fff;
+    border-radius: 20px; padding: 24px; text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
-#taskModalOverlay.open .task-modal-card {
-    transform: translateY(0);
-}
-.task-modal-title {
-    font-size: 1.8rem; font-weight: bold; color: #000;
-    margin: 0 0 20px 0; text-align: center;
-}
-.task-modal-desc {
-    font-size: 1.1rem; color: #000; line-height: 1.5;
-    margin-bottom: 25px; text-align: left;
-}
-.task-modal-input-row {
-    display: flex; align-items: center; margin-bottom: 30px;
-}
-.task-modal-label {
-    font-size: 1.3rem; font-weight: bold; width: 80px; color: #000;
-    text-align: left;
-}
-.task-modal-input-row input {
-    flex: 1; font-size: 1.2rem; padding: 12px; border: 1px solid #ccc;
-    border-radius: 4px; background: #fff; text-align: center; font-family: inherit;
-}
-.task-modal-btn-primary {
-    display: block; width: 100%; padding: 14px; border: 0;
-    border-radius: 30px; background: #2e7d32; color: #fff;
-    font-size: 1.2rem; font-weight: bold; margin-bottom: 12px; cursor: pointer;
-}
-.task-modal-btn-secondary {
-    display: block; width: 100%; padding: 14px; border: 0;
-    border-radius: 30px; background: #cccccc; color: #fff;
-    font-size: 1.2rem; font-weight: bold; cursor: pointer;
-}
+.vc-title { margin: 0 0 12px; font-size: 1.2rem; font-weight: bold; color: #000; text-align: left; }
+.vc-desc { margin: 0 0 24px; font-size: 1rem; color: #333; text-align: left; line-height: 1.5; font-weight: 500; }
+.vc-btns { display: flex; gap: 12px; justify-content: center; }
+.vc-btn { flex: 1; padding: 12px 0; border: 0; border-radius: 12px; font-size: 1rem; font-weight: bold; cursor: pointer; background: #ccc; color: #000; }
+.vc-btn-full { width: 100%; background: #ccc; color: #000; }
+.vc-loading-text { margin-top: 16px; font-size: 1rem; font-weight: bold; color: #333; }
+.vc-spinner { width: 40px; height: 40px; border: 4px solid #ddd; border-top: 4px solid #888; border-radius: 50%; margin: 0 auto; animation: vc-spin 1s linear infinite; }
+@keyframes vc-spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 </style>
 </head>
 <body>
@@ -174,12 +166,13 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
     <div class="mdm-item disabled">轉換一般營區</div>
     <div class="mdm-group">解鎖</div>
     <div class="mdm-item disabled">定點解鎖</div>
-    <div class="mdm-item bold">密碼解鎖</div>
+    <div class="mdm-item disabled">密碼解鎖</div>
     <div class="mdm-group">紀錄</div>
     <div class="mdm-item bold" id="queryBtn">查詢</div>
-    <div class="mdm-item bold">上傳 (WiFi)</div>
+    <div class="mdm-item disabled">上傳 (WiFi)</div>
     <div class="mdm-group">註冊與版本檢查更新</div>
-    <div class="mdm-item">新版檢查 (WiFi)</div>
+    <!-- 新增 id 以便點擊 -->
+    <div class="mdm-item" id="checkVersionBtn">新版檢查 (WiFi)</div>
     <div class="mdm-item">新版檢查 (民網)</div>
     <div class="mdm-item">版本更新 (民網)</div>
     <div class="mdm-item">更新 MDM 設定 (WiFi)</div>
@@ -232,21 +225,51 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 
 <!-- 任務模式彈窗 -->
 <div id="taskModalOverlay">
-    <div class="task-modal-card">
-        <h2 class="task-modal-title">結束時間設定</h2>
+    <div class="task-modal-card" role="dialog" aria-modal="true" aria-labelledby="taskTitle">
+        <h2 id="taskTitle" class="task-modal-title">結束時間設定</h2>
         <p class="task-modal-desc">
-            請於下方欄位中選擇任務管制時間。<br>
-            (若已在時間任務模式下，時間僅能延長，不得縮減時間)
+            請於下方欄位中選擇任務管制<br class="desktop-break">時間。<br>
+            （若已在時間任務模式下，時間僅能延長，不得縮減時間）
         </p>
         <div class="task-modal-input-row">
-            <span class="task-modal-label">時間：</span>
-            <input type="text" id="taskTimeInput" placeholder="115/10/2 16:30">
+            <label class="task-modal-label" for="taskTimeInput">時間:</label>
+            <input type="text" id="taskTimeInput" inputmode="numeric" placeholder="115/10/2 16:30" aria-describedby="taskError">
         </div>
-        <button class="task-modal-btn-primary" id="taskConfirmBtn">設定時間進入任務模式</button>
-        <button class="task-modal-btn-secondary" id="taskCancelBtn">取 消</button>
+        <p id="taskError" class="task-error" role="alert" hidden></p>
+        <div class="task-actions"><button class="task-modal-btn-primary" id="taskConfirmBtn">設定時間進入任務模式</button>
+        <button class="task-modal-btn-secondary" id="taskCancelBtn">取 消</button></div>
     </div>
 </div>
 <!-- 任務模式彈窗結束 -->
+
+<!-- 新增：版本檢查彈窗 -->
+<div id="versionCheckModal">
+    <div class="vc-card">
+        <!-- 步驟一：確認視窗 -->
+        <div id="checkView1" class="check-view">
+            <h3 class="vc-title">提示</h3>
+            <p class="vc-desc">請問您確定進行版本檢查嗎？</p>
+            <div class="vc-btns">
+                <button class="vc-btn" id="vcCancelBtn">取消</button>
+                <button class="vc-btn" id="vcConfirmBtn1">確定</button>
+            </div>
+        </div>
+        <!-- 步驟二：載入中 -->
+        <div id="checkView2" class="check-view" style="display:none; padding: 20px 0;">
+            <div class="vc-spinner"></div>
+            <p class="vc-loading-text">正在與註冊電腦連線中，請稍等</p>
+        </div>
+        <!-- 步驟三：連線失敗 -->
+        <div id="checkView3" class="check-view" style="display:none;">
+            <h3 class="vc-title">提示</h3>
+            <p class="vc-desc">無法與註冊電腦連線，請檢查 WiFi 連線設定</p>
+            <div class="vc-btns">
+                <button class="vc-btn vc-btn-full" id="vcConfirmBtn3">確定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 版本檢查彈窗結束 -->
 
 <header>
     <div class="menu" id="menuBtn"><i></i><i></i><i></i></div>
@@ -414,12 +437,13 @@ function renderLogs() {
     
     logs.reverse();
     
+    function escapeHTML(s){return String(s).replace(/[&<>\"']/g,function(ch){return {'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[ch]})}
     var html = '';
     for (var i = 0; i < logs.length; i++) {
         var log = logs[i];
         var num = 1870 + i * 4;
         html += '<div class="log-item">';
-        html += '<div class="log-title">' + num + '. ' + log.title + '</div>';
+        html += '<div class="log-title">' + num + '. ' + escapeHTML(log.title) + '</div>';
         html += '<div class="log-time">時間：' + log.time + '</div>';
         html += '<div class="log-status">狀態：未上傳</div>';
         html += '</div>';
@@ -440,59 +464,93 @@ doQueryBtn.addEventListener('click', function() {
 });
 // --- 查詢功能邏輯結束 ---
 
-// --- 任務模式彈窗邏輯 ---
-var taskModalOverlay = document.getElementById('taskModalOverlay');
-var taskModeBtn = document.getElementById('taskModeBtn');
-var taskTimeInput = document.getElementById('taskTimeInput');
-var taskConfirmBtn = document.getElementById('taskConfirmBtn');
-var taskCancelBtn = document.getElementById('taskCancelBtn');
+// 任務模式彈窗，與線上版本使用相同的民國日期檢查。
+var taskModalOverlay=$('taskModalOverlay'),taskTimeInput=$('taskTimeInput'),taskError=$('taskError');
+function closeTask(){taskModalOverlay.classList.remove('open');taskError.hidden=true;taskError.textContent='';}
+function showError(text){taskError.textContent=text;taskError.hidden=false;taskTimeInput.setAttribute('aria-invalid','true');}
+function parseRocTime(value){
+    var match=value.trim().match(/^(\d{2,3})\/(\d{1,2})\/(\d{1,2})\s+(\d{1,2}):(\d{2})$/);
+    if(!match)return null;
+    var year=Number(match[1])+1911,month=Number(match[2]),day=Number(match[3]),hour=Number(match[4]),minute=Number(match[5]);
+    var d=new Date(year,month-1,day,hour,minute);
+    if(d.getFullYear()!==year||d.getMonth()!==month-1||d.getDate()!==day||d.getHours()!==hour||d.getMinutes()!==minute)return null;
+    return d.getTime();
+}
+$('taskModeBtn').addEventListener('click',function(){
+    sidebar.classList.remove('open');overlay.classList.remove('open');
+    var d=new Date(st.end||Date.now()+4*864e5);
+    taskTimeInput.value=roc(d)+' '+hm(d);
+    taskTimeInput.removeAttribute('aria-invalid');taskError.hidden=true;taskError.textContent='';
+    taskModalOverlay.classList.add('open');
+});
+$('taskCancelBtn').addEventListener('click',closeTask);
+taskModalOverlay.addEventListener('click',function(e){if(e.target===taskModalOverlay)closeTask()});
+taskTimeInput.addEventListener('input',function(){taskError.hidden=true;taskError.textContent='';taskTimeInput.removeAttribute('aria-invalid')});
+function submitTask(){
+    var parsed=parseRocTime(taskTimeInput.value);
+    if(parsed===null){showError('請輸入正確的時間，例如：115/10/02 16:30');return}
+    if(parsed<=Date.now()){showError('結束時間必須晚於現在。');return}
+    if(st.active&&st.end&&parsed<st.end-59999){showError('任務模式進行中，結束時間只能延長。');return}
+    st.end=parsed;st.active=true;st.start=st.start||Date.now();
+    $('eIn').value=li(st.end);
+    save();render();closeTask();
+}
+$('taskConfirmBtn').addEventListener('click',submitTask);
+taskTimeInput.addEventListener('keydown',function(e){if(e.key==='Enter')submitTask()});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeTask();closeQuery();sidebar.classList.remove('open');overlay.classList.remove('open')}});
 
-// 點擊側邊欄「任務模式」
-taskModeBtn.addEventListener('click', function() {
+// --- 新增：版本檢查彈窗邏輯 ---
+var vcModal = document.getElementById('versionCheckModal');
+var checkVersionBtn = document.getElementById('checkVersionBtn');
+var vcCancelBtn = document.getElementById('vcCancelBtn');
+var vcConfirmBtn1 = document.getElementById('vcConfirmBtn1');
+var vcConfirmBtn3 = document.getElementById('vcConfirmBtn3');
+var checkView1 = document.getElementById('checkView1');
+var checkView2 = document.getElementById('checkView2');
+var checkView3 = document.getElementById('checkView3');
+var vcTimer = null;
+
+function openVersionCheck() {
+    checkView1.style.display = 'block';
+    checkView2.style.display = 'none';
+    checkView3.style.display = 'none';
+    vcModal.classList.add('open');
+    if(vcTimer) clearTimeout(vcTimer);
+}
+
+function closeVersionCheck() {
+    vcModal.classList.remove('open');
+    if(vcTimer) clearTimeout(vcTimer);
+}
+
+checkVersionBtn.addEventListener('click', function() {
     // 關閉側邊欄
     sidebar.classList.remove('open');
     overlay.classList.remove('open');
-    
-    // 將目前設定的結束時間填入輸入框（轉為民國年格式）
-    var d = new Date(st.end || Date.now() + 4*864e5);
-    var rocYear = d.getFullYear() - 1911;
-    var month = p(d.getMonth() + 1);
-    var day = p(d.getDate());
-    var hour = p(d.getHours());
-    var min = p(d.getMinutes());
-    taskTimeInput.value = rocYear + '/' + month + '/' + day + ' ' + hour + ':' + min;
-    
-    // 顯示彈窗
-    taskModalOverlay.classList.add('open');
+    openVersionCheck();
 });
 
-// 點擊取消
-taskCancelBtn.addEventListener('click', function() {
-    taskModalOverlay.classList.remove('open');
+vcCancelBtn.addEventListener('click', closeVersionCheck);
+
+vcConfirmBtn1.addEventListener('click', function() {
+    checkView1.style.display = 'none';
+    checkView2.style.display = 'block';
+    
+    vcTimer = setTimeout(function() {
+        checkView2.style.display = 'none';
+        checkView3.style.display = 'block';
+    }, 5000);
 });
 
-// 點擊設定時間進入任務模式
-taskConfirmBtn.addEventListener('click', function() {
-    var str = taskTimeInput.value.trim();
-    // 解析民國年格式: 115/10/2 16:30
-    var regex = /^(\d+)\/(\d+)\/(\d+)\s+(\d+):(\d+)$/;
-    var match = str.match(regex);
-    if (match) {
-        var year = parseInt(match[1]) + 1911;
-        var month = parseInt(match[2]) - 1;
-        var day = parseInt(match[3]);
-        var hour = parseInt(match[4]);
-        var min = parseInt(match[5]);
-        var d = new Date(year, month, day, hour, min);
-        st.end = d.getTime();
-        save();
-        render();
-        taskModalOverlay.classList.remove('open');
-    } else {
-        alert('請輸入正確的時間格式，例如：115/10/2 16:30');
+vcConfirmBtn3.addEventListener('click', closeVersionCheck);
+
+// 點擊背景關閉（限制在沒有載入時才能點擊背景關閉，避免中斷流程）
+vcModal.addEventListener('click', function(e) {
+    if(e.target === vcModal && checkView2.style.display === 'none') {
+        closeVersionCheck();
     }
 });
-// --- 任務模式彈窗邏輯結束 ---
+// --- 版本檢查彈窗邏輯結束 ---
 
 render();setInterval(render,250);
 })();
