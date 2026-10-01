@@ -8,6 +8,7 @@
 :root{--bg:#33ca33;--taginkc:#000;--ink:#000;--font:-apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;--tagfont:"Kaiti TC","BiauKai","DFKai-SB",serif;--serialfont:-apple-system,"Helvetica Neue",Arial,sans-serif;--tagbg:none;box-sizing:border-box;padding-bottom:env(safe-area-inset-bottom,0px)}
 *{box-sizing:border-box}
 html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font-family:var(--font)}
+/* 主畫面 */
 header{background:#000;color:#fff;text-align:center;font-weight:600;font-size:1.2rem;padding:calc(16px + env(safe-area-inset-top,0px)) 16px 16px;position:relative;z-index:10}
 .menu{position:absolute;left:16px;bottom:12px;width:36px;height:36px;border-radius:50%;background:#1c1c1e;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:4px;cursor:pointer}
 .menu i{display:block;width:20px;height:3px;background:#fff;border-radius:2px}
@@ -34,124 +35,80 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 .set button{margin-top:10px;font:inherit;padding:8px 12px;border-radius:10px;border:1px solid rgba(0,0,0,.25);background:#fff}
 .hint{font-size:.8rem;opacity:.75;margin-top:10px}
 
-/* --- MDM 側邊選單樣式 --- */
-#sidebar-overlay {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.5); z-index: 1000; display: none;
-    opacity: 0; transition: opacity 0.3s ease;
-}
-#sidebar-overlay.open { display: block; opacity: 1; }
-#sidebar {
-    position: fixed; top: 0; left: -100%; width: 96%;
-    height: 100%; background: #f7f7f7; z-index: 1001; overflow-y: auto;
-    transition: left 0.3s ease-in-out; box-shadow: 2px 0 8px rgba(0,0,0,0.2);
-    font-family: -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
-    -webkit-overflow-scrolling: touch;
-}
-#sidebar.open { left: 0; }
-.mdm-header {
-    background: #1e2d3c; color: #AAAAAA;
-    padding: calc(16px + env(safe-area-inset-top, 0px)) 16px 16px;
-    font-size: 1.1rem; font-weight: 600;
-    cursor: pointer;
-}
-.mdm-group { background: #30475e; color: #fff; padding: 8px 16px; font-size: 0.95rem; font-weight: 600; }
-.mdm-item { padding: 14px 16px; font-size: 0.95rem; border-bottom: 1px solid #e0e0e0; color: #000; background: #fff; cursor: pointer; }
-.mdm-item.bold { }
-.mdm-item.disabled { color: #CCCCCC; }
+/* MDM 側邊選單 */
+#sidebar-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);z-index:1000;display:none;opacity:0;transition:opacity .3s ease}
+#sidebar-overlay.open{display:block;opacity:1}
+#sidebar{position:fixed;top:0;left:-100%;width:96%;height:100%;background:#f7f7f7;z-index:1001;overflow-y:auto;transition:left .3s ease-in-out;box-shadow:2px 0 8px rgba(0,0,0,.2);font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;-webkit-overflow-scrolling:touch}
+#sidebar.open{left:0}
+.mdm-header{background:#1e2d3c;color:#AAAAAA;padding:calc(16px + env(safe-area-inset-top,0px)) 16px 16px;font-size:1.1rem;font-weight:600;cursor:pointer}
+.mdm-group{background:#30475e;color:#fff;padding:8px 16px;font-size:.95rem;font-weight:600}
+.mdm-item{padding:14px 16px;font-size:.95rem;border-bottom:1px solid #e0e0e0;color:#000;background:#fff;cursor:pointer}
+.mdm-item.disabled{color:#CCCCCC}
 
-/* --- 紀錄-查詢 頁面樣式 --- */
-#query-overlay {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.5); z-index: 2000; display: none;
-    opacity: 0; transition: opacity 0.3s ease;
-}
-#query-overlay.open { display: block; opacity: 1; }
-#query-panel {
-    position: fixed; top: 0; right: -100%; width: 100%; max-width: 520px;
-    height: 100%; background: #fff; z-index: 2001; overflow-y: auto;
-    transition: right 0.3s ease-in-out; box-shadow: -2px 0 8px rgba(0,0,0,0.2);
-    font-family: -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
-    -webkit-overflow-scrolling: touch;
-}
-#query-panel.open { right: 0; }
-.query-header {
-    background: #000; color: #fff; text-align: center;
-    font-weight: 600; font-size: 1.2rem;
-    padding: calc(16px + env(safe-area-inset-top, 0px)) 16px 16px;
-    position: relative; display: flex; align-items: center; justify-content: center;
-}
-.query-header .menu-btn {
-    position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
-    width: 36px; height: 36px; border-radius: 50%; background: #1c1c1e;
-    display: flex; flex-direction: column; justify-content: center; align-items: center;
-    gap: 4px; cursor: pointer;
-}
-.query-header .menu-btn i { display: block; width: 20px; height: 3px; background: #fff; border-radius: 2px; }
-.query-form { padding: 16px; background: #fff; }
-.form-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
-.form-row .label { font-size: 1.1rem; font-weight: 500; color: #000; }
-.form-row .value-tag { background: #f0f0f0; padding: 6px 12px; border-radius: 6px; font-size: 1rem; color: #3c67f4; font-weight: 500; }
-.form-row .version-info { text-align: right; font-size: 0.95rem; color: #2e7d32; font-weight: 500; line-height: 1.3; }
-.date-section-title { font-size: 1rem; font-weight: 500; margin: 12px 0 8px; color: #000; }
-.date-input-row { display: flex; align-items: center; margin-bottom: 10px; }
-.date-input-row .date-label { width: 50px; font-size: 1rem; font-weight: 500; color: #000; }
-.date-input-row input { flex: 1; font: inherit; font-size: 0.95rem; padding: 10px 12px; border: 1px solid #ccc; border-radius: 4px; background: #fff; }
-.query-btn-row { display: flex; justify-content: flex-end; margin-top: 12px; }
-.query-btn { font: inherit; font-size: 1rem; padding: 10px 24px; border: 1px solid #3c67f4; border-radius: 6px; background: #fff; color: #3c67f4; cursor: pointer; }
-.query-divider { border-top: 1px solid #e0e0e0; margin: 16px 0; }
-.log-list { padding: 0 16px 32px; }
-.log-item { padding: 16px 0; border-bottom: 1px solid #e0e0e0; }
-.log-item:last-child { border-bottom: 0; }
-.log-item .log-title { font-size: 1.05rem; font-weight: 400; color: #FE0000; margin-bottom: 6px; }
-.log-item .log-time, .log-item .log-status { font-size: 1rem; color: #000; margin-bottom: 4px; }
+/* 紀錄-查詢 頁面 */
+#query-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);z-index:2000;display:none;opacity:0;transition:opacity .3s ease}
+#query-overlay.open{display:block;opacity:1}
+#query-panel{position:fixed;top:0;right:-100%;width:100%;max-width:520px;height:100%;background:#fff;z-index:2001;overflow-y:auto;transition:right .3s ease-in-out;box-shadow:-2px 0 8px rgba(0,0,0,.2);font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;-webkit-overflow-scrolling:touch}
+#query-panel.open{right:0}
+.query-header{background:#000;color:#fff;text-align:center;font-weight:600;font-size:1.2rem;padding:calc(16px + env(safe-area-inset-top,0px)) 16px 16px;position:relative;display:flex;align-items:center;justify-content:center}
+.query-header .menu-btn{position:absolute;left:16px;top:50%;transform:translateY(-50%);width:36px;height:36px;border-radius:50%;background:#1c1c1e;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:4px;cursor:pointer}
+.query-header .menu-btn i{display:block;width:20px;height:3px;background:#fff;border-radius:2px}
+.query-form{padding:16px;background:#fff}
+.form-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.form-row .label{font-size:1.1rem;font-weight:500;color:#000}
+.form-row .value-tag{background:#f0f0f0;padding:6px 12px;border-radius:6px;font-size:1rem;color:#3c67f4;font-weight:500}
+.form-row .version-info{text-align:right;font-size:.95rem;color:#2e7d32;font-weight:500;line-height:1.3}
+.date-section-title{font-size:1rem;font-weight:500;margin:12px 0 8px;color:#000}
+.date-input-row{display:flex;align-items:center;margin-bottom:10px}
+.date-input-row .date-label{width:50px;font-size:1rem;font-weight:500;color:#000}
+.date-input-row input{flex:1;font:inherit;font-size:.95rem;padding:10px 12px;border:1px solid #ccc;border-radius:4px;background:#fff}
+.query-btn-row{display:flex;justify-content:flex-end;margin-top:12px}
+.query-btn{font:inherit;font-size:1rem;padding:10px 24px;border:1px solid #3c67f4;border-radius:6px;background:#fff;color:#3c67f4;cursor:pointer}
+.query-divider{border-top:1px solid #e0e0e0;margin:16px 0}
+.log-list{padding:0 16px 32px}
+.log-item{padding:16px 0;border-bottom:1px solid #e0e0e0}
+.log-item:last-child{border-bottom:0}
+.log-item .log-title{font-size:1.05rem;font-weight:400;color:#FE0000;margin-bottom:6px}
+.log-item .log-time,.log-item .log-status{font-size:1rem;color:#000;margin-bottom:4px}
 
-/* --- 任務模式彈窗樣式 --- */
-#taskModalOverlay { position:fixed; inset:0; z-index:3000; display:none; align-items:flex-end; justify-content:center; padding:0 26px max(54px, env(safe-area-inset-bottom)); background:rgba(0,0,0,.65); }
-#taskModalOverlay.open { display:flex; animation:taskFade .25s ease-out; }
-.task-modal-card { width:min(100%,520px); height:auto; max-height:calc(100dvh - 100px); overflow-y:auto; border-radius:8px; background:#fff; color:#111; padding:25px 10px 28px; box-shadow:0 8px 30px rgba(0,0,0,.15); animation:taskUp .34s cubic-bezier(.2,.8,.2,1); }
-.task-modal-title { margin:0; text-align:center; font-size:1.8rem; font-weight:800; line-height:1.25; }
-.task-modal-desc { margin:33px 19px 0; font-size:1.15rem; font-weight:600; line-height:1.55; }
-.task-modal-input-row { display:flex; align-items:center; gap:12px; margin:49px 0 0; }
-.task-modal-label { flex:none; font-size:1.35rem; font-weight:800; }
-.task-modal-input-row input { min-width:0; height:36px; flex:1; border:1px solid #ccc; border-radius:0; background:#fff; color:#111; padding:2px 8px; font:600 1.2rem var(--font); font-variant-numeric:tabular-nums; }
-.task-modal-input-row input:focus { outline:2px solid #2e7d55; outline-offset:1px; }
-.task-error { margin:8px 6px 0; color:#c22; font-size:.9rem; font-weight:600; }
-.task-actions { width:min(100%,224px); margin:50px auto 0; display:grid; gap:28px; }
-.task-modal-btn-primary,.task-modal-btn-secondary { display:block; width:100%; min-height:38px; padding:4px 8px; border:0; border-radius:10px; color:#fff; font:800 1.2rem var(--font); cursor:pointer; }
-.task-modal-btn-primary { background:#2e7d55; }
-.task-modal-btn-secondary { background:#ccc; }
-@keyframes taskFade { from { opacity:0; } }
-@keyframes taskUp { from { transform:translateY(110%); } }
-@media (max-width:370px) { #taskModalOverlay { padding-inline:18px; } .task-modal-title { font-size:1.6rem; } .task-modal-desc { margin-inline:12px; font-size:1.05rem; } .task-modal-input-row { gap:5px; } .task-modal-label { font-size:1.1rem; } .task-modal-input-row input { font-size:1rem; } .task-modal-btn-primary,.task-modal-btn-secondary { font-size:1rem; } }
-@media (prefers-reduced-motion:reduce) { #taskModalOverlay.open,.task-modal-card { animation:none; } }
+/* 任務模式彈窗 */
+#taskModalOverlay{position:fixed;inset:0;z-index:3000;display:none;align-items:flex-end;justify-content:center;padding:0 26px max(54px,env(safe-area-inset-bottom));background:rgba(0,0,0,.65)}
+#taskModalOverlay.open{display:flex;animation:taskFade .25s ease-out}
+.task-modal-card{width:min(100%,520px);height:min(86vh,760px);max-height:calc(100dvh - 85px);overflow-y:auto;border-radius:8px;background:#fff;color:#111;padding:25px 10px 28px;box-shadow:0 8px 30px rgba(0,0,0,.15);animation:taskUp .34s cubic-bezier(.2,.8,.2,1)}
+.task-modal-title{margin:0;text-align:center;font-size:1.8rem;font-weight:800;line-height:1.25}
+.task-modal-desc{margin:33px 19px 0;font-size:1.15rem;font-weight:600;line-height:1.55}
+.task-modal-input-row{display:flex;align-items:center;gap:12px;margin:49px 0 0}
+.task-modal-label{flex:none;font-size:1.35rem;font-weight:800}
+.task-modal-input-row input{min-width:0;height:36px;flex:1;border:1px solid #ccc;border-radius:0;background:#fff;color:#111;padding:2px 8px;font:600 1.2rem var(--font);font-variant-numeric:tabular-nums}
+.task-modal-input-row input:focus{outline:2px solid #2e7d55;outline-offset:1px}
+.task-error{margin:8px 6px 0;color:#c22;font-size:.9rem;font-weight:600}
+.task-actions{width:min(100%,224px);margin:50px auto 0;display:grid;gap:28px}
+.task-modal-btn-primary,.task-modal-btn-secondary{display:block;width:100%;min-height:38px;padding:4px 8px;border:0;border-radius:10px;color:#fff;font:800 1.2rem var(--font);cursor:pointer}
+.task-modal-btn-primary{background:#2e7d55}
+.task-modal-btn-secondary{background:#ccc}
+@keyframes taskFade{from{opacity:0}}
+@keyframes taskUp{from{transform:translateY(110%)}}
+@media (max-width:370px){#taskModalOverlay{padding-inline:18px}.task-modal-title{font-size:1.6rem}.task-modal-desc{margin-inline:12px;font-size:1.05rem}.task-modal-input-row{gap:5px}.task-modal-label{font-size:1.1rem}.task-modal-input-row input{font-size:1rem}.task-modal-btn-primary,.task-modal-btn-secondary{font-size:1rem}}
+@media (prefers-reduced-motion:reduce){#taskModalOverlay.open,.task-modal-card{animation:none}}
 @media(max-width:639px){.desktop-break{display:none}}
 
-/* --- 版本檢查彈窗樣式 --- */
-#versionCheckModal {
-    position: fixed; inset: 0; z-index: 4000; display: none;
-    align-items: center; justify-content: center;
-    background: rgba(0, 0, 0, 0.5);
-}
-#versionCheckModal.open { display: flex; }
-.vc-card {
-    width: 80%; max-width: 320px; background: #fff;
-    border-radius: 20px; padding: 24px; text-align: center;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-}
-.vc-title { margin: 0 0 12px; font-size: 1.2rem; font-weight: bold; color: #000; text-align: left; }
-.vc-desc { margin: 0 0 24px; font-size: 1rem; color: #333; text-align: left; line-height: 1.5; font-weight: 500; }
-.vc-btns { display: flex; gap: 12px; justify-content: center; }
-.vc-btn { flex: 1; padding: 12px 0; border: 0; border-radius: 12px; font-size: 1rem; font-weight: bold; cursor: pointer; background: #ccc; color: #000; }
-.vc-btn-full { width: 100%; background: #ccc; color: #000; }
-.vc-loading-text { margin-top: 16px; font-size: 1rem; font-weight: bold; color: #333; }
-.vc-spinner { width: 40px; height: 40px; border: 4px solid #ddd; border-top: 4px solid #888; border-radius: 50%; margin: 0 auto; animation: vc-spin 1s linear infinite; }
-@keyframes vc-spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+/* 版本檢查彈窗 */
+#versionCheckModal{position:fixed;inset:0;z-index:4000;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.5)}
+#versionCheckModal.open{display:flex}
+.vc-card{width:80%;max-width:320px;background:#fff;border-radius:20px;padding:24px;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,.15)}
+.vc-title{margin:0 0 12px;font-size:1.2rem;font-weight:bold;color:#000;text-align:left}
+.vc-desc{margin:0 0 24px;font-size:1rem;color:#333;text-align:left;line-height:1.5;font-weight:500}
+.vc-btns{display:flex;gap:12px;justify-content:center}
+.vc-btn{flex:1;padding:12px 0;border:0;border-radius:12px;font-size:1rem;font-weight:bold;cursor:pointer;background:#ccc;color:#000}
+.vc-btn-full{width:100%;background:#ccc;color:#000}
+.vc-loading-text{margin-top:16px;font-size:1rem;font-weight:bold;color:#333}
+.vc-spinner{width:40px;height:40px;border:4px solid #ddd;border-top:4px solid #888;border-radius:50%;margin:0 auto;animation:vc-spin 1s linear infinite}
+@keyframes vc-spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
 </style>
 </head>
 <body>
 
-<!-- 側邊選單結構 -->
+<!-- 側邊選單 -->
 <div id="sidebar-overlay"></div>
 <div id="sidebar">
     <div class="mdm-header" id="mdmHeader">國軍MDM</div>
@@ -188,9 +145,8 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
     <div class="mdm-item">安裝訊息加密軟體</div>
     <div class="mdm-item">疑難雜症</div>
 </div>
-<!-- 側邊選單結束 -->
 
-<!-- 紀錄-查詢 頁面結構 -->
+<!-- 紀錄-查詢 -->
 <div id="query-overlay"></div>
 <div id="query-panel">
     <div class="query-header">
@@ -204,22 +160,13 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
             <div class="version-info" id="queryVersionInfo">iOS:26.1<br>MDM:9.1</div>
         </div>
         <div class="date-section-title">請輸入起迄日期查詢：</div>
-        <div class="date-input-row">
-            <div class="date-label">起：</div>
-            <input type="text" id="qStart">
-        </div>
-        <div class="date-input-row">
-            <div class="date-label">迄：</div>
-            <input type="text" id="qEnd">
-        </div>
-        <div class="query-btn-row">
-            <button class="query-btn" id="doQueryBtn">查詢</button>
-        </div>
+        <div class="date-input-row"><div class="date-label">起：</div><input type="text" id="qStart"></div>
+        <div class="date-input-row"><div class="date-label">迄：</div><input type="text" id="qEnd"></div>
+        <div class="query-btn-row"><button class="query-btn" id="doQueryBtn">查詢</button></div>
         <div class="query-divider"></div>
     </div>
     <div class="log-list" id="logList"></div>
 </div>
-<!-- 紀錄-查詢 頁面結束 -->
 
 <!-- 任務模式彈窗 -->
 <div id="taskModalOverlay">
@@ -234,11 +181,12 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
             <input type="text" id="taskTimeInput" inputmode="numeric" placeholder="115/10/2 16:30" aria-describedby="taskError">
         </div>
         <p id="taskError" class="task-error" role="alert" hidden></p>
-        <div class="task-actions"><button class="task-modal-btn-primary" id="taskConfirmBtn">設定時間進入任務模式</button>
-        <button class="task-modal-btn-secondary" id="taskCancelBtn">取 消</button></div>
+        <div class="task-actions">
+            <button class="task-modal-btn-primary" id="taskConfirmBtn">設定時間進入任務模式</button>
+            <button class="task-modal-btn-secondary" id="taskCancelBtn">取 消</button>
+        </div>
     </div>
 </div>
-<!-- 任務模式彈窗結束 -->
 
 <!-- 版本檢查彈窗 -->
 <div id="versionCheckModal">
@@ -251,21 +199,19 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
                 <button class="vc-btn" id="vcConfirmBtn1">確定</button>
             </div>
         </div>
-        <div id="checkView2" class="check-view" style="display:none; padding: 20px 0;">
+        <div id="checkView2" class="check-view" style="display:none;padding:20px 0">
             <div class="vc-spinner"></div>
             <p class="vc-loading-text">正在與註冊電腦連線中，請稍等</p>
         </div>
-        <div id="checkView3" class="check-view" style="display:none;">
+        <div id="checkView3" class="check-view" style="display:none">
             <h3 class="vc-title">提示</h3>
             <p class="vc-desc">無法與註冊電腦連線，請檢查 WiFi 連線設定</p>
-            <div class="vc-btns">
-                <button class="vc-btn vc-btn-full" id="vcConfirmBtn3">確定</button>
-            </div>
+            <div class="vc-btns"><button class="vc-btn vc-btn-full" id="vcConfirmBtn3">確定</button></div>
         </div>
     </div>
 </div>
-<!-- 版本檢查彈窗結束 -->
 
+<!-- 主畫面 -->
 <header>
     <div class="menu" id="menuBtn"><i></i><i></i><i></i></div>
     <span id="hd"></span>
@@ -298,14 +244,10 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 <label>標題(上)</label><input id="i1" value="虛構休閒中心">
 <label>標題(下)</label><input id="i2" value="摸魚器材標籤">
 <label>序號</label><input id="isn" value="MOYU000001">
-<label>標籤文字字型</label>
-<select id="ftag"></select>
-<label>序號字型</label>
-<select id="fsn"></select>
-<label>整體字型</label>
-<select id="fall"></select>
-<label>標籤底圖(選你自己的圖片)</label>
-<input type="file" id="img" accept="image/*">
+<label>標籤文字字型</label><select id="ftag"></select>
+<label>序號字型</label><select id="fsn"></select>
+<label>整體字型</label><select id="fall"></select>
+<label>標籤底圖(選你自己的圖片)</label><input type="file" id="img" accept="image/*">
 <button id="clrImg">清除底圖</button>
 <label>上鎖時間</label><input type="datetime-local" id="sIn" step="1">
 <label>結束時間</label><input type="datetime-local" id="eIn" step="1">
@@ -315,16 +257,9 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 
 <script>
 (function(){
-var K='moyu.v2',st={start:null,end:null,active:true,t1:'虛構休閒中心',t2:'摸魚器材標籤',sn:'MOYU000001',ftag:0,fsn:0,fall:0,img:null,modeName:'任務模式',ver:'iOS:26.1',lt:'上鎖:進入管制模式',ut:'解鎖:離開管制模式',hd:'國軍MDM V9.1',prof:'V1.07(05/12 14:05:13)',color:'#000000',clear:true};
+var K='moyu.v3',st={start:null,end:null,active:true,t1:'虛構休閒中心',t2:'摸魚器材標籤',sn:'MOYU000001',ftag:0,fsn:0,fall:0,img:null,modeName:'任務模式',ver:'iOS:26.1',lt:'上鎖:進入管制模式',ut:'解鎖:離開管制模式',hd:'國軍MDM V9.1',prof:'V1.07(05/12 14:05:13)',color:'#000000',clear:true};
 var $=function(i){return document.getElementById(i)};
-var FONTS=[
-['標楷體','"DFKai-SB","BiauKai","標楷體","Kaiti TC",serif'],
-['楷體','"Kaiti TC","BiauKai","DFKai-SB",serif'],
-['黑體','-apple-system,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif'],
-['宋體','"Songti TC","PMingLiU",serif'],
-['圓體','"Yuanti TC","Arial Rounded MT Bold",sans-serif'],
-['等寬','ui-monospace,Menlo,monospace'],
-['Helvetica','"Helvetica Neue",Arial,sans-serif']];
+var FONTS=[['標楷體','"DFKai-SB","BiauKai","標楷體","Kaiti TC",serif'],['楷體','"Kaiti TC","BiauKai","DFKai-SB",serif'],['黑體','-apple-system,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif'],['宋體','"Songti TC","PMingLiU",serif'],['圓體','"Yuanti TC","Arial Rounded MT Bold",sans-serif'],['等寬','ui-monospace,Menlo,monospace'],['Helvetica','"Helvetica Neue",Arial,sans-serif']];
 ['ftag','fsn','fall'].forEach(function(id){FONTS.forEach(function(f,i){var o=document.createElement('option');o.value=i;o.textContent=f[0];$(id).appendChild(o)})});
 function load(){try{var s=localStorage.getItem(K);if(s)st=Object.assign(st,JSON.parse(s))}catch(e){}}
 function save(){try{localStorage.setItem(K,JSON.stringify(st))}catch(e){}}
@@ -346,19 +281,12 @@ r.setProperty('--font',FONTS[st.fall][1]);
 r.setProperty('--tagbg',st.img?'url("'+st.img+'")':'none');
 if(st.end){var e=new Date(st.end);$('endText').textContent='結束時間:'+roc(e)+' '+hm(e)}
 if(st.start)$('lockedAt').textContent=roc(new Date(st.start))+' '+hms(new Date(st.start));
-// 右上角版本連動
-var verEl = $('queryVersionInfo');
-if(verEl){
-    var mdmVer = st.hd.replace('國軍MDM ', '').replace('國軍MDM', '').trim();
-    var iosVer = st.ver.replace('iOS:', '').trim();
-    verEl.innerHTML = 'iOS:' + iosVer + '<br>MDM:' + mdmVer;
+var verEl=$('queryVersionInfo');
+if(verEl){var mdmVer=st.hd.replace('國軍MDM ','').replace('國軍MDM','').trim();var iosVer=st.ver.replace('iOS:','').trim();verEl.innerHTML='iOS:'+iosVer+'<br>MDM:'+mdmVer;}
 }
-}
-load();if(!st.start)st.start=Date.now();
-if(!st.end)st.end=Date.now()+4*864e5;
+load();if(!st.start)st.start=Date.now();if(!st.end)st.end=Date.now()+4*864e5;
 $('iver').value=st.ver;$('ilt').value=st.lt;$('iut').value=st.ut;$('ihd').value=st.hd;$('iprof').value=st.prof;$('imode').value=st.modeName;$('icolor').value=st.color;$('iclear').checked=!!st.clear;$('i1').value=st.t1;$('i2').value=st.t2;$('isn').value=st.sn;
-$('ftag').value=st.ftag;$('fsn').value=st.fsn;$('fall').value=st.fall;
-$('sIn').value=li(st.start);$('eIn').value=li(st.end);
+$('ftag').value=st.ftag;$('fsn').value=st.fsn;$('fall').value=st.fall;$('sIn').value=li(st.start);$('eIn').value=li(st.end);
 [['ilt','lt'],['iut','ut'],['ihd','hd'],['iprof','prof'],['iver','ver'],['imode','modeName'],['i1','t1'],['i2','t2'],['isn','sn']].forEach(function(a){$(a[0]).addEventListener('input',function(){st[a[1]]=this.value;save();render()})});
 [['ftag','ftag'],['fsn','fsn'],['fall','fall']].forEach(function(a){$(a[0]).addEventListener('change',function(){st[a[1]]=+this.value;save();render()})});
 $('icolor').addEventListener('input',function(){st.color=this.value;save();render()});
@@ -370,190 +298,60 @@ $('unlockBtn').onclick=function(){st.active=false;save();render()};
 $('img').addEventListener('change',function(){var f=this.files[0];if(!f)return;var rd=new FileReader();rd.onload=function(){st.img=rd.result;save();render()};rd.readAsDataURL(f)});
 $('clrImg').onclick=function(){st.img=null;save();render()};
 
-// 側邊選單開關邏輯
-var menuBtn = document.getElementById('menuBtn');
-var sidebar = document.getElementById('sidebar');
-var overlay = document.getElementById('sidebar-overlay');
-menuBtn.addEventListener('click', function() {
-    sidebar.classList.add('open');
-    overlay.classList.add('open');
-});
-overlay.addEventListener('click', function() {
-    sidebar.classList.remove('open');
-    overlay.classList.remove('open');
-});
-// 點擊「國軍MDM」標題收合選單
-var mdmHeader = document.getElementById('mdmHeader');
-mdmHeader.addEventListener('click', function() {
-    sidebar.classList.remove('open');
-    overlay.classList.remove('open');
-});
+var menuBtn=document.getElementById('menuBtn'),sidebar=document.getElementById('sidebar'),overlay=document.getElementById('sidebar-overlay');
+menuBtn.addEventListener('click',function(){sidebar.classList.add('open');overlay.classList.add('open')});
+overlay.addEventListener('click',function(){sidebar.classList.remove('open');overlay.classList.remove('open')});
+document.getElementById('mdmHeader').addEventListener('click',function(){sidebar.classList.remove('open');overlay.classList.remove('open')});
 
-// --- 查詢功能邏輯 ---
-var queryPanel = document.getElementById('query-panel');
-var queryOverlay = document.getElementById('query-overlay');
-var queryBtn = document.getElementById('queryBtn');
-var queryCloseBtn = document.getElementById('queryCloseBtn');
-var doQueryBtn = document.getElementById('doQueryBtn');
-var qStart = document.getElementById('qStart');
-var qEnd = document.getElementById('qEnd');
+// 查詢
+var queryPanel=document.getElementById('query-panel'),queryOverlay=document.getElementById('query-overlay'),queryBtn=document.getElementById('queryBtn'),queryCloseBtn=document.getElementById('queryCloseBtn'),doQueryBtn=document.getElementById('doQueryBtn'),qStart=document.getElementById('qStart'),qEnd=document.getElementById('qEnd');
+function closeQuery(){queryPanel.classList.remove('open');queryOverlay.classList.remove('open')}
+queryCloseBtn.addEventListener('click',closeQuery);queryOverlay.addEventListener('click',closeQuery);
+function renderLogs(){
+var logList=document.getElementById('logList'),now=new Date(),startDate=new Date(st.start||now.getTime()),endDate=new Date(st.end||now.getTime()+4*864e5);
+qStart.value=startDate.getFullYear()+'/'+p(startDate.getMonth()+1)+'/'+p(startDate.getDate())+' '+p(startDate.getHours())+':'+p(startDate.getMinutes())+':'+p(startDate.getSeconds());
+qEnd.value=endDate.getFullYear()+'/'+p(endDate.getMonth()+1)+'/'+p(endDate.getDate())+' '+p(endDate.getHours())+':'+p(endDate.getMinutes())+':'+p(endDate.getSeconds());
+function fmt(d){return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate())+' '+p(d.getHours())+':'+p(d.getMinutes())+':'+p(d.getSeconds())}
+var logs=[];
+logs.push({title:'事件：MDM 已啟動 (狀態:未上鎖)',time:fmt(new Date(startDate.getTime()-2*60*60*1000))});
+logs.push({title:'上鎖：常駐營區',time:fmt(new Date(startDate.getTime()-1*60*60*1000))});
+logs.push({title:'上鎖：'+st.modeName+' (時間)',time:fmt(startDate)});
+logs.push({title:'事件：開始解鎖 (快速)',time:fmt(new Date(startDate.getTime()+5*60*1000))});
+logs.push({title:'事件：解鎖成功',time:fmt(new Date(startDate.getTime()+15*60*1000))});
+if(st.end&&st.end>st.start){logs.push({title:'上鎖：常駐營區',time:fmt(new Date(st.end-60*60*1000))});logs.push({title:'事件：MDM 已啟動 (狀態:未上鎖)',time:fmt(new Date(st.end-30*60*1000))})}
+logs.reverse();
+var html='';for(var i=0;i<logs.length;i++){var log=logs[i];var num=1870+i*4;html+='<div class="log-item"><div class="log-title">'+num+'. '+log.title+'</div><div class="log-time">時間：'+log.time+'</div><div class="log-status">狀態：未上傳</div></div>'}
+logList.innerHTML=html;}
+queryBtn.addEventListener('click',function(){sidebar.classList.remove('open');overlay.classList.remove('open');queryPanel.classList.add('open');queryOverlay.classList.add('open');renderLogs()});
+doQueryBtn.addEventListener('click',function(){renderLogs()});
 
-function closeQuery() {
-    queryPanel.classList.remove('open');
-    queryOverlay.classList.remove('open');
-}
-queryCloseBtn.addEventListener('click', closeQuery);
-queryOverlay.addEventListener('click', closeQuery);
-
-function renderLogs() {
-    var logList = document.getElementById('logList');
-    var now = new Date();
-    var startDate = new Date(st.start || now.getTime());
-    var endDate = new Date(st.end || now.getTime() + 4*864e5);
-    
-    qStart.value = startDate.getFullYear() + '/' + p(startDate.getMonth()+1) + '/' + p(startDate.getDate()) + ' ' + p(startDate.getHours()) + ':' + p(startDate.getMinutes()) + ':' + p(startDate.getSeconds());
-    qEnd.value = endDate.getFullYear() + '/' + p(endDate.getMonth()+1) + '/' + p(endDate.getDate()) + ' ' + p(endDate.getHours()) + ':' + p(endDate.getMinutes()) + ':' + p(endDate.getSeconds());
-    
-    function fmt(d) {
-        return d.getFullYear() + '-' + p(d.getMonth()+1) + '-' + p(d.getDate()) + ' ' + p(d.getHours()) + ':' + p(d.getMinutes()) + ':' + p(d.getSeconds());
-    }
-    
-    var logs = [];
-    logs.push({ title: '事件：MDM 已啟動 (狀態:未上鎖)', time: fmt(new Date(startDate.getTime() - 2*60*60*1000)) });
-    logs.push({ title: '上鎖：常駐營區', time: fmt(new Date(startDate.getTime() - 1*60*60*1000)) });
-    logs.push({ title: '上鎖：' + st.modeName + ' (時間)', time: fmt(startDate) });
-    logs.push({ title: '事件：開始解鎖 (快速)', time: fmt(new Date(startDate.getTime() + 5*60*1000)) });
-    logs.push({ title: '事件：解鎖成功', time: fmt(new Date(startDate.getTime() + 15*60*1000)) });
-    
-    if (st.end && st.end > st.start) {
-        logs.push({ title: '上鎖：常駐營區', time: fmt(new Date(st.end - 60*60*1000)) });
-        logs.push({ title: '事件：MDM 已啟動 (狀態:未上鎖)', time: fmt(new Date(st.end - 30*60*1000)) });
-    }
-    
-    logs.reverse();
-    
-    function escapeHTML(s){return String(s).replace(/[&<>\"']/g,function(ch){return {'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[ch]})}
-    var html = '';
-    for (var i = 0; i < logs.length; i++) {
-        var log = logs[i];
-        var num = 1870 + i * 4;
-        html += '<div class="log-item">';
-        html += '<div class="log-title">' + num + '. ' + escapeHTML(log.title) + '</div>';
-        html += '<div class="log-time">時間：' + log.time + '</div>';
-        html += '<div class="log-status">狀態：未上傳</div>';
-        html += '</div>';
-    }
-    logList.innerHTML = html;
-}
-
-queryBtn.addEventListener('click', function() {
-    sidebar.classList.remove('open');
-    overlay.classList.remove('open');
-    queryPanel.classList.add('open');
-    queryOverlay.classList.add('open');
-    renderLogs();
-});
-
-doQueryBtn.addEventListener('click', function() {
-    renderLogs();
-});
-// --- 查詢功能邏輯結束 ---
-
-// --- 任務模式彈窗邏輯 ---
+// 任務模式
 var taskModalOverlay=$('taskModalOverlay'),taskTimeInput=$('taskTimeInput'),taskError=$('taskError');
-function closeTask(){taskModalOverlay.classList.remove('open');taskError.hidden=true;taskError.textContent='';}
-function showError(text){taskError.textContent=text;taskError.hidden=false;taskTimeInput.setAttribute('aria-invalid','true');}
-function parseRocTime(value){
-    var match=value.trim().match(/^(\d{2,3})\/(\d{1,2})\/(\d{1,2})\s+(\d{1,2}):(\d{2})$/);
-    if(!match)return null;
-    var year=Number(match[1])+1911,month=Number(match[2]),day=Number(match[3]),hour=Number(match[4]),minute=Number(match[5]);
-    var d=new Date(year,month-1,day,hour,minute);
-    if(d.getFullYear()!==year||d.getMonth()!==month-1||d.getDate()!==day||d.getHours()!==hour||d.getMinutes()!==minute)return null;
-    return d.getTime();
-}
-$('taskModeBtn').addEventListener('click',function(){
-    sidebar.classList.remove('open');overlay.classList.remove('open');
-    var d=new Date(st.end||Date.now()+4*864e5);
-    taskTimeInput.value=roc(d)+' '+hm(d);
-    taskTimeInput.removeAttribute('aria-invalid');taskError.hidden=true;taskError.textContent='';
-    taskModalOverlay.classList.add('open');
-});
+function closeTask(){taskModalOverlay.classList.remove('open');taskError.hidden=true;taskError.textContent=''}
+function showError(text){taskError.textContent=text;taskError.hidden=false;taskTimeInput.setAttribute('aria-invalid','true')}
+function parseRocTime(value){var match=value.trim().match(/^(\d{2,3})\/(\d{1,2})\/(\d{1,2})\s+(\d{1,2}):(\d{2})$/);if(!match)return null;var year=Number(match[1])+1911,month=Number(match[2]),day=Number(match[3]),hour=Number(match[4]),minute=Number(match[5]);var d=new Date(year,month-1,day,hour,minute);if(d.getFullYear()!==year||d.getMonth()!==month-1||d.getDate()!==day||d.getHours()!==hour||d.getMinutes()!==minute)return null;return d.getTime()}
+$('taskModeBtn').addEventListener('click',function(){sidebar.classList.remove('open');overlay.classList.remove('open');var d=new Date(st.end||Date.now()+4*864e5);taskTimeInput.value=roc(d)+' '+hm(d);taskTimeInput.removeAttribute('aria-invalid');taskError.hidden=true;taskError.textContent='';taskModalOverlay.classList.add('open')});
 $('taskCancelBtn').addEventListener('click',closeTask);
 taskModalOverlay.addEventListener('click',function(e){if(e.target===taskModalOverlay)closeTask()});
 taskTimeInput.addEventListener('input',function(){taskError.hidden=true;taskError.textContent='';taskTimeInput.removeAttribute('aria-invalid')});
-function submitTask(){
-    var parsed=parseRocTime(taskTimeInput.value);
-    if(parsed===null){showError('請輸入正確的時間，例如：115/10/02 16:30');return}
-    if(parsed<=Date.now()){showError('結束時間必須晚於現在。');return}
-    if(st.active&&st.end&&parsed<st.end-59999){showError('任務模式進行中，結束時間只能延長。');return}
-    st.end=parsed;st.active=true;st.start=st.start||Date.now();
-    $('eIn').value=li(st.end);
-    save();render();closeTask();
-}
+function submitTask(){var parsed=parseRocTime(taskTimeInput.value);if(parsed===null){showError('請輸入正確的時間，例如：115/10/02 16:30');return}if(parsed<=Date.now()){showError('結束時間必須晚於現在。');return}if(st.active&&st.end&&parsed<st.end-59999){showError('任務模式進行中，結束時間只能延長。');return}st.end=parsed;st.active=true;st.start=st.start||Date.now();$('eIn').value=li(st.end);save();render();closeTask()}
 $('taskConfirmBtn').addEventListener('click',submitTask);
 taskTimeInput.addEventListener('keydown',function(e){if(e.key==='Enter')submitTask()});
-// --- 任務模式彈窗邏輯結束 ---
 
-// --- 版本檢查彈窗邏輯 ---
-var vcModal = document.getElementById('versionCheckModal');
-var checkVersionBtn = document.getElementById('checkVersionBtn');
-var vcCancelBtn = document.getElementById('vcCancelBtn');
-var vcConfirmBtn1 = document.getElementById('vcConfirmBtn1');
-var vcConfirmBtn3 = document.getElementById('vcConfirmBtn3');
-var checkView1 = document.getElementById('checkView1');
-var checkView2 = document.getElementById('checkView2');
-var checkView3 = document.getElementById('checkView3');
-var vcTimer = null;
-
-function openVersionCheck() {
-    checkView1.style.display = 'block';
-    checkView2.style.display = 'none';
-    checkView3.style.display = 'none';
-    vcModal.classList.add('open');
-    if(vcTimer) clearTimeout(vcTimer);
-}
-
-function closeVersionCheck() {
-    vcModal.classList.remove('open');
-    if(vcTimer) clearTimeout(vcTimer);
-}
-
-checkVersionBtn.addEventListener('click', function() {
-    sidebar.classList.remove('open');
-    overlay.classList.remove('open');
-    openVersionCheck();
-});
-
-vcCancelBtn.addEventListener('click', closeVersionCheck);
-
-vcConfirmBtn1.addEventListener('click', function() {
-    checkView1.style.display = 'none';
-    checkView2.style.display = 'block';
-    
-    vcTimer = setTimeout(function() {
-        checkView2.style.display = 'none';
-        checkView3.style.display = 'block';
-    }, 5000);
-});
-
-vcConfirmBtn3.addEventListener('click', closeVersionCheck);
-
-vcModal.addEventListener('click', function(e) {
-    if(e.target === vcModal && checkView2.style.display === 'none') {
-        closeVersionCheck();
-    }
-});
-// --- 版本檢查彈窗邏輯結束 ---
+// 版本檢查
+var vcModal=document.getElementById('versionCheckModal'),checkVersionBtn=document.getElementById('checkVersionBtn'),vcCancelBtn=document.getElementById('vcCancelBtn'),vcConfirmBtn1=document.getElementById('vcConfirmBtn1'),vcConfirmBtn3=document.getElementById('vcConfirmBtn3'),checkView1=document.getElementById('checkView1'),checkView2=document.getElementById('checkView2'),checkView3=document.getElementById('checkView3'),vcTimer=null;
+function openVersionCheck(){checkView1.style.display='block';checkView2.style.display='none';checkView3.style.display='none';vcModal.classList.add('open');if(vcTimer)clearTimeout(vcTimer)}
+function closeVersionCheck(){vcModal.classList.remove('open');if(vcTimer)clearTimeout(vcTimer)}
+checkVersionBtn.addEventListener('click',function(){sidebar.classList.remove('open');overlay.classList.remove('open');openVersionCheck()});
+vcCancelBtn.addEventListener('click',closeVersionCheck);
+vcConfirmBtn1.addEventListener('click',function(){checkView1.style.display='none';checkView2.style.display='block';vcTimer=setTimeout(function(){checkView2.style.display='none';checkView3.style.display='block'},5000)});
+vcConfirmBtn3.addEventListener('click',closeVersionCheck);
+vcModal.addEventListener('click',function(e){if(e.target===vcModal&&checkView2.style.display==='none'){closeVersionCheck()}});
 
 document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeTask();closeQuery();closeVersionCheck();sidebar.classList.remove('open');overlay.classList.remove('open')}});
 
-// ★ 強制初始化：確保網頁一打開時，所有彈窗與側邊欄都是關閉的
-taskModalOverlay.classList.remove('open');
-vcModal.classList.remove('open');
-queryPanel.classList.remove('open');
-queryOverlay.classList.remove('open');
-sidebar.classList.remove('open');
-overlay.classList.remove('open');
+// 強制初始化，確保一打開網頁時彈窗不會自己跑出來
+taskModalOverlay.classList.remove('open');vcModal.classList.remove('open');queryPanel.classList.remove('open');queryOverlay.classList.remove('open');sidebar.classList.remove('open');overlay.classList.remove('open');
 
 render();setInterval(render,250);
 })();
