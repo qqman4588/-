@@ -8,7 +8,6 @@
 :root{--bg:#33ca33;--taginkc:#000;--ink:#000;--font:-apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;--tagfont:"Kaiti TC","BiauKai","DFKai-SB",serif;--serialfont:-apple-system,"Helvetica Neue",Arial,sans-serif;--tagbg:none;box-sizing:border-box;padding-bottom:env(safe-area-inset-bottom,0px)}
 *{box-sizing:border-box}
 html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font-family:var(--font)}
-/* 主畫面 */
 header{background:#000;color:#fff;text-align:center;font-weight:600;font-size:1.2rem;padding:calc(16px + env(safe-area-inset-top,0px)) 16px 16px;position:relative;z-index:10}
 .menu{position:absolute;left:16px;bottom:12px;width:36px;height:36px;border-radius:50%;background:#1c1c1e;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:4px;cursor:pointer}
 .menu i{display:block;width:20px;height:3px;background:#fff;border-radius:2px}
@@ -249,15 +248,15 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 <label>整體字型</label><select id="fall"></select>
 <label>標籤底圖(選你自己的圖片)</label><input type="file" id="img" accept="image/*">
 <button id="clrImg">清除底圖</button>
-<label>上鎖時間</label><input type="datetime-local" id="sIn" step="1">
-<label>結束時間</label><input type="datetime-local" id="eIn" step="1">
+<label>上鎖時間 (YYYY-MM-DD HH:MM:SS)</label><input type="text" id="sIn" placeholder="2026-10-02 16:30:45">
+<label>結束時間 (YYYY-MM-DD HH:MM)</label><input type="text" id="eIn" placeholder="2026-10-02 16:30">
 <div class="hint">本頁為搞笑練習用,非任何真實系統畫面。設定儲存在瀏覽器中。</div>
 </section>
 </main>
 
 <script>
 (function(){
-var K='moyu.v3',st={start:null,end:null,active:true,t1:'虛構休閒中心',t2:'摸魚器材標籤',sn:'MOYU000001',ftag:0,fsn:0,fall:0,img:null,modeName:'任務模式',ver:'iOS:26.1',lt:'上鎖:進入管制模式',ut:'解鎖:離開管制模式',hd:'國軍MDM V9.1',prof:'V1.07(05/12 14:05:13)',color:'#000000',clear:true};
+var K='moyu.v5',st={start:null,end:null,active:true,t1:'虛構休閒中心',t2:'摸魚器材標籤',sn:'MOYU000001',ftag:0,fsn:0,fall:0,img:null,modeName:'任務模式',ver:'iOS:26.1',lt:'上鎖:進入管制模式',ut:'解鎖:離開管制模式',hd:'國軍MDM V9.1',prof:'V1.07(05/12 14:05:13)',color:'#000000',clear:true};
 var $=function(i){return document.getElementById(i)};
 var FONTS=[['標楷體','"DFKai-SB","BiauKai","標楷體","Kaiti TC",serif'],['楷體','"Kaiti TC","BiauKai","DFKai-SB",serif'],['黑體','-apple-system,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif'],['宋體','"Songti TC","PMingLiU",serif'],['圓體','"Yuanti TC","Arial Rounded MT Bold",sans-serif'],['等寬','ui-monospace,Menlo,monospace'],['Helvetica','"Helvetica Neue",Arial,sans-serif']];
 ['ftag','fsn','fall'].forEach(function(id){FONTS.forEach(function(f,i){var o=document.createElement('option');o.value=i;o.textContent=f[0];$(id).appendChild(o)})});
@@ -267,8 +266,10 @@ function p(n){return String(n).padStart(2,'0')}
 function roc(d){return(d.getFullYear()-1911)+'/'+p(d.getMonth()+1)+'/'+p(d.getDate())}
 function hm(d){return p(d.getHours())+':'+p(d.getMinutes())}
 function hms(d){return hm(d)+':'+p(d.getSeconds())}
-function li(ms){var d=new Date(ms);return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate())+'T'+hms(d)}
-function fi(v){return v?new Date(v).getTime():null}
+// li 包含秒，lim 不包含秒
+function li(ms){var d=new Date(ms);return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate())+' '+hms(d)}
+function lim(ms){var d=new Date(ms);return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate())+' '+hm(d)}
+function fi(v){if(!v)return null;var d=new Date(v.replace(' ','T'));return isNaN(d.getTime())?null:d.getTime()}
 function render(){
 var n=new Date(),r=document.documentElement.style;
 $('clock').textContent=roc(n)+' '+hms(n);
@@ -286,13 +287,13 @@ if(verEl){var mdmVer=st.hd.replace('國軍MDM ','').replace('國軍MDM','').trim
 }
 load();if(!st.start)st.start=Date.now();if(!st.end)st.end=Date.now()+4*864e5;
 $('iver').value=st.ver;$('ilt').value=st.lt;$('iut').value=st.ut;$('ihd').value=st.hd;$('iprof').value=st.prof;$('imode').value=st.modeName;$('icolor').value=st.color;$('iclear').checked=!!st.clear;$('i1').value=st.t1;$('i2').value=st.t2;$('isn').value=st.sn;
-$('ftag').value=st.ftag;$('fsn').value=st.fsn;$('fall').value=st.fall;$('sIn').value=li(st.start);$('eIn').value=li(st.end);
+$('ftag').value=st.ftag;$('fsn').value=st.fsn;$('fall').value=st.fall;$('sIn').value=li(st.start);$('eIn').value=lim(st.end);
 [['ilt','lt'],['iut','ut'],['ihd','hd'],['iprof','prof'],['iver','ver'],['imode','modeName'],['i1','t1'],['i2','t2'],['isn','sn']].forEach(function(a){$(a[0]).addEventListener('input',function(){st[a[1]]=this.value;save();render()})});
 [['ftag','ftag'],['fsn','fsn'],['fall','fall']].forEach(function(a){$(a[0]).addEventListener('change',function(){st[a[1]]=+this.value;save();render()})});
 $('icolor').addEventListener('input',function(){st.color=this.value;save();render()});
 $('iclear').addEventListener('change',function(){st.clear=this.checked;save();render()});
-$('sIn').addEventListener('change',function(){st.start=fi(this.value);save();render()});
-$('eIn').addEventListener('change',function(){st.end=fi(this.value);save();render()});
+$('sIn').addEventListener('change',function(){var v=fi(this.value);if(v){st.start=v;save();render()}else{this.value=li(st.start)}});
+$('eIn').addEventListener('change',function(){var v=fi(this.value);if(v){st.end=v;save();render();this.value=lim(st.end)}else{this.value=lim(st.end)}});
 $('lockBtn').onclick=function(){st.active=true;save();render()};
 $('unlockBtn').onclick=function(){st.active=false;save();render()};
 $('img').addEventListener('change',function(){var f=this.files[0];if(!f)return;var rd=new FileReader();rd.onload=function(){st.img=rd.result;save();render()};rd.readAsDataURL(f)});
@@ -329,12 +330,20 @@ doQueryBtn.addEventListener('click',function(){renderLogs()});
 var taskModalOverlay=$('taskModalOverlay'),taskTimeInput=$('taskTimeInput'),taskError=$('taskError');
 function closeTask(){taskModalOverlay.classList.remove('open');taskError.hidden=true;taskError.textContent=''}
 function showError(text){taskError.textContent=text;taskError.hidden=false;taskTimeInput.setAttribute('aria-invalid','true')}
-function parseRocTime(value){var match=value.trim().match(/^(\d{2,3})\/(\d{1,2})\/(\d{1,2})\s+(\d{1,2}):(\d{2})$/);if(!match)return null;var year=Number(match[1])+1911,month=Number(match[2]),day=Number(match[3]),hour=Number(match[4]),minute=Number(match[5]);var d=new Date(year,month-1,day,hour,minute);if(d.getFullYear()!==year||d.getMonth()!==month-1||d.getDate()!==day||d.getHours()!==hour||d.getMinutes()!==minute)return null;return d.getTime()}
+function parseRocTime(value){
+    // 只匹配到分鐘，不包含秒
+    var match=value.trim().match(/^(\d{2,3})\/(\d{1,2})\/(\d{1,2})\s+(\d{1,2}):(\d{2})$/);
+    if(!match)return null;
+    var year=Number(match[1])+1911,month=Number(match[2]),day=Number(match[3]),hour=Number(match[4]),minute=Number(match[5]);
+    var d=new Date(year,month-1,day,hour,minute,0); // 秒數固定為 0
+    if(d.getFullYear()!==year||d.getMonth()!==month-1||d.getDate()!==day||d.getHours()!==hour||d.getMinutes()!==minute)return null;
+    return d.getTime();
+}
 $('taskModeBtn').addEventListener('click',function(){sidebar.classList.remove('open');overlay.classList.remove('open');var d=new Date(st.end||Date.now()+4*864e5);taskTimeInput.value=roc(d)+' '+hm(d);taskTimeInput.removeAttribute('aria-invalid');taskError.hidden=true;taskError.textContent='';taskModalOverlay.classList.add('open')});
 $('taskCancelBtn').addEventListener('click',closeTask);
 taskModalOverlay.addEventListener('click',function(e){if(e.target===taskModalOverlay)closeTask()});
 taskTimeInput.addEventListener('input',function(){taskError.hidden=true;taskError.textContent='';taskTimeInput.removeAttribute('aria-invalid')});
-function submitTask(){var parsed=parseRocTime(taskTimeInput.value);if(parsed===null){showError('請輸入正確的時間，例如：115/10/02 16:30');return}if(parsed<=Date.now()){showError('結束時間必須晚於現在。');return}if(st.active&&st.end&&parsed<st.end-59999){showError('任務模式進行中，結束時間只能延長。');return}st.end=parsed;st.active=true;st.start=st.start||Date.now();$('eIn').value=li(st.end);save();render();closeTask()}
+function submitTask(){var parsed=parseRocTime(taskTimeInput.value);if(parsed===null){showError('請輸入正確的時間，例如：115/10/02 16:30');return}if(parsed<=Date.now()){showError('結束時間必須晚於現在。');return}if(st.active&&st.end&&parsed<st.end-59999){showError('任務模式進行中，結束時間只能延長。');return}st.end=parsed;st.active=true;st.start=st.start||Date.now();$('eIn').value=lim(st.end);save();render();closeTask()}
 $('taskConfirmBtn').addEventListener('click',submitTask);
 taskTimeInput.addEventListener('keydown',function(e){if(e.key==='Enter')submitTask()});
 
@@ -350,7 +359,7 @@ vcModal.addEventListener('click',function(e){if(e.target===vcModal&&checkView2.s
 
 document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeTask();closeQuery();closeVersionCheck();sidebar.classList.remove('open');overlay.classList.remove('open')}});
 
-// 強制初始化，確保一打開網頁時彈窗不會自己跑出來
+// 強制初始化
 taskModalOverlay.classList.remove('open');vcModal.classList.remove('open');queryPanel.classList.remove('open');queryOverlay.classList.remove('open');sidebar.classList.remove('open');overlay.classList.remove('open');
 
 render();setInterval(render,250);
