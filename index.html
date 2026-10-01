@@ -104,17 +104,17 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 .log-item { padding: 16px 0; border-bottom: 1px solid #e0e0e0; }
 .log-item:last-child { border-bottom: 0; }
 .log-item .log-title { font-size: 1.05rem; font-weight: 400; color: #FE0000; margin-bottom: 6px; }
-.log-item .log-time, .log-item .log-status { font-size: 1rem; color: #000; margin-bottom min: 4px; }
+.log-item .log-time, .log-item .log-status { font-size: 1rem; color: #000; margin-bottom: 4px; }
 
-/* 照目前網頁-width設計的底部任務設定視窗。 */
-:#taskModalOverlay { position:fixed; inset:00; z-index:300;0; display:none; align-items:flex-end; height justify-content:center; padding:0 26px max(54px, env(safe-area-inset-bottom)); background:rgba(0,0,0,.65); }
+/* --- 任務模式彈窗樣式（完全依照你上傳的版本） --- */
+#taskModalOverlay { position:fixed; inset:0; z-index:3000; display:none; align-items:flex-end; justify-content:center; padding:0 26px max(54px, env(safe-area-inset-bottom)); background:rgba(0,0,0,.65); }
 #taskModalOverlay.open { display:flex; animation:taskFade .25s ease-out; }
 .task-modal-card { width:min(100%,520px); height:min(86vh,760px); max-height:calc(100dvh - 85px); overflow-y:auto; border-radius:8px; background:#fff; color:#111; padding:25px 10px 28px; box-shadow:0 8px 30px rgba(0,0,0,.15); animation:taskUp .34s cubic-bezier(.2,.8,.2,1); }
 .task-modal-title { margin:0; text-align:center; font-size:1.8rem; font-weight:800; line-height:1.25; }
 .task-modal-desc { margin:33px 19px 0; font-size:1.15rem; font-weight:600; line-height:1.55; }
 .task-modal-input-row { display:flex; align-items:center; gap:12px; margin:49px 0 0; }
 .task-modal-label { flex:none; font-size:1.35rem; font-weight:800; }
-.task-modal-input-row input {:36px; flex:1; border:1px solid #ccc; border-radius:0; background:#fff; color:#111; padding:2px 8px; font:600 1.2rem var(--font); font-variant-numeric:tabular-nums; }
+.task-modal-input-row input { min-width:0; height:36px; flex:1; border:1px solid #ccc; border-radius:0; background:#fff; color:#111; padding:2px 8px; font:600 1.2rem var(--font); font-variant-numeric:tabular-nums; }
 .task-modal-input-row input:focus { outline:2px solid #2e7d55; outline-offset:1px; }
 .task-error { margin:8px 6px 0; color:#c22; font-size:.9rem; font-weight:600; }
 .task-actions { width:min(100%,224px); margin:50px auto 0; display:grid; gap:28px; }
@@ -161,7 +161,6 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
     <div class="mdm-item disabled">出差 (QRCode)</div>
     <div class="mdm-item disabled">近期到訪營區</div>
     <div class="mdm-item disabled">船艦模式</div>
-    <!-- 新增 id 以便點擊 -->
     <div class="mdm-item bold" id="taskModeBtn">任務模式</div>
     <div class="mdm-item disabled">轉換一般營區</div>
     <div class="mdm-group">解鎖</div>
@@ -171,7 +170,6 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
     <div class="mdm-item bold" id="queryBtn">查詢</div>
     <div class="mdm-item disabled">上傳 (WiFi)</div>
     <div class="mdm-group">註冊與版本檢查更新</div>
-    <!-- 新增 id 以便點擊 -->
     <div class="mdm-item" id="checkVersionBtn">新版檢查 (WiFi)</div>
     <div class="mdm-item">新版檢查 (民網)</div>
     <div class="mdm-item">版本更新 (民網)</div>
@@ -223,7 +221,7 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 </div>
 <!-- 紀錄-查詢 頁面結束 -->
 
-<!-- 任務模式彈窗 -->
+<!-- 任務模式彈窗（完全依照你上傳的版本） -->
 <div id="taskModalOverlay">
     <div class="task-modal-card" role="dialog" aria-modal="true" aria-labelledby="taskTitle">
         <h2 id="taskTitle" class="task-modal-title">結束時間設定</h2>
@@ -245,7 +243,6 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 <!-- 新增：版本檢查彈窗 -->
 <div id="versionCheckModal">
     <div class="vc-card">
-        <!-- 步驟一：確認視窗 -->
         <div id="checkView1" class="check-view">
             <h3 class="vc-title">提示</h3>
             <p class="vc-desc">請問您確定進行版本檢查嗎？</p>
@@ -254,12 +251,10 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
                 <button class="vc-btn" id="vcConfirmBtn1">確定</button>
             </div>
         </div>
-        <!-- 步驟二：載入中 -->
         <div id="checkView2" class="check-view" style="display:none; padding: 20px 0;">
             <div class="vc-spinner"></div>
             <p class="vc-loading-text">正在與註冊電腦連線中，請稍等</p>
         </div>
-        <!-- 步驟三：連線失敗 -->
         <div id="checkView3" class="check-view" style="display:none;">
             <h3 class="vc-title">提示</h3>
             <p class="vc-desc">無法與註冊電腦連線，請檢查 WiFi 連線設定</p>
@@ -464,7 +459,7 @@ doQueryBtn.addEventListener('click', function() {
 });
 // --- 查詢功能邏輯結束 ---
 
-// 任務模式彈窗，與線上版本使用相同的民國日期檢查。
+// --- 任務模式彈窗邏輯（完全依照你上傳的版本，一字不差） ---
 var taskModalOverlay=$('taskModalOverlay'),taskTimeInput=$('taskTimeInput'),taskError=$('taskError');
 function closeTask(){taskModalOverlay.classList.remove('open');taskError.hidden=true;taskError.textContent='';}
 function showError(text){taskError.textContent=text;taskError.hidden=false;taskTimeInput.setAttribute('aria-invalid','true');}
@@ -497,7 +492,7 @@ function submitTask(){
 }
 $('taskConfirmBtn').addEventListener('click',submitTask);
 taskTimeInput.addEventListener('keydown',function(e){if(e.key==='Enter')submitTask()});
-document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeTask();closeQuery();sidebar.classList.remove('open');overlay.classList.remove('open')}});
+// --- 任務模式彈窗邏輯結束 ---
 
 // --- 新增：版本檢查彈窗邏輯 ---
 var vcModal = document.getElementById('versionCheckModal');
@@ -524,7 +519,6 @@ function closeVersionCheck() {
 }
 
 checkVersionBtn.addEventListener('click', function() {
-    // 關閉側邊欄
     sidebar.classList.remove('open');
     overlay.classList.remove('open');
     openVersionCheck();
@@ -544,13 +538,14 @@ vcConfirmBtn1.addEventListener('click', function() {
 
 vcConfirmBtn3.addEventListener('click', closeVersionCheck);
 
-// 點擊背景關閉（限制在沒有載入時才能點擊背景關閉，避免中斷流程）
 vcModal.addEventListener('click', function(e) {
     if(e.target === vcModal && checkView2.style.display === 'none') {
         closeVersionCheck();
     }
 });
 // --- 版本檢查彈窗邏輯結束 ---
+
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeTask();closeQuery();closeVersionCheck();sidebar.classList.remove('open');overlay.classList.remove('open')}});
 
 render();setInterval(render,250);
 })();
