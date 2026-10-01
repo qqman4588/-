@@ -103,9 +103,58 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 .log-list { padding: 0 16px 32px; }
 .log-item { padding: 16px 0; border-bottom: 1px solid #e0e0e0; }
 .log-item:last-child { border-bottom: 0; }
-/* 1. 紅色字體變細且改色 */
 .log-item .log-title { font-size: 1.05rem; font-weight: 400; color: #FE0000; margin-bottom: 6px; }
 .log-item .log-time, .log-item .log-status { font-size: 1rem; color: #000; margin-bottom: 4px; }
+
+/* --- 任務模式彈窗樣式 --- */
+#taskModalOverlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.5); z-index: 3000; display: none;
+    opacity: 0; transition: opacity 0.3s ease;
+    align-items: flex-end; /* 從底部滑出 */
+}
+#taskModalOverlay.open { display: flex; opacity: 1; }
+.task-modal-card {
+    background: #fff; width: 100%; max-width: 520px;
+    border-radius: 24px 24px 0 0;
+    padding: 30px 24px calc(30px + env(safe-area-inset-bottom, 0px));
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.2);
+    transform: translateY(100%);
+    transition: transform 0.3s ease-out;
+    text-align: center;
+}
+#taskModalOverlay.open .task-modal-card {
+    transform: translateY(0);
+}
+.task-modal-title {
+    font-size: 1.8rem; font-weight: bold; color: #000;
+    margin: 0 0 20px 0; text-align: center;
+}
+.task-modal-desc {
+    font-size: 1.1rem; color: #000; line-height: 1.5;
+    margin-bottom: 25px; text-align: left;
+}
+.task-modal-input-row {
+    display: flex; align-items: center; margin-bottom: 30px;
+}
+.task-modal-label {
+    font-size: 1.3rem; font-weight: bold; width: 80px; color: #000;
+    text-align: left;
+}
+.task-modal-input-row input {
+    flex: 1; font-size: 1.2rem; padding: 12px; border: 1px solid #ccc;
+    border-radius: 4px; background: #fff; text-align: center; font-family: inherit;
+}
+.task-modal-btn-primary {
+    display: block; width: 100%; padding: 14px; border: 0;
+    border-radius: 30px; background: #2e7d32; color: #fff;
+    font-size: 1.2rem; font-weight: bold; margin-bottom: 12px; cursor: pointer;
+}
+.task-modal-btn-secondary {
+    display: block; width: 100%; padding: 14px; border: 0;
+    border-radius: 30px; background: #cccccc; color: #fff;
+    font-size: 1.2rem; font-weight: bold; cursor: pointer;
+}
 </style>
 </head>
 <body>
@@ -120,7 +169,8 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
     <div class="mdm-item disabled">出差 (QRCode)</div>
     <div class="mdm-item disabled">近期到訪營區</div>
     <div class="mdm-item disabled">船艦模式</div>
-    <div class="mdm-item bold">任務模式</div>
+    <!-- 新增 id 以便點擊 -->
+    <div class="mdm-item bold" id="taskModeBtn">任務模式</div>
     <div class="mdm-item disabled">轉換一般營區</div>
     <div class="mdm-group">解鎖</div>
     <div class="mdm-item disabled">定點解鎖</div>
@@ -179,6 +229,24 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
     <div class="log-list" id="logList"></div>
 </div>
 <!-- 紀錄-查詢 頁面結束 -->
+
+<!-- 任務模式彈窗 -->
+<div id="taskModalOverlay">
+    <div class="task-modal-card">
+        <h2 class="task-modal-title">結束時間設定</h2>
+        <p class="task-modal-desc">
+            請於下方欄位中選擇任務管制時間。<br>
+            (若已在時間任務模式下，時間僅能延長，不得縮減時間)
+        </p>
+        <div class="task-modal-input-row">
+            <span class="task-modal-label">時間：</span>
+            <input type="text" id="taskTimeInput" placeholder="115/10/2 16:30">
+        </div>
+        <button class="task-modal-btn-primary" id="taskConfirmBtn">設定時間進入任務模式</button>
+        <button class="task-modal-btn-secondary" id="taskCancelBtn">取 消</button>
+    </div>
+</div>
+<!-- 任務模式彈窗結束 -->
 
 <header>
     <div class="menu" id="menuBtn"><i></i><i></i><i></i></div>
@@ -260,7 +328,7 @@ r.setProperty('--font',FONTS[st.fall][1]);
 r.setProperty('--tagbg',st.img?'url("'+st.img+'")':'none');
 if(st.end){var e=new Date(st.end);$('endText').textContent='結束時間:'+roc(e)+' '+hm(e)}
 if(st.start)$('lockedAt').textContent=roc(new Date(st.start))+' '+hms(new Date(st.start));
-// 2. 右上角版本連動
+// 右上角版本連動
 var verEl = $('queryVersionInfo');
 if(verEl){
     var mdmVer = st.hd.replace('國軍MDM ', '').replace('國軍MDM', '').trim();
@@ -371,6 +439,60 @@ doQueryBtn.addEventListener('click', function() {
     renderLogs();
 });
 // --- 查詢功能邏輯結束 ---
+
+// --- 任務模式彈窗邏輯 ---
+var taskModalOverlay = document.getElementById('taskModalOverlay');
+var taskModeBtn = document.getElementById('taskModeBtn');
+var taskTimeInput = document.getElementById('taskTimeInput');
+var taskConfirmBtn = document.getElementById('taskConfirmBtn');
+var taskCancelBtn = document.getElementById('taskCancelBtn');
+
+// 點擊側邊欄「任務模式」
+taskModeBtn.addEventListener('click', function() {
+    // 關閉側邊欄
+    sidebar.classList.remove('open');
+    overlay.classList.remove('open');
+    
+    // 將目前設定的結束時間填入輸入框（轉為民國年格式）
+    var d = new Date(st.end || Date.now() + 4*864e5);
+    var rocYear = d.getFullYear() - 1911;
+    var month = p(d.getMonth() + 1);
+    var day = p(d.getDate());
+    var hour = p(d.getHours());
+    var min = p(d.getMinutes());
+    taskTimeInput.value = rocYear + '/' + month + '/' + day + ' ' + hour + ':' + min;
+    
+    // 顯示彈窗
+    taskModalOverlay.classList.add('open');
+});
+
+// 點擊取消
+taskCancelBtn.addEventListener('click', function() {
+    taskModalOverlay.classList.remove('open');
+});
+
+// 點擊設定時間進入任務模式
+taskConfirmBtn.addEventListener('click', function() {
+    var str = taskTimeInput.value.trim();
+    // 解析民國年格式: 115/10/2 16:30
+    var regex = /^(\d+)\/(\d+)\/(\d+)\s+(\d+):(\d+)$/;
+    var match = str.match(regex);
+    if (match) {
+        var year = parseInt(match[1]) + 1911;
+        var month = parseInt(match[2]) - 1;
+        var day = parseInt(match[3]);
+        var hour = parseInt(match[4]);
+        var min = parseInt(match[5]);
+        var d = new Date(year, month, day, hour, min);
+        st.end = d.getTime();
+        save();
+        render();
+        taskModalOverlay.classList.remove('open');
+    } else {
+        alert('請輸入正確的時間格式，例如：115/10/2 16:30');
+    }
+});
+// --- 任務模式彈窗邏輯結束 ---
 
 render();setInterval(render,250);
 })();
