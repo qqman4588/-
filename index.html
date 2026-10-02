@@ -161,8 +161,9 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 .cvc-btn-full{width:100%;background:#ccc;color:#000}
 
 /* 標籤圖片容器 (未上鎖時顯示) */
-#tagImage { display: none; padding: 10px; text-align: center; }
-#tagImage img { max-width: 80%; height: auto; }
+#tagImage { display: none; padding: 0; text-align: center; }
+/* 調整圖片大小為 45%，符合照片中的比例 */
+#tagImage img { max-width: 45%; height: auto; }
 </style>
 </head>
 <body>
@@ -514,6 +515,11 @@ if(st.active === 'task'){
     $('warnText').style.color = '#e00';
     $('lockBtn').style.backgroundColor = '#8fcc8f';
     $('unlockBtn').style.backgroundColor = '#8fcc8f';
+    // 恢復標籤外框為原本的綠色背景與間距
+    $('tag').style.backgroundColor = '#33ca33';
+    $('tag').style.marginTop = '20px';
+    $('tag').style.padding = '14px 10px';
+    $('tag').style.border = '1px solid transparent';
 } else if(st.active === 'camp'){
     $('modeText').textContent='太武營區';
     $('endText').textContent='已上鎖，可進入此管制營區';
@@ -527,6 +533,11 @@ if(st.active === 'task'){
     $('warnText').style.color = '#e00';
     $('lockBtn').style.backgroundColor = '#8fcc8f';
     $('unlockBtn').style.backgroundColor = '#8fcc8f';
+    // 恢復標籤外框為原本的綠色背景與間距
+    $('tag').style.backgroundColor = '#33ca33';
+    $('tag').style.marginTop = '20px';
+    $('tag').style.padding = '14px 10px';
+    $('tag').style.border = '1px solid transparent';
 } else if(st.active === 'unlocked'){
     $('modeText').textContent='未上鎖';
     $('endText').textContent='未上鎖，不得進入管制營區！';
@@ -541,6 +552,11 @@ if(st.active === 'task'){
     $('warnText').style.color = '#980033';
     $('lockBtn').style.backgroundColor = '#E07A8F';
     $('unlockBtn').style.backgroundColor = '#E07A8F';
+    // 修正：將標籤外框背景改為與主背景相同的紅色，並縮小頂部間距讓圖片往上移
+    $('tag').style.backgroundColor = '#FF0033';
+    $('tag').style.marginTop = '0px';
+    $('tag').style.padding = '0px';
+    $('tag').style.border = 'none';
 }
 r.setProperty('--taginkc',st.clear?'transparent':st.color);
 $('ver').textContent=st.ver;$('lt').textContent=st.lt;$('ut').textContent=st.ut;$('hd').textContent=st.hd;$('prof').textContent=st.prof;$('t1').textContent=st.t1;$('t2').textContent=st.t2;$('sn').textContent=st.sn;
