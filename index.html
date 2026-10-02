@@ -7,15 +7,16 @@
 <style>
 :root{--bg:#33ca33;--taginkc:#000;--ink:#000;--font:-apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;--tagfont:"Kaiti TC","BiauKai","DFKai-SB",serif;--serialfont:-apple-system,"Helvetica Neue",Arial,sans-serif;--tagbg:none;box-sizing:border-box;padding-bottom:env(safe-area-inset-bottom,0px)}
 *{box-sizing:border-box}
-html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font-family:var(--font)}
+html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font-family:var(--font);overflow-x:hidden}
 /* 主畫面 */
 header{background:#000;color:#fff;text-align:center;font-weight:600;font-size:1.2rem;padding:calc(16px + env(safe-area-inset-top,0px)) 16px 16px;position:relative;z-index:10}
 .menu{position:absolute;left:16px;bottom:12px;width:36px;height:36px;border-radius:50%;background:#1c1c1e;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:4px;cursor:pointer}
 .menu i{display:block;width:20px;height:3px;background:#fff;border-radius:2px}
 .ver{text-align:right;font-size:1.15rem;font-weight:500;padding:2px 12px 0 0;line-height:1.1}
 main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
-.end{white-space:nowrap;font-size:min(2.4rem,6.6vw);font-weight:400;margin:0 0 68px;line-height:1.15}
-.mode{font-size:4.5rem;font-weight:500;line-height:1.1;margin:0 0 60px;letter-spacing:.02em}
+/* 調整上方文字大小，並保留自動換行 */
+.end{white-space:normal;font-size:min(1.6rem, 4.5vw);font-weight:400;margin:0 0 40px;line-height:1.3;word-break:break-word}
+.mode{font-size:min(4.5rem,12vw);font-weight:500;line-height:1.1;margin:0 0 60px;letter-spacing:.02em}
 .clock{white-space:nowrap;font-size:min(2.8rem,8.2vw);font-weight:800;font-variant-numeric:tabular-nums;margin:0 0 16px}
 .btn{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;border:0;border-radius:14px;background:#8fcc8f;font:inherit;font-size:1.3rem;padding:2px 18px;margin:0 auto 14px;cursor:pointer}
 .btn .dot{width:16px;height:16px;border-radius:50%}
@@ -148,12 +149,9 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 #versionCheckCivilModal{position:fixed;inset:0;z-index:4000;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.5)}
 #versionCheckCivilModal.open{display:flex}
 .cvc-card{width:85%;max-width:340px;background:#E8F7E8;border-radius:20px;padding:24px;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,.15);position:relative}
-/* 「版本檢查 (民網)」標題保持粗體 */
 .cvc-title{margin:0 0 16px;font-size:1.15rem;font-weight:bold;color:#000;text-align:left}
-/* 說明文字與版本行維持原本字重 */
 .cvc-desc{margin:0 0 24px;font-size:1rem;color:#5C6A5D;text-align:left;line-height:1.6;font-weight:500}
 .cvc-version-line{margin:6px 0;font-size:1rem;color:#5C6A5D;text-align:left;font-weight:500}
-/* 版本數字顏色維持黑色 */
 .cvc-version-line span{font-weight:bold;color:#000}
 .cvc-btns{display:flex;gap:12px;justify-content:center;margin-top:8px}
 .cvc-btn{flex:1;padding:12px 0;border:0;border-radius:12px;font-size:1rem;font-weight:bold;cursor:pointer;background:#ccc;color:#000}
@@ -170,11 +168,11 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
     <div class="mdm-item disabled">常駐營區</div>
     <div class="mdm-item disabled">出差 (WiFi)</div>
     <div class="mdm-item disabled">出差 (QRCode)</div>
-    <div class="mdm-item disabled">近期到訪營區</div   >
-    <div class="mdm <-item disabled">船艦模式</div>
-    <div class="mdmdiv-item bold" id="taskModeBtn">任務模式</div class>
-    <div class="mdm-item disabled">轉換="一般營區</div>
-    <div classmd="mdm-group">解鎖</div>
+    <div class="mdm-item disabled">近期到訪營區</div>
+    <div class="mdm-item disabled">船艦模式</div>
+    <div class="mdm-item bold" id="taskModeBtn">任務模式</div>
+    <div class="mdm-item disabled">轉換一般營區</div>
+    <div class="mdm-group">解鎖</div>
     <div class="mdm-item disabled">定點解鎖</div>
     <div class="mdm-item disabled">密碼解鎖</div>
     <div class="mdm-group">紀錄</div>
@@ -189,7 +187,7 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
     <div class="mdm-group">設定</div>
     <div class="mdm-item" id="remindBtn">上鎖提醒設定</div>
     <div class="mdm-group">其它</div>
-m-item">最新消息</div>
+    <div class="mdm-item">最新消息</div>
     <div class="mdm-item" id="deviceBtn">手機裝置資訊</div>
     <div class="mdm-item" id="blacklistBtn">黑名單 APP 查詢</div>
     <div class="mdm-item" id="locBtn">定位狀況查詢</div>
@@ -467,7 +465,7 @@ m-item">最新消息</div>
 
 <script>
 (function(){
-var K='moyu.v15',st={start:null,end:null,active:true,t1:'虛構休閒中心',t2:'摸魚器材標籤',sn:'MOYU000001',ftag:0,fsn:0,fall:0,img:null,modeName:'任務模式',ver:'iOS:26.1',lt:'上鎖:進入管制模式',ut:'解鎖:離開管制模式',hd:'國軍MDM V9.1',prof:'V1.07(05/12 14:05:13)',color:'#000000',clear:true};
+var K='moyu.v17',st={start:null,end:null,active:true,t1:'虛構休閒中心',t2:'摸魚器材標籤',sn:'MOYU000001',ftag:0,fsn:0,fall:0,img:null,modeName:'任務模式',ver:'iOS:26.1',lt:'上鎖:進入管制模式',ut:'解鎖:離開管制模式',hd:'國軍MDM V9.1',prof:'V1.07(05/12 14:05:13)',color:'#000000',clear:true};
 var $=function(i){return document.getElementById(i)};
 var FONTS=[['標楷體','"DFKai-SB","BiauKai","標楷體","Kaiti TC",serif'],['楷體','"Kaiti TC","BiauKai","DFKai-SB",serif'],['黑體','-apple-system,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif'],['宋體','"Songti TC","PMingLiU",serif'],['圓體','"Yuanti TC","Arial Rounded MT Bold",sans-serif'],['等寬','ui-monospace,Menlo,monospace'],['Helvetica','"Helvetica Neue",Arial,sans-serif']];
 ['ftag','fsn','fall'].forEach(function(id){FONTS.forEach(function(f,i){var o=document.createElement('option');o.value=i;o.textContent=f[0];$(id).appendChild(o)})});
