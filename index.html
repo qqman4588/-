@@ -14,11 +14,10 @@ header{background:#000;color:#fff;text-align:center;font-weight:600;font-size:1.
 .menu i{display:block;width:20px;height:3px;background:#fff;border-radius:2px}
 .ver{text-align:right;font-size:1.15rem;font-weight:500;padding:2px 12px 0 0;line-height:1.1}
 main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
-/* 結束時間文字 */
+/* 上方文字 */
 .end{white-space:normal;font-size:min(2.4rem,6.6vw);font-weight:400;margin:0 0 68px;line-height:1.15;word-break:break-word}
-/* 只有「已上鎖，可進入此管制營區」套用的小字體 class */
 .end.small-text{font-size:min(1.6rem, 4.5vw)}
-/* 中間大標題（維持 v14 的固定大小 4.5rem） */
+/* 中間大標題 */
 .mode{font-size:4.5rem;font-weight:500;line-height:1.1;margin:0 0 60px;letter-spacing:.02em}
 .clock{white-space:nowrap;font-size:min(2.8rem,8.2vw);font-weight:800;font-variant-numeric:tabular-nums;margin:0 0 16px}
 .btn{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;border:0;border-radius:14px;background:#8fcc8f;font:inherit;font-size:1.3rem;padding:2px 18px;margin:0 auto 14px;cursor:pointer}
@@ -32,7 +31,7 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 .tag .sn{font-family:var(--serialfont);font-size:2.2rem;font-weight:800;margin-top:6px}
 .info{font-size:1.4rem;font-weight:500;line-height:1.4;margin-top:16px}
 .warn{color:#e00;text-align:center;font-size:1.1rem;font-weight:600;margin-top:2px}
-/* 自訂設定背景顏色改為 #32CC33 */
+/* 自訂設定背景顏色為 #32CC33 */
 .set{margin-top:28px;background:#32CC33;border-radius:18px;padding:16px;text-align:left}
 .set h2{margin:0 0 8px;font-size:1.05rem}
 .set label{display:block;font-size:.9rem;margin:10px 0 4px}
@@ -115,10 +114,10 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 .modal-btn{flex:1;padding:12px 0;border:0;border-radius:12px;font-size:1rem;font-weight:bold;cursor:pointer;background:#ccc;color:#000;}
 .modal-btn-full{width:100%;background:#ccc;color:#000;}
 
-/* 任務模式彈窗 */
+/* 任務模式彈窗（背景為 #FFFFFF） */
 #taskModalOverlay{position:fixed;inset:0;z-index:3000;display:none;align-items:flex-end;justify-content:center;padding:0 26px max(54px,env(safe-area-inset-bottom));background:rgba(0,0,0,.65)}
 #taskModalOverlay.open{display:flex;animation:taskFade .25s ease-out}
-.task-modal-card{width:min(100%,520px);height:min(86vh,760px);max-height:calc(100dvh - 85px);overflow-y:auto;border-radius:8px;background:#E8F7E8;color:#111;padding:25px 10px 28px;box-shadow:0 8px 30px rgba(0,0,0,.15);animation:taskUp .34s cubic-bezier(.2,.8,.2,1)}
+.task-modal-card{width:min(100%,520px);height:min(86vh,760px);max-height:calc(100dvh - 85px);overflow-y:auto;border-radius:8px;background:#FFFFFF;color:#111;padding:25px 10px 28px;box-shadow:0 8px 30px rgba(0,0,0,.15);animation:taskUp .34s cubic-bezier(.2,.8,.2,1)}
 .task-modal-title{margin:0;text-align:center;font-size:1.8rem;font-weight:800;line-height:1.25}
 .task-modal-desc{margin:33px 19px 0;font-size:1.15rem;font-weight:600;line-height:1.55}
 .task-modal-input-row{display:flex;align-items:center;gap:12px;margin:49px 0 0}
@@ -156,10 +155,14 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 .cvc-title{margin:0 0 16px;font-size:1.15rem;font-weight:bold;color:#000;text-align:left}
 .cvc-desc{margin:0 0 24px;font-size:1rem;color:#5C6A5D;text-align:left;line-height:1.6;font-weight:500}
 .cvc-version-line{margin:6px 0;font-size:1rem;color:#5C6A5D;text-align:left;font-weight:500}
-.cvc-version-line span{font-weight:bold;color:#000}
+.cvc-version-line span{font-weight:bold;color:#5B6A5C}
 .cvc-btns{display:flex;gap:12px;justify-content:center;margin-top:8px}
 .cvc-btn{flex:1;padding:12px 0;border:0;border-radius:12px;font-size:1rem;font-weight:bold;cursor:pointer;background:#ccc;color:#000}
 .cvc-btn-full{width:100%;background:#ccc;color:#000}
+
+/* 標籤圖片容器 (未上鎖時顯示) */
+#tagImage { display: none; padding: 10px; text-align: center; }
+#tagImage img { max-width: 80%; height: auto; }
 </style>
 </head>
 <body>
@@ -436,9 +439,15 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 <button class="btn" id="lockBtn" style="margin-bottom:26px"><span class="dot"></span><span id="lt"></span></button>
 <button class="btn" id="unlockBtn"><span class="dot"></span><span id="ut"></span></button>
 <div class="tag" id="tag">
-<div class="t1" id="t1">虛構休閒中心</div>
-<div class="t2" id="t2">摸魚器材標籤</div>
-<div class="sn" id="sn">MOYU000001</div>
+    <div id="tagText">
+        <div class="t1" id="t1">虛構休閒中心</div>
+        <div class="t2" id="t2">摸魚器材標籤</div>
+        <div class="sn" id="sn">MOYU000001</div>
+    </div>
+    <div id="tagImage">
+        <!-- 請將下方的 src 替換成你自己的盾牌圖片路徑，例如 "shield.png" -->
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/ROC_Military_Academy_Logo.svg/200px-ROC_Military_Academy_Logo.svg.png" alt="標籤圖片">
+    </div>
 </div>
 <div class="info">上鎖時間:<span id="lockedAt"></span><br>設定檔:<span id="prof"></span></div>
 <div class="warn">仿冒必究</div>
@@ -469,7 +478,7 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 
 <script>
 (function(){
-var K='moyu.v25',st={start:null,end:null,active:true,t1:'虛構休閒中心',t2:'摸魚器材標籤',sn:'MOYU000001',ftag:0,fsn:0,fall:0,img:null,modeName:'任務模式',ver:'iOS:26.1',lt:'上鎖:進入管制模式',ut:'解鎖:離開管制模式',hd:'國軍MDM V9.1',prof:'V1.07(05/12 14:05:13)',color:'#000000',clear:true};
+var K='moyu.v28',st={start:null,end:null,active:'task',t1:'虛構休閒中心',t2:'摸魚器材標籤',sn:'MOYU000001',ftag:0,fsn:0,fall:0,img:null,modeName:'任務模式',ver:'iOS:26.1',lt:'上鎖:進入管制模式',ut:'解鎖:離開管制模式',hd:'國軍MDM V9.1',prof:'V1.07(05/12 14:05:13)',color:'#000000',clear:true};
 var $=function(i){return document.getElementById(i)};
 var FONTS=[['標楷體','"DFKai-SB","BiauKai","標楷體","Kaiti TC",serif'],['楷體','"Kaiti TC","BiauKai","DFKai-SB",serif'],['黑體','-apple-system,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif'],['宋體','"Songti TC","PMingLiU",serif'],['圓體','"Yuanti TC","Arial Rounded MT Bold",sans-serif'],['等寬','ui-monospace,Menlo,monospace'],['Helvetica','"Helvetica Neue",Arial,sans-serif']];
 ['ftag','fsn','fall'].forEach(function(id){FONTS.forEach(function(f,i){var o=document.createElement('option');o.value=i;o.textContent=f[0];$(id).appendChild(o)})});
@@ -485,15 +494,28 @@ function fi(v){if(!v)return null;var d=new Date(v.replace(' ','T'));return isNaN
 function render(){
 var n=new Date(),r=document.documentElement.style;
 $('clock').textContent=roc(n)+' '+hms(n);
-// 大標題與上方結束時間文字連動
-if(st.active){
+// 狀態邏輯
+if(st.active === 'task'){
     $('modeText').textContent=st.modeName;
     if(st.end){var e=new Date(st.end);$('endText').textContent='結束時間:'+roc(e)+' '+hm(e)}
     $('endText').classList.remove('small-text');
-}else{
+    r.setProperty('--bg', '#33ca33');
+    $('tagText').style.display = 'block';
+    $('tagImage').style.display = 'none';
+} else if(st.active === 'camp'){
     $('modeText').textContent='太武營區';
     $('endText').textContent='已上鎖，可進入此管制營區';
     $('endText').classList.add('small-text');
+    r.setProperty('--bg', '#33ca33');
+    $('tagText').style.display = 'block';
+    $('tagImage').style.display = 'none';
+} else if(st.active === 'unlocked'){
+    $('modeText').textContent='未上鎖';
+    $('endText').textContent='未上鎖，不得進入管制營區！';
+    $('endText').classList.add('small-text');
+    r.setProperty('--bg', '#FF0033');
+    $('tagText').style.display = 'none';
+    $('tagImage').style.display = 'block';
 }
 r.setProperty('--taginkc',st.clear?'transparent':st.color);
 $('ver').textContent=st.ver;$('lt').textContent=st.lt;$('ut').textContent=st.ut;$('hd').textContent=st.hd;$('prof').textContent=st.prof;$('t1').textContent=st.t1;$('t2').textContent=st.t2;$('sn').textContent=st.sn;
@@ -503,7 +525,7 @@ r.setProperty('--font',FONTS[st.fall][1]);
 r.setProperty('--tagbg',st.img?'url("'+st.img+'")':'none');
 if(st.start)$('lockedAt').textContent=roc(new Date(st.start))+' '+hms(new Date(st.start));
 // 上鎖按鈕顏色連動
-if(st.active){
+if(st.active === 'task' || st.active === 'camp'){
     $('lockBtn').style.color='#5f7d5a';
 }else{
     $('lockBtn').style.color='#3c67f4';
@@ -517,7 +539,11 @@ var elAndroid = $('cvcAndroidVersion');
 if(elIos) elIos.textContent = versionNumber;
 if(elAndroid) elAndroid.textContent = versionNumber;
 }
-load();if(!st.start)st.start=Date.now();if(!st.end)st.end=Date.now()+4*864e5;
+load();
+// 轉換舊版布林值狀態
+if(st.active === true) st.active = 'task';
+if(st.active === false) st.active = 'camp';
+if(!st.start)st.start=Date.now();if(!st.end)st.end=Date.now()+4*864e5;
 $('iver').value=st.ver;$('ilt').value=st.lt;$('iut').value=st.ut;$('ihd').value=st.hd;$('iprof').value=st.prof;$('imode').value=st.modeName;$('icolor').value=st.color;$('iclear').checked=!!st.clear;$('i1').value=st.t1;$('i2').value=st.t2;$('isn').value=st.sn;
 $('ftag').value=st.ftag;$('fsn').value=st.fsn;$('fall').value=st.fall;$('sIn').value=li(st.start);$('eIn').value=lim(st.end);
 [['ilt','lt'],['iut','ut'],['ihd','hd'],['iprof','prof'],['iver','ver'],['imode','modeName'],['i1','t1'],['i2','t2'],['isn','sn']].forEach(function(a){$(a[0]).addEventListener('input',function(){st[a[1]]=this.value;save();render()})});
@@ -526,8 +552,21 @@ $('icolor').addEventListener('input',function(){st.color=this.value;save();rende
 $('iclear').addEventListener('change',function(){st.clear=this.checked;save();render()});
 $('sIn').addEventListener('change',function(){var v=fi(this.value);if(v){st.start=v;save();render()}else{this.value=li(st.start)}});
 $('eIn').addEventListener('change',function(){var v=fi(this.value);if(v){st.end=v;save();render();this.value=lim(st.end)}else{this.value=lim(st.end)}});
-$('lockBtn').onclick=function(){st.active=true;save();render()};
-$('unlockBtn').onclick=function(){st.active=false;save();render()};
+// 按鈕事件
+$('lockBtn').onclick=function(){
+    st.active = 'task';
+    save();render();
+};
+$('unlockBtn').onclick=function(){
+    if(st.active === 'task'){
+        st.active = 'camp';
+    } else if(st.active === 'camp'){
+        st.active = 'unlocked';
+    } else if(st.active === 'unlocked'){
+        st.active = 'camp';
+    }
+    save();render();
+};
 $('img').addEventListener('change',function(){var f=this.files[0];if(!f)return;var rd=new FileReader();rd.onload=function(){st.img=rd.result;save();render()};rd.readAsDataURL(f)});
 $('clrImg').onclick=function(){st.img=null;save();render()};
 
@@ -620,7 +659,7 @@ $('taskModeBtn').addEventListener('click',function(){sidebar.classList.remove('o
 $('taskCancelBtn').addEventListener('click',closeTask);
 taskModalOverlay.addEventListener('click',function(e){if(e.target===taskModalOverlay)closeTask()});
 taskTimeInput.addEventListener('input',function(){taskError.hidden=true;taskError.textContent='';taskTimeInput.removeAttribute('aria-invalid')});
-function submitTask(){var parsed=parseRocTime(taskTimeInput.value);if(parsed===null){showError('請輸入正確的時間，例如：115/10/02 16:30');return}if(parsed<=Date.now()){showError('結束時間必須晚於現在。');return}if(st.active&&st.end&&parsed<st.end-59999){showError('任務模式進行中，結束時間只能延長。');return}st.end=parsed;st.active=true;st.start=st.start||Date.now();$('eIn').value=lim(st.end);save();render();closeTask()}
+function submitTask(){var parsed=parseRocTime(taskTimeInput.value);if(parsed===null){showError('請輸入正確的時間，例如：115/10/02 16:30');return}if(parsed<=Date.now()){showError('結束時間必須晚於現在。');return}if(st.active === 'task' && st.end && parsed<st.end-59999){showError('任務模式進行中，結束時間只能延長。');return}st.end=parsed;st.active='task';st.start=st.start||Date.now();$('eIn').value=lim(st.end);save();render();closeTask()}
 $('taskConfirmBtn').addEventListener('click',submitTask);
 taskTimeInput.addEventListener('keydown',function(e){if(e.key==='Enter')submitTask()});
 
