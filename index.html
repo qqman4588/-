@@ -106,9 +106,9 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 .bl-footer{position:absolute;bottom:16px;right:16px;font-size:.95rem;color:#000;font-weight:500;}
 
 /* 彈窗通用 */
-.modal-overlay{position:fixed;inset:0;z-index:4000;display:n54one;align-items:center;pxjustify-content:center;background:rg,ba(0,0,0,.5env);}
-.modal-overlay(s.open{display:flex;}
-.modalafe-card{width:80%;max-width:320px;background:#E8F7E8;border-radius:20px;padding:24px;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,.15);}
+.modal-overlay{position:fixed;inset:0;z-index:4000;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.5);}
+.modal-overlay.open{display:flex;}
+.modal-card{width:80%;max-width:320px;background:#E8F7E8;border-radius:20px;padding:24px;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,.15);}
 .modal-title{margin:0 0 12px;font-size:1.2rem;font-weight:bold;color:#000;text-align:left;}
 .modal-desc{margin:0 0 24px;font-size:1rem;color:#5C6A5D;text-align:left;line-height:1.5;font-weight:500;}
 .modal-btns{display:flex;gap:12px;justify-content:center;}
@@ -116,7 +116,7 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 .modal-btn-full{width:100%;background:#ccc;color:#000;}
 
 /* 任務模式彈窗 */
-#taskModalOverlay{position:fixed;inset:0;z-index:3000;display:none;align-items:flex-end;justify-content:center;padding:0 26px max(-area-inset-bottom));background:rgba(0,0,0,.65)}
+#taskModalOverlay{position:fixed;inset:0;z-index:3000;display:none;align-items:flex-end;justify-content:center;padding:0 26px max(54px,env(safe-area-inset-bottom));background:rgba(0,0,0,.65)}
 #taskModalOverlay.open{display:flex;animation:taskFade .25s ease-out}
 .task-modal-card{width:min(100%,520px);height:min(86vh,760px);max-height:calc(100dvh - 85px);overflow-y:auto;border-radius:8px;background:#E8F7E8;color:#111;padding:25px 10px 28px;box-shadow:0 8px 30px rgba(0,0,0,.15);animation:taskUp .34s cubic-bezier(.2,.8,.2,1)}
 .task-modal-title{margin:0;text-align:center;font-size:1.8rem;font-weight:800;line-height:1.25}
@@ -416,4 +416,229 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
             <div class="cvc-version-line">iOS MDM 最新版：<span id="cvcIosVersion">9.1</span></div>
             <div class="cvc-version-line">Android MDM 最新版：<span id="cvcAndroidVersion">9.1</span></div>
             <p class="cvc-desc" style="margin-top:24px;">目前版本已為最新，不需更新！</p>
-            <div
+            <div class="cvc-btns">
+                <button class="cvc-btn cvc-btn-full" id="cvcConfirmBtn">確定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 主畫面 -->
+<header>
+    <div class="menu" id="menuBtn"><i></i><i></i><i></i></div>
+    <span id="hd"></span>
+</header>
+<div class="ver" id="ver">iOS:摸魚版</div>
+<main>
+<p class="end" id="endText"></p>
+<div class="mode" id="modeText">摸魚模式</div>
+<div class="clock" id="clock"></div>
+<button class="btn" id="lockBtn" style="margin-bottom:26px"><span class="dot"></span><span id="lt"></span></button>
+<button class="btn" id="unlockBtn"><span class="dot"></span><span id="ut"></span></button>
+<div class="tag" id="tag">
+<div class="t1" id="t1">虛構休閒中心</div>
+<div class="t2" id="t2">摸魚器材標籤</div>
+<div class="sn" id="sn">MOYU000001</div>
+</div>
+<div class="info">上鎖時間:<span id="lockedAt"></span><br>設定檔:<span id="prof"></span></div>
+<div class="warn">仿冒必究</div>
+
+<section class="set">
+<h2>自訂設定</h2>
+<label>頂部標題</label><input id="ihd" value="國軍MDM V9.1">
+<label>設定檔文字</label><input id="iprof" value="V1.07(05/12 14:05:13)">
+<label>上鎖按鈕文字</label><input id="ilt" value="上鎖:進入管制模式">
+<label>解鎖按鈕文字</label><input id="iut" value="解鎖:離開管制模式">
+<label>右上角文字</label><input id="iver" value="iOS:26.1">
+<label>大標文字(原「摸魚模式」)</label><input id="imode" value="任務模式">
+<label>標籤文字顏色</label><input type="color" id="icolor" value="#000000">
+<label><input type="checkbox" id="iclear" style="width:auto" checked> 透明色(標籤文字隱形)</label>
+<label>標題(上)</label><input id="i1" value="虛構休閒中心">
+<label>標題(下)</label><input id="i2" value="摸魚器材標籤">
+<label>序號</label><input id="isn" value="MOYU000001">
+<label>標籤文字字型</label><select id="ftag"></select>
+<label>序號字型</label><select id="fsn"></select>
+<label>整體字型</label><select id="fall"></select>
+<label>標籤底圖(選你自己的圖片)</label><input type="file" id="img" accept="image/*">
+<button id="clrImg">清除底圖</button>
+<label>上鎖時間 (可輸入秒數，例如 2026-10-02 16:30:45)</label><input type="text" id="sIn" placeholder="2026-10-02 16:30:45">
+<label>結束時間 (僅到分鐘，例如 2026-10-02 16:30)</label><input type="text" id="eIn" placeholder="2026-10-02 16:30">
+<div class="hint">本頁為搞笑練習用,非任何真實系統畫面。設定儲存在瀏覽器中。</div>
+</section>
+</main>
+
+<script>
+(function(){
+var K='moyu.v25',st={start:null,end:null,active:true,t1:'虛構休閒中心',t2:'摸魚器材標籤',sn:'MOYU000001',ftag:0,fsn:0,fall:0,img:null,modeName:'任務模式',ver:'iOS:26.1',lt:'上鎖:進入管制模式',ut:'解鎖:離開管制模式',hd:'國軍MDM V9.1',prof:'V1.07(05/12 14:05:13)',color:'#000000',clear:true};
+var $=function(i){return document.getElementById(i)};
+var FONTS=[['標楷體','"DFKai-SB","BiauKai","標楷體","Kaiti TC",serif'],['楷體','"Kaiti TC","BiauKai","DFKai-SB",serif'],['黑體','-apple-system,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif'],['宋體','"Songti TC","PMingLiU",serif'],['圓體','"Yuanti TC","Arial Rounded MT Bold",sans-serif'],['等寬','ui-monospace,Menlo,monospace'],['Helvetica','"Helvetica Neue",Arial,sans-serif']];
+['ftag','fsn','fall'].forEach(function(id){FONTS.forEach(function(f,i){var o=document.createElement('option');o.value=i;o.textContent=f[0];$(id).appendChild(o)})});
+function load(){try{var s=localStorage.getItem(K);if(s)st=Object.assign(st,JSON.parse(s))}catch(e){}}
+function save(){try{localStorage.setItem(K,JSON.stringify(st))}catch(e){}}
+function p(n){return String(n).padStart(2,'0')}
+function roc(d){return(d.getFullYear()-1911)+'/'+p(d.getMonth()+1)+'/'+p(d.getDate())}
+function hm(d){return p(d.getHours())+':'+p(d.getMinutes())}
+function hms(d){return hm(d)+':'+p(d.getSeconds())}
+function li(ms){var d=new Date(ms);return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate())+' '+hms(d)}
+function lim(ms){var d=new Date(ms);return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate())+' '+hm(d)}
+function fi(v){if(!v)return null;var d=new Date(v.replace(' ','T'));return isNaN(d.getTime())?null:d.getTime()}
+function render(){
+var n=new Date(),r=document.documentElement.style;
+$('clock').textContent=roc(n)+' '+hms(n);
+// 大標題與上方結束時間文字連動
+if(st.active){
+    $('modeText').textContent=st.modeName;
+    if(st.end){var e=new Date(st.end);$('endText').textContent='結束時間:'+roc(e)+' '+hm(e)}
+    $('endText').classList.remove('small-text');
+}else{
+    $('modeText').textContent='太武營區';
+    $('endText').textContent='已上鎖，可進入此管制營區';
+    $('endText').classList.add('small-text');
+}
+r.setProperty('--taginkc',st.clear?'transparent':st.color);
+$('ver').textContent=st.ver;$('lt').textContent=st.lt;$('ut').textContent=st.ut;$('hd').textContent=st.hd;$('prof').textContent=st.prof;$('t1').textContent=st.t1;$('t2').textContent=st.t2;$('sn').textContent=st.sn;
+r.setProperty('--tagfont',FONTS[st.ftag][1]);
+r.setProperty('--serialfont',FONTS[st.fsn][1]);
+r.setProperty('--font',FONTS[st.fall][1]);
+r.setProperty('--tagbg',st.img?'url("'+st.img+'")':'none');
+if(st.start)$('lockedAt').textContent=roc(new Date(st.start))+' '+hms(new Date(st.start));
+// 上鎖按鈕顏色連動
+if(st.active){
+    $('lockBtn').style.color='#5f7d5a';
+}else{
+    $('lockBtn').style.color='#3c67f4';
+}
+var verEl=$('queryVersionInfo');
+if(verEl){var mdmVer=st.hd.replace('國軍MDM ','').replace('國軍MDM','').trim();var iosVer=st.ver.replace('iOS:','').trim();verEl.innerHTML='iOS:'+iosVer+'<br>MDM:'+mdmVer;}
+var versionMatch = st.hd.match(/(\d+(\.\d+)?)/);
+var versionNumber = versionMatch ? versionMatch[1] : '9.1';
+var elIos = $('cvcIosVersion');
+var elAndroid = $('cvcAndroidVersion');
+if(elIos) elIos.textContent = versionNumber;
+if(elAndroid) elAndroid.textContent = versionNumber;
+}
+load();if(!st.start)st.start=Date.now();if(!st.end)st.end=Date.now()+4*864e5;
+$('iver').value=st.ver;$('ilt').value=st.lt;$('iut').value=st.ut;$('ihd').value=st.hd;$('iprof').value=st.prof;$('imode').value=st.modeName;$('icolor').value=st.color;$('iclear').checked=!!st.clear;$('i1').value=st.t1;$('i2').value=st.t2;$('isn').value=st.sn;
+$('ftag').value=st.ftag;$('fsn').value=st.fsn;$('fall').value=st.fall;$('sIn').value=li(st.start);$('eIn').value=lim(st.end);
+[['ilt','lt'],['iut','ut'],['ihd','hd'],['iprof','prof'],['iver','ver'],['imode','modeName'],['i1','t1'],['i2','t2'],['isn','sn']].forEach(function(a){$(a[0]).addEventListener('input',function(){st[a[1]]=this.value;save();render()})});
+[['ftag','ftag'],['fsn','fsn'],['fall','fall']].forEach(function(a){$(a[0]).addEventListener('change',function(){st[a[1]]=+this.value;save();render()})});
+$('icolor').addEventListener('input',function(){st.color=this.value;save();render()});
+$('iclear').addEventListener('change',function(){st.clear=this.checked;save();render()});
+$('sIn').addEventListener('change',function(){var v=fi(this.value);if(v){st.start=v;save();render()}else{this.value=li(st.start)}});
+$('eIn').addEventListener('change',function(){var v=fi(this.value);if(v){st.end=v;save();render();this.value=lim(st.end)}else{this.value=lim(st.end)}});
+$('lockBtn').onclick=function(){st.active=true;save();render()};
+$('unlockBtn').onclick=function(){st.active=false;save();render()};
+$('img').addEventListener('change',function(){var f=this.files[0];if(!f)return;var rd=new FileReader();rd.onload=function(){st.img=rd.result;save();render()};rd.readAsDataURL(f)});
+$('clrImg').onclick=function(){st.img=null;save();render()};
+
+var menuBtn=document.getElementById('menuBtn'),sidebar=document.getElementById('sidebar'),overlay=document.getElementById('sidebar-overlay');
+menuBtn.addEventListener('click',function(){sidebar.classList.add('open');overlay.classList.add('open')});
+overlay.addEventListener('click',function(){sidebar.classList.remove('open');overlay.classList.remove('open')});
+document.getElementById('mdmHeader').addEventListener('click',function(){sidebar.classList.remove('open');overlay.classList.remove('open')});
+
+function openPanel(panelId){sidebar.classList.remove('open');overlay.classList.remove('open');document.getElementById(panelId).classList.add('open')}
+function closePanel(panelId){document.getElementById(panelId).classList.remove('open')}
+
+var queryPanel=$('query-panel'),queryOverlay=$('query-overlay'),queryBtn=$('queryBtn'),queryCloseBtn=$('queryCloseBtn'),doQueryBtn=$('doQueryBtn'),qStart=$('qStart'),qEnd=$('qEnd');
+function closeQuery(){closePanel('query-panel');document.getElementById('query-overlay').classList.remove('open')}
+$('queryCloseBtn').addEventListener('click',closeQuery);
+document.getElementById('query-overlay').addEventListener('click',closeQuery);
+function renderLogs(){
+var logList=$('logList'),now=new Date(),startDate=new Date(st.start||now.getTime()),endDate=new Date(st.end||now.getTime()+4*864e5);
+qStart.value=startDate.getFullYear()+'/'+p(startDate.getMonth()+1)+'/'+p(startDate.getDate())+' '+p(startDate.getHours())+':'+p(startDate.getMinutes())+':'+p(startDate.getSeconds());
+qEnd.value=endDate.getFullYear()+'/'+p(endDate.getMonth()+1)+'/'+p(endDate.getDate())+' '+p(endDate.getHours())+':'+p(endDate.getMinutes())+':'+p(endDate.getSeconds());
+function fmt(d){return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate())+' '+p(d.getHours())+':'+p(d.getMinutes())+':'+p(d.getSeconds())}
+var logs=[];
+logs.push({title:'事件：MDM 已啟動 (狀態:未上鎖)',time:fmt(new Date(startDate.getTime()-2*60*60*1000))});
+logs.push({title:'上鎖：常駐營區',time:fmt(new Date(startDate.getTime()-1*60*60*1000))});
+logs.push({title:'上鎖：'+st.modeName+' (時間)',time:fmt(startDate)});
+logs.push({title:'事件：開始解鎖 (快速)',time:fmt(new Date(startDate.getTime()+5*60*1000))});
+logs.push({title:'事件：解鎖成功',time:fmt(new Date(startDate.getTime()+15*60*1000))});
+if(st.end&&st.end>st.start){logs.push({title:'上鎖：常駐營區',time:fmt(new Date(st.end-60*60*1000))});logs.push({title:'事件：MDM 已啟動 (狀態:未上鎖)',time:fmt(new Date(st.end-30*60*1000))})}
+logs.reverse();
+var html='';for(var i=0;i<logs.length;i++){var log=logs[i];var num=1870+i*4;html+='<div class="log-item"><div class="log-title">'+num+'. '+log.title+'</div><div class="log-time">時間：'+log.time+'</div><div class="log-status">狀態：未上傳</div></div>'}
+logList.innerHTML=html;}
+queryBtn.addEventListener('click',function(){openPanel('query-panel');document.getElementById('query-overlay').classList.add('open');renderLogs()});
+doQueryBtn.addEventListener('click',function(){renderLogs()});
+
+$('locBtn').addEventListener('click',function(){openPanel('locPanel')});
+$('locCloseBtn').addEventListener('click',function(){closePanel('locPanel')});
+$('shipBtn').addEventListener('click',function(){openPanel('shipPanel')});
+$('shipCloseBtn').addEventListener('click',function(){closePanel('shipPanel')});
+$('deviceBtn').addEventListener('click',function(){openPanel('devicePanel')});
+$('deviceCloseBtn').addEventListener('click',function(){closePanel('devicePanel')});
+$('remindBtn').addEventListener('click',function(){openPanel('remindPanel')});
+$('remindCloseBtn').addEventListener('click',function(){closePanel('remindPanel')});
+
+var blModal=$('blacklistModal');
+var blPanel=$('blacklistPanel');
+var blSearchInput=$('blSearchInput');
+var blList=$('blList');
+
+$('blacklistBtn').addEventListener('click',function(){sidebar.classList.remove('open');overlay.classList.remove('open');blModal.classList.add('open')});
+$('blCancelBtn').addEventListener('click',function(){blModal.classList.remove('open')});
+$('blUpdateBtn').addEventListener('click',function(){blModal.classList.remove('open');blSearchInput.value='';filterBlList('');blPanel.classList.add('open')});
+$('blCloseBtn').addEventListener('click',function(){closePanel('blacklistPanel')});
+
+function filterBlList(keyword) {
+    var items = blList.querySelectorAll('.bl-item');
+    var count = 0;
+    items.forEach(function(item) {
+        if (item.textContent.includes(keyword)) { item.style.display = 'block'; count++; }
+        else { item.style.display = 'none'; }
+    });
+    var footer = blPanel.querySelector('.bl-footer');
+    if (footer) { footer.textContent = '共 ' + count + ' 筆 資料庫版本：V4.0'; }
+}
+blSearchInput.addEventListener('input', function() { filterBlList(this.value); });
+
+var cvcModal = $('versionCheckCivilModal');
+var cvcView1 = $('cvcView1');
+var cvcView2 = $('cvcView2');
+
+$('checkCivilVersionBtn').addEventListener('click', function() {
+    sidebar.classList.remove('open'); overlay.classList.remove('open');
+    cvcView1.style.display = 'block'; cvcView2.style.display = 'none';
+    cvcModal.classList.add('open');
+});
+$('cvcCancelBtn').addEventListener('click', function() { cvcModal.classList.remove('open'); });
+$('cvcCheckBtn').addEventListener('click', function() { cvcView1.style.display = 'none'; cvcView2.style.display = 'block'; });
+$('cvcConfirmBtn').addEventListener('click', function() { cvcModal.classList.remove('open'); });
+
+var taskModalOverlay=$('taskModalOverlay'),taskTimeInput=$('taskTimeInput'),taskError=$('taskError');
+function closeTask(){taskModalOverlay.classList.remove('open');taskError.hidden=true;taskError.textContent=''}
+function showError(text){taskError.textContent=text;taskError.hidden=false;taskTimeInput.setAttribute('aria-invalid','true')}
+function parseRocTime(value){
+    var match=value.trim().match(/^(\d{2,3})\/(\d{1,2})\/(\d{1,2})\s+(\d{1,2}):(\d{2})$/);
+    if(!match)return null;
+    var year=Number(match[1])+1911,month=Number(match[2]),day=Number(match[3]),hour=Number(match[4]),minute=Number(match[5]);
+    var d=new Date(year,month-1,day,hour,minute,0);
+    if(d.getFullYear()!==year||d.getMonth()!==month-1||d.getDate()!==day||d.getHours()!==hour||d.getMinutes()!==minute)return null;
+    return d.getTime();
+}
+$('taskModeBtn').addEventListener('click',function(){sidebar.classList.remove('open');overlay.classList.remove('open');var d=new Date(st.end||Date.now()+4*864e5);taskTimeInput.value=roc(d)+' '+hm(d);taskTimeInput.removeAttribute('aria-invalid');taskError.hidden=true;taskError.textContent='';taskModalOverlay.classList.add('open')});
+$('taskCancelBtn').addEventListener('click',closeTask);
+taskModalOverlay.addEventListener('click',function(e){if(e.target===taskModalOverlay)closeTask()});
+taskTimeInput.addEventListener('input',function(){taskError.hidden=true;taskError.textContent='';taskTimeInput.removeAttribute('aria-invalid')});
+function submitTask(){var parsed=parseRocTime(taskTimeInput.value);if(parsed===null){showError('請輸入正確的時間，例如：115/10/02 16:30');return}if(parsed<=Date.now()){showError('結束時間必須晚於現在。');return}if(st.active&&st.end&&parsed<st.end-59999){showError('任務模式進行中，結束時間只能延長。');return}st.end=parsed;st.active=true;st.start=st.start||Date.now();$('eIn').value=lim(st.end);save();render();closeTask()}
+$('taskConfirmBtn').addEventListener('click',submitTask);
+taskTimeInput.addEventListener('keydown',function(e){if(e.key==='Enter')submitTask()});
+
+var vcModal=$('versionCheckModal'),checkVersionBtn=$('checkVersionBtn'),vcCancelBtn=$('vcCancelBtn'),vcConfirmBtn1=$('vcConfirmBtn1'),vcConfirmBtn3=$('vcConfirmBtn3'),checkView1=$('checkView1'),checkView2=$('checkView2'),checkView3=$('checkView3'),vcTimer=null;
+function openVersionCheck(){checkView1.style.display='block';checkView2.style.display='none';checkView3.style.display='none';vcModal.classList.add('open');if(vcTimer)clearTimeout(vcTimer)}
+function closeVersionCheck(){vcModal.classList.remove('open');if(vcTimer)clearTimeout(vcTimer)}
+checkVersionBtn.addEventListener('click',function(){sidebar.classList.remove('open');overlay.classList.remove('open');openVersionCheck()});
+vcCancelBtn.addEventListener('click',closeVersionCheck);
+vcConfirmBtn1.addEventListener('click',function(){checkView1.style.display='none';checkView2.style.display='block';vcTimer=setTimeout(function(){checkView2.style.display='none';checkView3.style.display='block'},5000)});
+vcConfirmBtn3.addEventListener('click',closeVersionCheck);
+vcModal.addEventListener('click',function(e){if(e.target===vcModal&&checkView2.style.display==='none'){closeVersionCheck()}});
+
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeTask();closeQuery();closeVersionCheck();closePanel('locPanel');closePanel('shipPanel');closePanel('devicePanel');closePanel('remindPanel');closePanel('blacklistPanel');blModal.classList.remove('open');cvcModal.classList.remove('open');sidebar.classList.remove('open');overlay.classList.remove('open')}});
+
+taskModalOverlay.classList.remove('open');vcModal.classList.remove('open');cvcModal.classList.remove('open');queryPanel.classList.remove('open');queryOverlay.classList.remove('open');blModal.classList.remove('open');closePanel('locPanel');closePanel('shipPanel');closePanel('devicePanel');closePanel('remindPanel');closePanel('blacklistPanel');sidebar.classList.remove('open');overlay.classList.remove('open');
+
+render();setInterval(render,250);
+})();
+</script>
+</body>
+</html>
