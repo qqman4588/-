@@ -72,10 +72,10 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 .log-item .log-title{font-size:1.05rem;font-weight:400;color:#FE0000;margin-bottom:6px}
 .log-item .log-time,.log-item .log-status{font-size:1rem;color:#000;margin-bottom:4px}
 
-/* 1. 定位資訊 (字體變細) */
+/* 定位資訊 */
 .loc-item{margin-bottom:24px;font-size:1.3rem;font-weight:400;color:#000;text-align:left}
 
-/* 2. 船艦模式解鎖點列表 (藍色標題變細) */
+/* 船艦模式解鎖點列表 */
 .ship-section{margin-bottom:24px;text-align:left}
 .ship-title{color:#2e5cfa;font-size:1.2rem;font-weight:400;margin-bottom:6px}
 .ship-content{color:#000;font-size:1.05rem;line-height:1.6}
@@ -87,10 +87,28 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 .device-label{font-size:1rem;font-weight:600;color:#000}
 .device-value{font-size:1rem;color:#888;text-align:right;max-width:60%}
 
-/* 3. 設定上鎖提醒 (修正黑底與新增按鈕位置) */
+/* 設定上鎖提醒 */
 .remind-body{height:calc(100% - 70px);position:relative}
 .remind-text{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;font-size:1.1rem;font-weight:600;color:#000;line-height:1.6;width:80%}
 .remind-add-btn{position:absolute;bottom:0;left:0;right:0;background:#000;color:#fff;border:0;padding:16px 24px;font-size:1.1rem;font-weight:600;text-align:right;cursor:pointer}
+
+/* 黑名單 App 查詢 (列表界面) */
+.bl-search-bar{display:flex;align-items:center;background:#e8e8e8;border-radius:20px;padding:10px 16px;margin:16px;}
+.bl-search-icon{font-size:1.2rem;margin-right:8px;color:#888;}
+.bl-search-bar input{border:0;background:transparent;outline:none;font-size:1.1rem;width:100%;color:#000;font-family:inherit;}
+.bl-list{padding:0 16px;}
+.bl-item{padding:20px 0;font-size:1.2rem;font-weight:500;border-bottom:1px solid #eee;color:#000;}
+.bl-footer{position:absolute;bottom:16px;right:16px;font-size:.95rem;color:#000;font-weight:500;}
+
+/* 彈窗通用 */
+.modal-overlay{position:fixed;inset:0;z-index:4000;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.5);}
+.modal-overlay.open{display:flex;}
+.modal-card{width:80%;max-width:320px;background:#fff;border-radius:20px;padding:24px;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,.15);}
+.modal-title{margin:0 0 12px;font-size:1.2rem;font-weight:bold;color:#000;text-align:left;}
+.modal-desc{margin:0 0 24px;font-size:1rem;color:#333;text-align:left;line-height:1.5;font-weight:500;}
+.modal-btns{display:flex;gap:12px;justify-content:center;}
+.modal-btn{flex:1;padding:12px 0;border:0;border-radius:12px;font-size:1rem;font-weight:bold;cursor:pointer;background:#ccc;color:#000;}
+.modal-btn-full{width:100%;background:#ccc;color:#000;}
 
 /* 任務模式彈窗 */
 #taskModalOverlay{position:fixed;inset:0;z-index:3000;display:none;align-items:flex-end;justify-content:center;padding:0 26px max(54px,env(safe-area-inset-bottom));background:rgba(0,0,0,.65)}
@@ -158,7 +176,8 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
     <div class="mdm-group">其它</div>
     <div class="mdm-item">最新消息</div>
     <div class="mdm-item" id="deviceBtn">手機裝置資訊</div>
-    <div class="mdm-item disabled">黑名單 APP 查詢</div>
+    <!-- 黑名單改為可點擊 -->
+    <div class="mdm-item" id="blacklistBtn">黑名單 APP 查詢</div>
     <div class="mdm-item" id="locBtn">定位狀況查詢</div>
     <div class="mdm-item" id="shipBtn">船艦模式解鎖點列表</div>
     <div class="mdm-item">使用規範</div>
@@ -292,6 +311,36 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
     </div>
 </div>
 
+<!-- 黑名單 App 查詢 (列表界面) -->
+<div id="blacklistPanel" class="full-panel">
+    <div class="panel-header">
+        <div class="menu-btn" id="blCloseBtn"><i></i><i></i><i></i></div>
+        <span>黑名單 App 查詢</span>
+    </div>
+    <div class="bl-search-bar">
+        <span class="bl-search-icon">🔍</span>
+        <input type="text" id="blSearchInput" placeholder="輸入 App 名稱">
+    </div>
+    <div class="bl-list" id="blList">
+        <div class="bl-item">抖音</div>
+        <div class="bl-item">WeChat</div>
+        <div class="bl-item">小紅書</div>
+    </div>
+    <div class="bl-footer">共 3 筆 資料庫版本：V4.0</div>
+</div>
+
+<!-- 黑名單彈窗 (更新提示) -->
+<div id="blacklistModal" class="modal-overlay">
+    <div class="modal-card">
+        <h3 class="modal-title">提示</h3>
+        <p class="modal-desc">請問是否由民網更新黑名單 APP 列表 (需使用 Internet)</p>
+        <div class="modal-btns">
+            <button class="modal-btn" id="blCancelBtn">取消</button>
+            <button class="modal-btn" id="blUpdateBtn">更新</button>
+        </div>
+    </div>
+</div>
+
 <!-- 任務模式彈窗 -->
 <div id="taskModalOverlay">
     <div class="task-modal-card" role="dialog" aria-modal="true" aria-labelledby="taskTitle">
@@ -381,7 +430,7 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 
 <script>
 (function(){
-var K='moyu.v8',st={start:null,end:null,active:true,t1:'虛構休閒中心',t2:'摸魚器材標籤',sn:'MOYU000001',ftag:0,fsn:0,fall:0,img:null,modeName:'任務模式',ver:'iOS:26.1',lt:'上鎖:進入管制模式',ut:'解鎖:離開管制模式',hd:'國軍MDM V9.1',prof:'V1.07(05/12 14:05:13)',color:'#000000',clear:true};
+var K='moyu.v9',st={start:null,end:null,active:true,t1:'虛構休閒中心',t2:'摸魚器材標籤',sn:'MOYU000001',ftag:0,fsn:0,fall:0,img:null,modeName:'任務模式',ver:'iOS:26.1',lt:'上鎖:進入管制模式',ut:'解鎖:離開管制模式',hd:'國軍MDM V9.1',prof:'V1.07(05/12 14:05:13)',color:'#000000',clear:true};
 var $=function(i){return document.getElementById(i)};
 var FONTS=[['標楷體','"DFKai-SB","BiauKai","標楷體","Kaiti TC",serif'],['楷體','"Kaiti TC","BiauKai","DFKai-SB",serif'],['黑體','-apple-system,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif'],['宋體','"Songti TC","PMingLiU",serif'],['圓體','"Yuanti TC","Arial Rounded MT Bold",sans-serif'],['等寬','ui-monospace,Menlo,monospace'],['Helvetica','"Helvetica Neue",Arial,sans-serif']];
 ['ftag','fsn','fall'].forEach(function(id){FONTS.forEach(function(f,i){var o=document.createElement('option');o.value=i;o.textContent=f[0];$(id).appendChild(o)})});
@@ -471,6 +520,55 @@ $('deviceCloseBtn').addEventListener('click',function(){closePanel('devicePanel'
 $('remindBtn').addEventListener('click',function(){openPanel('remindPanel')});
 $('remindCloseBtn').addEventListener('click',function(){closePanel('remindPanel')});
 
+// 黑名單 App 查詢
+var blModal=$('blacklistModal');
+var blPanel=$('blacklistPanel');
+var blSearchInput=$('blSearchInput');
+var blList=$('blList');
+
+$('blacklistBtn').addEventListener('click',function(){
+    sidebar.classList.remove('open');
+    overlay.classList.remove('open');
+    blModal.classList.add('open');
+});
+
+$('blCancelBtn').addEventListener('click',function(){
+    blModal.classList.remove('open');
+});
+
+$('blUpdateBtn').addEventListener('click',function(){
+    blModal.classList.remove('open');
+    // 重置搜尋並顯示全部
+    blSearchInput.value = '';
+    filterBlList('');
+    blPanel.classList.add('open');
+});
+
+$('blCloseBtn').addEventListener('click',function(){
+    closePanel('blacklistPanel');
+});
+
+function filterBlList(keyword) {
+    var items = blList.querySelectorAll('.bl-item');
+    var count = 0;
+    items.forEach(function(item) {
+        if (item.textContent.includes(keyword)) {
+            item.style.display = 'block';
+            count++;
+        } else {
+            item.style.display = 'none';
+        }
+    });
+    var footer = blPanel.querySelector('.bl-footer');
+    if (footer) {
+        footer.textContent = '共 ' + count + ' 筆 資料庫版本：V4.0';
+    }
+}
+
+blSearchInput.addEventListener('input', function() {
+    filterBlList(this.value);
+});
+
 // 任務模式
 var taskModalOverlay=$('taskModalOverlay'),taskTimeInput=$('taskTimeInput'),taskError=$('taskError');
 function closeTask(){taskModalOverlay.classList.remove('open');taskError.hidden=true;taskError.textContent=''}
@@ -501,10 +599,10 @@ vcConfirmBtn1.addEventListener('click',function(){checkView1.style.display='none
 vcConfirmBtn3.addEventListener('click',closeVersionCheck);
 vcModal.addEventListener('click',function(e){if(e.target===vcModal&&checkView2.style.display==='none'){closeVersionCheck()}});
 
-document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeTask();closeQuery();closeVersionCheck();closePanel('locPanel');closePanel('shipPanel');closePanel('devicePanel');closePanel('remindPanel');sidebar.classList.remove('open');overlay.classList.remove('open')}});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeTask();closeQuery();closeVersionCheck();closePanel('locPanel');closePanel('shipPanel');closePanel('devicePanel');closePanel('remindPanel');closePanel('blacklistPanel');blModal.classList.remove('open');sidebar.classList.remove('open');overlay.classList.remove('open')}});
 
 // 強制初始化
-taskModalOverlay.classList.remove('open');vcModal.classList.remove('open');queryPanel.classList.remove('open');queryOverlay.classList.remove('open');closePanel('locPanel');closePanel('shipPanel');closePanel('devicePanel');closePanel('remindPanel');sidebar.classList.remove('open');overlay.classList.remove('open');
+taskModalOverlay.classList.remove('open');vcModal.classList.remove('open');queryPanel.classList.remove('open');queryOverlay.classList.remove('open');blModal.classList.remove('open');closePanel('locPanel');closePanel('shipPanel');closePanel('devicePanel');closePanel('remindPanel');closePanel('blacklistPanel');sidebar.classList.remove('open');overlay.classList.remove('open');
 
 render();setInterval(render,250);
 })();
