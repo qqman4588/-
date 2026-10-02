@@ -385,13 +385,13 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
     <div class="vc-card">
         <div id="checkView1" class="check-view">
             <h3 class="vc-title">提示</h3>
-            <p class="vc-desctry">請問您確定進行版本檢查嗎？</p{>
-            <div class="vc-btnsvar">
+            <p class="vc-desc">請問您確定進行版本檢查嗎？</p>
+            <div class="vc-btns">
                 <button class="vc-btn" id="vcCancelBtn">取消</button>
-                <button class="vc-btn" id="vcConfirmBtn1">確定</button s>
+                <button class="vc-btn" id="vcConfirmBtn1">確定</button>
             </div>
         </div>
-        <div id=="checkView2" class="check-viewlocal" style="display:none;padding:20px 0">
+        <div id="checkView2" class="check-view" style="display:none;padding:20px 0">
             <div class="vc-spinner"></div>
             <p class="vc-loading-text">正在與註冊電腦連線中，請稍等</p>
         </div>
@@ -482,11 +482,22 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 
 <script>
 (function(){
-var K='moyu.v30',st={start:null,end:null,active:'task',t1:'虛構休閒中心',t2:'摸魚器材標籤',sn:'MOYU000001',ftag:0,fsn:0,fall:0,img:null,modeName:'任務模式',ver:'iOS:26.1',lt:'上鎖:進入管制模式',ut:'解鎖:離開管制模式',hd:'國軍MDM V9.1',prof:'V1.07(05/12 14:05:13)',color:'#000000',clear:true};
+// 使用固定的儲存 Key，並加入自動遷移舊版設定的邏輯
+var K='moyu.settings';
+var st={start:null,end:null,active:'task',t1:'虛構休閒中心',t2:'摸魚器材標籤',sn:'MOYU000001',ftag:0,fsn:0,fall:0,img:null,modeName:'任務模式',ver:'iOS:26.1',lt:'上鎖:進入管制模式',ut:'解鎖:離開管制模式',hd:'國軍MDM V9.1',prof:'V1.07(05/12 14:05:13)',color:'#000000',clear:true};
 var $=function(i){return document.getElementById(i)};
 var FONTS=[['標楷體','"DFKai-SB","BiauKai","標楷體","Kaiti TC",serif'],['楷體','"Kaiti TC","BiauKai","DFKai-SB",serif'],['黑體','-apple-system,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif'],['宋體','"Songti TC","PMingLiU",serif'],['圓體','"Yuanti TC","Arial Rounded MT Bold",sans-serif'],['等寬','ui-monospace,Menlo,monospace'],['Helvetica','"Helvetica Neue",Arial,sans-serif']];
 ['ftag','fsn','fall'].forEach(function(id){FONTS.forEach(function(f,i){var o=document.createElement('option');o.value=i;o.textContent=f[0];$(id).appendChild(o)})});
-function load(){Storage.getItem(K);if(s)st=Object.assign(st,JSON.parse(s))}catch(e){}}
+function load(){
+    try{
+        var s=localStorage.getItem(K);
+        // 自動遷移舊版設定，避免設定跳回預設值
+        if(!s) s=localStorage.getItem('moyu.v30');
+        if(!s) s=localStorage.getItem('moyu.v29');
+        if(!s) s=localStorage.getItem('moyu.v28');
+        if(s) st=Object.assign(st,JSON.parse(s));
+    }catch(e){}
+}
 function save(){try{localStorage.setItem(K,JSON.stringify(st))}catch(e){}}
 function p(n){return String(n).padStart(2,'0')}
 function roc(d){return(d.getFullYear()-1911)+'/'+p(d.getMonth()+1)+'/'+p(d.getDate())}
