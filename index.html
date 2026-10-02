@@ -97,7 +97,8 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 .bl-search-icon{font-size:1.2rem;margin-right:8px;color:#888;}
 .bl-search-bar input{border:0;background:transparent;outline:none;font-size:1.1rem;width:100%;color:#000;font-family:inherit;}
 .bl-list{padding:0 16px;}
-.bl-item{padding:20px 0;font-size:1.2rem;font-weight:500;border-bottom:1px solid #eee;color:#000;}
+/* 1. 黑名單字體加粗 */
+.bl-item{padding:20px 0;font-size:1.2rem;font-weight:600;border-bottom:1px solid #eee;color:#000;}
 .bl-footer{position:absolute;bottom:16px;right:16px;font-size:.95rem;color:#000;font-weight:500;}
 
 /* 彈窗通用 */
@@ -131,7 +132,7 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 @media (prefers-reduced-motion:reduce){#taskModalOverlay.open,.task-modal-card{animation:none}}
 @media(max-width:639px){.desktop-break{display:none}}
 
-/* 版本檢查彈窗 */
+/* 版本檢查彈窗 (WiFi) */
 #versionCheckModal{position:fixed;inset:0;z-index:4000;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.5)}
 #versionCheckModal.open{display:flex}
 .vc-card{width:80%;max-width:320px;background:#fff;border-radius:20px;padding:24px;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,.15)}
@@ -143,6 +144,18 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 .vc-loading-text{margin-top:16px;font-size:1rem;font-weight:bold;color:#333}
 .vc-spinner{width:40px;height:40px;border:4px solid #ddd;border-top:4px solid #888;border-radius:50%;margin:0 auto;animation:vc-spin 1s linear infinite}
 @keyframes vc-spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+
+/* 版本檢查彈窗 (民網) */
+#versionCheckCivilModal{position:fixed;inset:0;z-index:4000;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.5)}
+#versionCheckCivilModal.open{display:flex}
+.cvc-card{width:85%;max-width:340px;background:#fff;border-radius:20px;padding:24px;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,.15);position:relative}
+.cvc-title{margin:0 0 16px;font-size:1.15rem;font-weight:bold;color:#000;text-align:left}
+.cvc-desc{margin:0 0 24px;font-size:1rem;color:#333;text-align:left;line-height:1.6;font-weight:500}
+.cvc-version-line{margin:6px 0;font-size:1rem;color:#333;text-align:left;font-weight:500}
+.cvc-version-line span{font-weight:bold;color:#000}
+.cvc-btns{display:flex;gap:12px;justify-content:center;margin-top:8px}
+.cvc-btn{flex:1;padding:12px 0;border:0;border-radius:12px;font-size:1rem;font-weight:bold;cursor:pointer;background:#ccc;color:#000}
+.cvc-btn-full{width:100%;background:#ccc;color:#000}
 </style>
 </head>
 <body>
@@ -167,7 +180,8 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
     <div class="mdm-item disabled">上傳 (WiFi)</div>
     <div class="mdm-group">註冊與版本檢查更新</div>
     <div class="mdm-item" id="checkVersionBtn">新版檢查 (WiFi)</div>
-    <div class="mdm-item">新版檢查 (民網)</div>
+    <!-- 2. 新版檢查 (民網) 改為可點擊 -->
+    <div class="mdm-item" id="checkCivilVersionBtn">新版檢查 (民網)</div>
     <div class="mdm-item">版本更新 (民網)</div>
     <div class="mdm-item">更新 MDM 設定 (WiFi)</div>
     <div class="mdm-item">註冊 (WiFi)</div>
@@ -176,7 +190,6 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
     <div class="mdm-group">其它</div>
     <div class="mdm-item">最新消息</div>
     <div class="mdm-item" id="deviceBtn">手機裝置資訊</div>
-    <!-- 黑名單改為可點擊 -->
     <div class="mdm-item" id="blacklistBtn">黑名單 APP 查詢</div>
     <div class="mdm-item" id="locBtn">定位狀況查詢</div>
     <div class="mdm-item" id="shipBtn">船艦模式解鎖點列表</div>
@@ -361,7 +374,7 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
     </div>
 </div>
 
-<!-- 版本檢查彈窗 -->
+<!-- 版本檢查彈窗 (WiFi) -->
 <div id="versionCheckModal">
     <div class="vc-card">
         <div id="checkView1" class="check-view">
@@ -380,6 +393,31 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
             <h3 class="vc-title">提示</h3>
             <p class="vc-desc">無法與註冊電腦連線，請檢查 WiFi 連線設定</p>
             <div class="vc-btns"><button class="vc-btn vc-btn-full" id="vcConfirmBtn3">確定</button></div>
+        </div>
+    </div>
+</div>
+
+<!-- 版本檢查彈窗 (民網) -->
+<div id="versionCheckCivilModal">
+    <div class="cvc-card">
+        <!-- 階段一：確認視窗 -->
+        <div id="cvcView1" class="cvc-view">
+            <h3 class="cvc-title">版本檢查 (民網)</h3>
+            <p class="cvc-desc">您現在要執行民網版本檢查嗎？</p>
+            <div class="cvc-btns">
+                <button class="cvc-btn" id="cvcCancelBtn">取消</button>
+                <button class="cvc-btn" id="cvcCheckBtn">版本檢查</button>
+            </div>
+        </div>
+        <!-- 階段二：結果視窗 -->
+        <div id="cvcView2" class="cvc-view" style="display:none;">
+            <h3 class="cvc-title">版本檢查 (民網)</h3>
+            <div class="cvc-version-line">iOS MDM 最新版：<span id="cvcIosVersion">9.1</span></div>
+            <div class="cvc-version-line">Android MDM 最新版：<span id="cvcAndroidVersion">9.1</span></div>
+            <p class="cvc-desc" style="margin-top:24px;">目前版本已為最新，不需更新！</p>
+            <div class="cvc-btns">
+                <button class="cvc-btn cvc-btn-full" id="cvcConfirmBtn">確定</button>
+            </div>
         </div>
     </div>
 </div>
@@ -430,7 +468,7 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 
 <script>
 (function(){
-var K='moyu.v9',st={start:null,end:null,active:true,t1:'虛構休閒中心',t2:'摸魚器材標籤',sn:'MOYU000001',ftag:0,fsn:0,fall:0,img:null,modeName:'任務模式',ver:'iOS:26.1',lt:'上鎖:進入管制模式',ut:'解鎖:離開管制模式',hd:'國軍MDM V9.1',prof:'V1.07(05/12 14:05:13)',color:'#000000',clear:true};
+var K='moyu.v10',st={start:null,end:null,active:true,t1:'虛構休閒中心',t2:'摸魚器材標籤',sn:'MOYU000001',ftag:0,fsn:0,fall:0,img:null,modeName:'任務模式',ver:'iOS:26.1',lt:'上鎖:進入管制模式',ut:'解鎖:離開管制模式',hd:'國軍MDM V9.1',prof:'V1.07(05/12 14:05:13)',color:'#000000',clear:true};
 var $=function(i){return document.getElementById(i)};
 var FONTS=[['標楷體','"DFKai-SB","BiauKai","標楷體","Kaiti TC",serif'],['楷體','"Kaiti TC","BiauKai","DFKai-SB",serif'],['黑體','-apple-system,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif'],['宋體','"Songti TC","PMingLiU",serif'],['圓體','"Yuanti TC","Arial Rounded MT Bold",sans-serif'],['等寬','ui-monospace,Menlo,monospace'],['Helvetica','"Helvetica Neue",Arial,sans-serif']];
 ['ftag','fsn','fall'].forEach(function(id){FONTS.forEach(function(f,i){var o=document.createElement('option');o.value=i;o.textContent=f[0];$(id).appendChild(o)})});
@@ -457,6 +495,14 @@ if(st.end){var e=new Date(st.end);$('endText').textContent='結束時間:'+roc(e
 if(st.start)$('lockedAt').textContent=roc(new Date(st.start))+' '+hms(new Date(st.start));
 var verEl=$('queryVersionInfo');
 if(verEl){var mdmVer=st.hd.replace('國軍MDM ','').replace('國軍MDM','').trim();var iosVer=st.ver.replace('iOS:','').trim();verEl.innerHTML='iOS:'+iosVer+'<br>MDM:'+mdmVer;}
+
+// 3. 版本連動：抓取 st.hd 中的數字
+var versionMatch = st.hd.match(/(\d+(\.\d+)?)/);
+var versionNumber = versionMatch ? versionMatch[1] : '9.1';
+var elIos = $('cvcIosVersion');
+var elAndroid = $('cvcAndroidVersion');
+if(elIos) elIos.textContent = versionNumber;
+if(elAndroid) elAndroid.textContent = versionNumber;
 }
 load();if(!st.start)st.start=Date.now();if(!st.end)st.end=Date.now()+4*864e5;
 $('iver').value=st.ver;$('ilt').value=st.lt;$('iut').value=st.ut;$('ihd').value=st.hd;$('iprof').value=st.prof;$('imode').value=st.modeName;$('icolor').value=st.color;$('iclear').checked=!!st.clear;$('i1').value=st.t1;$('i2').value=st.t2;$('isn').value=st.sn;
@@ -538,7 +584,6 @@ $('blCancelBtn').addEventListener('click',function(){
 
 $('blUpdateBtn').addEventListener('click',function(){
     blModal.classList.remove('open');
-    // 重置搜尋並顯示全部
     blSearchInput.value = '';
     filterBlList('');
     blPanel.classList.add('open');
@@ -569,6 +614,32 @@ blSearchInput.addEventListener('input', function() {
     filterBlList(this.value);
 });
 
+// 版本檢查 (民網)
+var cvcModal = $('versionCheckCivilModal');
+var cvcView1 = $('cvcView1');
+var cvcView2 = $('cvcView2');
+
+$('checkCivilVersionBtn').addEventListener('click', function() {
+    sidebar.classList.remove('open');
+    overlay.classList.remove('open');
+    cvcView1.style.display = 'block';
+    cvcView2.style.display = 'none';
+    cvcModal.classList.add('open');
+});
+
+$('cvcCancelBtn').addEventListener('click', function() {
+    cvcModal.classList.remove('open');
+});
+
+$('cvcCheckBtn').addEventListener('click', function() {
+    cvcView1.style.display = 'none';
+    cvcView2.style.display = 'block';
+});
+
+$('cvcConfirmBtn').addEventListener('click', function() {
+    cvcModal.classList.remove('open');
+});
+
 // 任務模式
 var taskModalOverlay=$('taskModalOverlay'),taskTimeInput=$('taskTimeInput'),taskError=$('taskError');
 function closeTask(){taskModalOverlay.classList.remove('open');taskError.hidden=true;taskError.textContent=''}
@@ -589,7 +660,7 @@ function submitTask(){var parsed=parseRocTime(taskTimeInput.value);if(parsed===n
 $('taskConfirmBtn').addEventListener('click',submitTask);
 taskTimeInput.addEventListener('keydown',function(e){if(e.key==='Enter')submitTask()});
 
-// 版本檢查
+// 版本檢查 (WiFi)
 var vcModal=$('versionCheckModal'),checkVersionBtn=$('checkVersionBtn'),vcCancelBtn=$('vcCancelBtn'),vcConfirmBtn1=$('vcConfirmBtn1'),vcConfirmBtn3=$('vcConfirmBtn3'),checkView1=$('checkView1'),checkView2=$('checkView2'),checkView3=$('checkView3'),vcTimer=null;
 function openVersionCheck(){checkView1.style.display='block';checkView2.style.display='none';checkView3.style.display='none';vcModal.classList.add('open');if(vcTimer)clearTimeout(vcTimer)}
 function closeVersionCheck(){vcModal.classList.remove('open');if(vcTimer)clearTimeout(vcTimer)}
@@ -599,10 +670,10 @@ vcConfirmBtn1.addEventListener('click',function(){checkView1.style.display='none
 vcConfirmBtn3.addEventListener('click',closeVersionCheck);
 vcModal.addEventListener('click',function(e){if(e.target===vcModal&&checkView2.style.display==='none'){closeVersionCheck()}});
 
-document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeTask();closeQuery();closeVersionCheck();closePanel('locPanel');closePanel('shipPanel');closePanel('devicePanel');closePanel('remindPanel');closePanel('blacklistPanel');blModal.classList.remove('open');sidebar.classList.remove('open');overlay.classList.remove('open')}});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeTask();closeQuery();closeVersionCheck();closePanel('locPanel');closePanel('shipPanel');closePanel('devicePanel');closePanel('remindPanel');closePanel('blacklistPanel');blModal.classList.remove('open');cvcModal.classList.remove('open');sidebar.classList.remove('open');overlay.classList.remove('open')}});
 
 // 強制初始化
-taskModalOverlay.classList.remove('open');vcModal.classList.remove('open');queryPanel.classList.remove('open');queryOverlay.classList.remove('open');blModal.classList.remove('open');closePanel('locPanel');closePanel('shipPanel');closePanel('devicePanel');closePanel('remindPanel');closePanel('blacklistPanel');sidebar.classList.remove('open');overlay.classList.remove('open');
+taskModalOverlay.classList.remove('open');vcModal.classList.remove('open');cvcModal.classList.remove('open');queryPanel.classList.remove('open');queryOverlay.classList.remove('open');blModal.classList.remove('open');closePanel('locPanel');closePanel('shipPanel');closePanel('devicePanel');closePanel('remindPanel');closePanel('blacklistPanel');sidebar.classList.remove('open');overlay.classList.remove('open');
 
 render();setInterval(render,250);
 })();
