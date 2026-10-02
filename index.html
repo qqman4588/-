@@ -14,11 +14,11 @@ header{background:#000;color:#fff;text-align:center;font-weight:600;font-size:1.
 .menu i{display:block;width:20px;height:3px;background:#fff;border-radius:2px}
 .ver{text-align:right;font-size:1.15rem;font-weight:500;padding:2px 12px 0 0;line-height:1.1}
 main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
-/* 結束時間文字（保持原大小） */
-.end{white-space:normal;font-size:min(2.4rem,6.6vw);font-weight:400;margin:0 0 40px;line-height:1.3;word-break:break-word}
+/* 結束時間文字（間距恢復為 v14 的 68px） */
+.end{white-space:normal;font-size:min(2.4rem,6.6vw);font-weight:400;margin:0 0 68px;line-height:1.15;word-break:break-word}
 /* 只有「已上鎖，可進入此管制營區」套用的小字體 class */
 .end.small-text{font-size:min(1.6rem, 4.5vw)}
-/* 中間大標題（恢復成 v14 的固定大小 4.5rem） */
+/* 中間大標題（維持 v14 的固定大小 4.5rem 與 60px 下間距） */
 .mode{font-size:4.5rem;font-weight:500;line-height:1.1;margin:0 0 60px;letter-spacing:.02em}
 .clock{white-space:nowrap;font-size:min(2.8rem,8.2vw);font-weight:800;font-variant-numeric:tabular-nums;margin:0 0 16px}
 .btn{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;border:0;border-radius:14px;background:#8fcc8f;font:inherit;font-size:1.3rem;padding:2px 18px;margin:0 auto 14px;cursor:pointer}
@@ -468,7 +468,7 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 
 <script>
 (function(){
-var K='moyu.v23',st={start:null,end:null,active:true,t1:'虛構休閒中心',t2:'摸魚器材標籤',sn:'MOYU000001',ftag:0,fsn:0,fall:0,img:null,modeName:'任務模式',ver:'iOS:26.1',lt:'上鎖:進入管制模式',ut:'解鎖:離開管制模式',hd:'國軍MDM V9.1',prof:'V1.07(05/12 14:05:13)',color:'#000000',clear:true};
+var K='moyu.v24',st={start:null,end:null,active:true,t1:'虛構休閒中心',t2:'摸魚器材標籤',sn:'MOYU000001',ftag:0,fsn:0,fall:0,img:null,modeName:'任務模式',ver:'iOS:26.1',lt:'上鎖:進入管制模式',ut:'解鎖:離開管制模式',hd:'國軍MDM V9.1',prof:'V1.07(05/12 14:05:13)',color:'#000000',clear:true};
 var $=function(i){return document.getElementById(i)};
 var FONTS=[['標楷體','"DFKai-SB","BiauKai","標楷體","Kaiti TC",serif'],['楷體','"Kaiti TC","BiauKai","DFKai-SB",serif'],['黑體','-apple-system,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif'],['宋體','"Songti TC","PMingLiU",serif'],['圓體','"Yuanti TC","Arial Rounded MT Bold",sans-serif'],['等寬','ui-monospace,Menlo,monospace'],['Helvetica','"Helvetica Neue",Arial,sans-serif']];
 ['ftag','fsn','fall'].forEach(function(id){FONTS.forEach(function(f,i){var o=document.createElement('option');o.value=i;o.textContent=f[0];$(id).appendChild(o)})});
