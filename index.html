@@ -449,10 +449,14 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/ROC_Military_Academy_Logo.svg/200px-ROC_Military_Academy_Logo.svg.png" alt="標籤圖片">
     </div>
 </div>
-<div class="info">上鎖時間:<span id="lockedAt"></span><br>設定檔:<span id="prof"></span></div>
-<div class="warn">仿冒必究</div>
+<!-- 上鎖時間加上 id 方便隱藏 -->
+<div class="info" id="infoBlock">
+    <span id="lockTimeBlock">上鎖時間:<span id="lockedAt"></span><br></span>
+    設定檔:<span id="prof"></span>
+</div>
+<div class="warn" id="warnText">仿冒必究</div>
 
-<section class="set">
+<section class="set" id="settingSection">
 <h2>自訂設定</h2>
 <label>頂部標題</label><input id="ihd" value="國軍MDM V9.1">
 <label>設定檔文字</label><input id="iprof" value="V1.07(05/12 14:05:13)">
@@ -478,7 +482,7 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 
 <script>
 (function(){
-var K='moyu.v28',st={start:null,end:null,active:'task',t1:'虛構休閒中心',t2:'摸魚器材標籤',sn:'MOYU000001',ftag:0,fsn:0,fall:0,img:null,modeName:'任務模式',ver:'iOS:26.1',lt:'上鎖:進入管制模式',ut:'解鎖:離開管制模式',hd:'國軍MDM V9.1',prof:'V1.07(05/12 14:05:13)',color:'#000000',clear:true};
+var K='moyu.v29',st={start:null,end:null,active:'task',t1:'虛構休閒中心',t2:'摸魚器材標籤',sn:'MOYU000001',ftag:0,fsn:0,fall:0,img:null,modeName:'任務模式',ver:'iOS:26.1',lt:'上鎖:進入管制模式',ut:'解鎖:離開管制模式',hd:'國軍MDM V9.1',prof:'V1.07(05/12 14:05:13)',color:'#000000',clear:true};
 var $=function(i){return document.getElementById(i)};
 var FONTS=[['標楷體','"DFKai-SB","BiauKai","標楷體","Kaiti TC",serif'],['楷體','"Kaiti TC","BiauKai","DFKai-SB",serif'],['黑體','-apple-system,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif'],['宋體','"Songti TC","PMingLiU",serif'],['圓體','"Yuanti TC","Arial Rounded MT Bold",sans-serif'],['等寬','ui-monospace,Menlo,monospace'],['Helvetica','"Helvetica Neue",Arial,sans-serif']];
 ['ftag','fsn','fall'].forEach(function(id){FONTS.forEach(function(f,i){var o=document.createElement('option');o.value=i;o.textContent=f[0];$(id).appendChild(o)})});
@@ -502,6 +506,11 @@ if(st.active === 'task'){
     r.setProperty('--bg', '#33ca33');
     $('tagText').style.display = 'block';
     $('tagImage').style.display = 'none';
+    $('infoBlock').style.display = 'block';
+    $('settingSection').style.backgroundColor = '#32CC33';
+    $('warnText').style.color = '#e00';
+    $('lockBtn').style.backgroundColor = '#8fcc8f';
+    $('unlockBtn').style.backgroundColor = '#8fcc8f';
 } else if(st.active === 'camp'){
     $('modeText').textContent='太武營區';
     $('endText').textContent='已上鎖，可進入此管制營區';
@@ -509,13 +518,24 @@ if(st.active === 'task'){
     r.setProperty('--bg', '#33ca33');
     $('tagText').style.display = 'block';
     $('tagImage').style.display = 'none';
+    $('infoBlock').style.display = 'block';
+    $('settingSection').style.backgroundColor = '#32CC33';
+    $('warnText').style.color = '#e00';
+    $('lockBtn').style.backgroundColor = '#8fcc8f';
+    $('unlockBtn').style.backgroundColor = '#8fcc8f';
 } else if(st.active === 'unlocked'){
     $('modeText').textContent='未上鎖';
     $('endText').textContent='未上鎖，不得進入管制營區！';
-    $('endText').classList.add('small-text');
+    $('endText').classList.remove('small-text');
     r.setProperty('--bg', '#FF0033');
     $('tagText').style.display = 'none';
     $('tagImage').style.display = 'block';
+    $('infoBlock').style.display = 'block'; // 為了顯示設定檔，僅隱藏上鎖時間
+    $('lockTimeBlock').style.display = 'none';
+    $('settingSection').style.backgroundColor = '#FF0032';
+    $('warnText').style.color = '#980033';
+    $('lockBtn').style.backgroundColor = '#E07A8F';
+    $('unlockBtn').style.backgroundColor = '#E07A8F';
 }
 r.setProperty('--taginkc',st.clear?'transparent':st.color);
 $('ver').textContent=st.ver;$('lt').textContent=st.lt;$('ut').textContent=st.ut;$('hd').textContent=st.hd;$('prof').textContent=st.prof;$('t1').textContent=st.t1;$('t2').textContent=st.t2;$('sn').textContent=st.sn;
