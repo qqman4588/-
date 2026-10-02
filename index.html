@@ -8,6 +8,7 @@
 :root{--bg:#33ca33;--taginkc:#000;--ink:#000;--font:-apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;--tagfont:"Kaiti TC","BiauKai","DFKai-SB",serif;--serialfont:-apple-system,"Helvetica Neue",Arial,sans-serif;--tagbg:none;box-sizing:border-box;padding-bottom:env(safe-area-inset-bottom,0px)}
 *{box-sizing:border-box}
 html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font-family:var(--font)}
+/* 主畫面 */
 header{background:#000;color:#fff;text-align:center;font-weight:600;font-size:1.2rem;padding:calc(16px + env(safe-area-inset-top,0px)) 16px 16px;position:relative;z-index:10}
 .menu{position:absolute;left:16px;bottom:12px;width:36px;height:36px;border-radius:50%;background:#1c1c1e;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:4px;cursor:pointer}
 .menu i{display:block;width:20px;height:3px;background:#fff;border-radius:2px}
@@ -44,14 +45,15 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 .mdm-item{padding:14px 16px;font-size:.95rem;border-bottom:1px solid #e0e0e0;color:#000;background:#fff;cursor:pointer}
 .mdm-item.disabled{color:#CCCCCC}
 
-/* 紀錄-查詢 頁面 */
-#query-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);z-index:2000;display:none;opacity:0;transition:opacity .3s ease}
-#query-overlay.open{display:block;opacity:1}
-#query-panel{position:fixed;top:0;right:-100%;width:100%;max-width:520px;height:100%;background:#fff;z-index:2001;overflow-y:auto;transition:right .3s ease-in-out;box-shadow:-2px 0 8px rgba(0,0,0,.2);font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;-webkit-overflow-scrolling:touch}
-#query-panel.open{right:0}
-.query-header{background:#000;color:#fff;text-align:center;font-weight:600;font-size:1.2rem;padding:calc(16px + env(safe-area-inset-top,0px)) 16px 16px;position:relative;display:flex;align-items:center;justify-content:center}
-.query-header .menu-btn{position:absolute;left:16px;top:50%;transform:translateY(-50%);width:36px;height:36px;border-radius:50%;background:#1c1c1e;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:4px;cursor:pointer}
-.query-header .menu-btn i{display:block;width:20px;height:3px;background:#fff;border-radius:2px}
+/* 通用全螢幕面板 (查詢、定位、船艦、裝置、提醒) */
+.full-panel{position:fixed;top:0;right:-100%;width:100%;max-width:520px;height:100%;background:#fff;z-index:2001;overflow-y:auto;transition:right .3s ease-in-out;box-shadow:-2px 0 8px rgba(0,0,0,.2);font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;-webkit-overflow-scrolling:touch}
+.full-panel.open{right:0}
+.panel-header{background:#000;color:#fff;text-align:center;font-weight:600;font-size:1.2rem;padding:calc(16px + env(safe-area-inset-top,0px)) 16px 16px;position:relative;display:flex;align-items:center;justify-content:center}
+.panel-header .menu-btn{position:absolute;left:16px;top:50%;transform:translateY(-50%);width:36px;height:36px;border-radius:50%;background:#1c1c1e;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:4px;cursor:pointer}
+.panel-header .menu-btn i{display:block;width:20px;height:3px;background:#fff;border-radius:2px}
+.panel-body{padding:20px;background:#fff}
+
+/* 紀錄-查詢 專屬樣式 */
 .query-form{padding:16px;background:#fff}
 .form-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
 .form-row .label{font-size:1.1rem;font-weight:500;color:#000}
@@ -69,6 +71,24 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 .log-item:last-child{border-bottom:0}
 .log-item .log-title{font-size:1.05rem;font-weight:400;color:#FE0000;margin-bottom:6px}
 .log-item .log-time,.log-item .log-status{font-size:1rem;color:#000;margin-bottom:4px}
+
+/* 定位資訊 */
+.loc-item{margin-bottom:24px;font-size:1.3rem;font-weight:600;color:#000;text-align:left}
+.loc-item span{color:#000}
+/* 船艦模式解鎖點列表 */
+.ship-section{margin-bottom:24px;text-align:left}
+.ship-title{color:#2e5cfa;font-size:1.2rem;font-weight:600;margin-bottom:6px}
+.ship-content{color:#000;font-size:1.05rem;line-height:1.6}
+/* 手機裝置資訊 */
+.device-card{background:#f7f7f7;border-radius:20px;padding:0 16px;margin-top:16px}
+.device-row{display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid #e0e0e0}
+.device-row:last-child{border-bottom:0}
+.device-label{font-size:1rem;font-weight:600;color:#000}
+.device-value{font-size:1rem;color:#888;text-align:right;max-width:60%}
+/* 設定上鎖提醒 */
+.remind-body{display:flex;flex-direction:column;height:calc(100% - 70px);position:relative}
+.remind-text{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;font-size:1.1rem;font-weight:600;color:#000;line-height:1.6;width:80%}
+.remind-add-btn{position:fixed;bottom:0;right:0;left:0;background:#000;color:#fff;border:0;padding:16px 24px;font-size:1.1rem;font-weight:600;text-align:right;cursor:pointer;z-index:2002}
 
 /* 任務模式彈窗 */
 #taskModalOverlay{position:fixed;inset:0;z-index:3000;display:none;align-items:flex-end;justify-content:center;padding:0 26px max(54px,env(safe-area-inset-bottom));background:rgba(0,0,0,.65)}
@@ -132,13 +152,13 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
     <div class="mdm-item">更新 MDM 設定 (WiFi)</div>
     <div class="mdm-item">註冊 (WiFi)</div>
     <div class="mdm-group">設定</div>
-    <div class="mdm-item">上鎖提醒設定</div>
+    <div class="mdm-item" id="remindBtn">上鎖提醒設定</div>
     <div class="mdm-group">其它</div>
     <div class="mdm-item">最新消息</div>
-    <div class="mdm-item">手機裝置資訊</div>
-    <div class="mdm-item">黑名單 APP 查詢</div>
-    <div class="mdm-item">定位狀況查詢</div>
-    <div class="mdm-item">船艦模式解鎖點列表</div>
+    <div class="mdm-item" id="deviceBtn">手機裝置資訊</div>
+    <div class="mdm-item disabled">黑名單 APP 查詢</div>
+    <div class="mdm-item" id="locBtn">定位狀況查詢</div>
+    <div class="mdm-item" id="shipBtn">船艦模式解鎖點列表</div>
     <div class="mdm-item">使用規範</div>
     <div class="mdm-item">隱私權宣告</div>
     <div class="mdm-item">安裝訊息加密軟體</div>
@@ -147,8 +167,8 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 
 <!-- 紀錄-查詢 -->
 <div id="query-overlay"></div>
-<div id="query-panel">
-    <div class="query-header">
+<div id="query-panel" class="full-panel">
+    <div class="panel-header">
         <div class="menu-btn" id="queryCloseBtn"><i></i><i></i><i></i></div>
         <span>紀錄-查詢</span>
     </div>
@@ -165,6 +185,109 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
         <div class="query-divider"></div>
     </div>
     <div class="log-list" id="logList"></div>
+</div>
+
+<!-- 定位資訊 -->
+<div id="locPanel" class="full-panel">
+    <div class="panel-header">
+        <div class="menu-btn" id="locCloseBtn"><i></i><i></i><i></i></div>
+        <span>定位資訊</span>
+    </div>
+    <div class="panel-body">
+        <div class="loc-item">更新時間:</div>
+        <div class="loc-item">定位狀況:未開始解鎖</div>
+        <div class="loc-item">定位時間:</div>
+        <div class="loc-item">定位誤差:</div>
+        <div class="loc-item">營區邊界範圍:</div>
+        <div class="loc-item">營區距離:</div>
+    </div>
+</div>
+
+<!-- 船艦模式解鎖點列表 -->
+<div id="shipPanel" class="full-panel">
+    <div class="panel-header">
+        <div class="menu-btn" id="shipCloseBtn"><i></i><i></i><i></i></div>
+        <span>船艦模式解鎖點列表</span>
+    </div>
+    <div class="panel-body">
+        <div class="ship-section">
+            <div class="ship-title">機場前廣場：</div>
+            <div class="ship-content">松山、花蓮、小港、南竿、金門、馬公。</div>
+        </div>
+        <div class="ship-section">
+            <div class="ship-title">高鐵站：</div>
+            <div class="ship-content">南港、臺北、桃園、新竹、苗栗、台中、彰化、雲林、嘉義、臺南、左營。</div>
+        </div>
+        <div class="ship-section">
+            <div class="ship-title">火車站：</div>
+            <div class="ship-content">基隆、臺北、桃園、新竹、台中、斗六、臺南、高雄、屏東、羅東、蘇澳、花蓮、臺東。</div>
+        </div>
+        <div class="ship-section">
+            <div class="ship-title">公路休息站：</div>
+            <div class="ship-content">
+                [國道1號]：中壢、湖口、泰安、西螺、新營、仁德。<br>
+                [國道3號]：關西、西湖、清水、南投、古坑、東山、關廟。<br>
+                [國道5號]：石碇、蘇澳。
+            </div>
+        </div>
+        <div class="ship-section">
+            <div class="ship-title">其他地點：</div>
+            <div class="ship-content">
+                [南投]：中興新村921紀念公園。<br>
+                [台9線]：王客休息站(屏東端)、南興休息站(台東端)。
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 手機裝置資訊 -->
+<div id="devicePanel" class="full-panel">
+    <div class="panel-header">
+        <div class="menu-btn" id="deviceCloseBtn"><i></i><i></i><i></i></div>
+        <span>手機裝置資訊</span>
+    </div>
+    <div class="panel-body" style="background:#e8e8e8;min-height:100%;">
+        <div class="device-card">
+            <div class="device-row">
+                <div class="device-label">設備類型</div>
+                <div class="device-value">iOS</div>
+            </div>
+            <div class="device-row">
+                <div class="device-label">設備型號</div>
+                <div class="device-value">iPhone14,7</div>
+            </div>
+            <div class="device-row">
+                <div class="device-label">設備序號</div>
+                <div class="device-value">27495141-EFDE-442D-8BBE-7DA20EC25A81</div>
+            </div>
+            <div class="device-row">
+                <div class="device-label">用戶名稱</div>
+                <div class="device-value">iPhone</div>
+            </div>
+            <div class="device-row">
+                <div class="device-label">用戶作業系統</div>
+                <div class="device-value">iOS 26.1</div>
+            </div>
+            <div class="device-row">
+                <div class="device-label">用戶帳號</div>
+                <div class="device-value">iPhone</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 設定上鎖提醒 -->
+<div id="remindPanel" class="full-panel">
+    <div class="panel-header">
+        <div class="menu-btn" id="remindCloseBtn"><i></i><i></i><i></i></div>
+        <span>設定上鎖提醒</span>
+    </div>
+    <div class="remind-body">
+        <div class="remind-text">
+            請點選右下方「新增」按鈕<br>設定提示上鎖時間
+        </div>
+        <button class="remind-add-btn">新增</button>
+    </div>
 </div>
 
 <!-- 任務模式彈窗 -->
@@ -248,15 +371,15 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 <label>整體字型</label><select id="fall"></select>
 <label>標籤底圖(選你自己的圖片)</label><input type="file" id="img" accept="image/*">
 <button id="clrImg">清除底圖</button>
-<label>上鎖時間 (YYYY-MM-DD HH:MM:SS)</label><input type="text" id="sIn" placeholder="2026-10-02 16:30:45">
-<label>結束時間 (YYYY-MM-DD HH:MM)</label><input type="text" id="eIn" placeholder="2026-10-02 16:30">
+<label>上鎖時間 (可輸入秒數，例如 2026-10-02 16:30:45)</label><input type="text" id="sIn" placeholder="2026-10-02 16:30:45">
+<label>結束時間 (僅到分鐘，例如 2026-10-02 16:30)</label><input type="text" id="eIn" placeholder="2026-10-02 16:30">
 <div class="hint">本頁為搞笑練習用,非任何真實系統畫面。設定儲存在瀏覽器中。</div>
 </section>
 </main>
 
 <script>
 (function(){
-var K='moyu.v5',st={start:null,end:null,active:true,t1:'虛構休閒中心',t2:'摸魚器材標籤',sn:'MOYU000001',ftag:0,fsn:0,fall:0,img:null,modeName:'任務模式',ver:'iOS:26.1',lt:'上鎖:進入管制模式',ut:'解鎖:離開管制模式',hd:'國軍MDM V9.1',prof:'V1.07(05/12 14:05:13)',color:'#000000',clear:true};
+var K='moyu.v7',st={start:null,end:null,active:true,t1:'虛構休閒中心',t2:'摸魚器材標籤',sn:'MOYU000001',ftag:0,fsn:0,fall:0,img:null,modeName:'任務模式',ver:'iOS:26.1',lt:'上鎖:進入管制模式',ut:'解鎖:離開管制模式',hd:'國軍MDM V9.1',prof:'V1.07(05/12 14:05:13)',color:'#000000',clear:true};
 var $=function(i){return document.getElementById(i)};
 var FONTS=[['標楷體','"DFKai-SB","BiauKai","標楷體","Kaiti TC",serif'],['楷體','"Kaiti TC","BiauKai","DFKai-SB",serif'],['黑體','-apple-system,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif'],['宋體','"Songti TC","PMingLiU",serif'],['圓體','"Yuanti TC","Arial Rounded MT Bold",sans-serif'],['等寬','ui-monospace,Menlo,monospace'],['Helvetica','"Helvetica Neue",Arial,sans-serif']];
 ['ftag','fsn','fall'].forEach(function(id){FONTS.forEach(function(f,i){var o=document.createElement('option');o.value=i;o.textContent=f[0];$(id).appendChild(o)})});
@@ -266,7 +389,6 @@ function p(n){return String(n).padStart(2,'0')}
 function roc(d){return(d.getFullYear()-1911)+'/'+p(d.getMonth()+1)+'/'+p(d.getDate())}
 function hm(d){return p(d.getHours())+':'+p(d.getMinutes())}
 function hms(d){return hm(d)+':'+p(d.getSeconds())}
-// li 包含秒，lim 不包含秒
 function li(ms){var d=new Date(ms);return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate())+' '+hms(d)}
 function lim(ms){var d=new Date(ms);return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate())+' '+hm(d)}
 function fi(v){if(!v)return null;var d=new Date(v.replace(' ','T'));return isNaN(d.getTime())?null:d.getTime()}
@@ -304,12 +426,17 @@ menuBtn.addEventListener('click',function(){sidebar.classList.add('open');overla
 overlay.addEventListener('click',function(){sidebar.classList.remove('open');overlay.classList.remove('open')});
 document.getElementById('mdmHeader').addEventListener('click',function(){sidebar.classList.remove('open');overlay.classList.remove('open')});
 
+// 通用面板開關邏輯
+function openPanel(panelId){sidebar.classList.remove('open');overlay.classList.remove('open');document.getElementById(panelId).classList.add('open')}
+function closePanel(panelId){document.getElementById(panelId).classList.remove('open')}
+
 // 查詢
-var queryPanel=document.getElementById('query-panel'),queryOverlay=document.getElementById('query-overlay'),queryBtn=document.getElementById('queryBtn'),queryCloseBtn=document.getElementById('queryCloseBtn'),doQueryBtn=document.getElementById('doQueryBtn'),qStart=document.getElementById('qStart'),qEnd=document.getElementById('qEnd');
-function closeQuery(){queryPanel.classList.remove('open');queryOverlay.classList.remove('open')}
-queryCloseBtn.addEventListener('click',closeQuery);queryOverlay.addEventListener('click',closeQuery);
+var queryPanel=$('query-panel'),queryOverlay=$('query-overlay'),queryBtn=$('queryBtn'),queryCloseBtn=$('queryCloseBtn'),doQueryBtn=$('doQueryBtn'),qStart=$('qStart'),qEnd=$('qEnd');
+function closeQuery(){closePanel('query-panel');document.getElementById('query-overlay').classList.remove('open')}
+$('queryCloseBtn').addEventListener('click',closeQuery);
+document.getElementById('query-overlay').addEventListener('click',closeQuery);
 function renderLogs(){
-var logList=document.getElementById('logList'),now=new Date(),startDate=new Date(st.start||now.getTime()),endDate=new Date(st.end||now.getTime()+4*864e5);
+var logList=$('logList'),now=new Date(),startDate=new Date(st.start||now.getTime()),endDate=new Date(st.end||now.getTime()+4*864e5);
 qStart.value=startDate.getFullYear()+'/'+p(startDate.getMonth()+1)+'/'+p(startDate.getDate())+' '+p(startDate.getHours())+':'+p(startDate.getMinutes())+':'+p(startDate.getSeconds());
 qEnd.value=endDate.getFullYear()+'/'+p(endDate.getMonth()+1)+'/'+p(endDate.getDate())+' '+p(endDate.getHours())+':'+p(endDate.getMinutes())+':'+p(endDate.getSeconds());
 function fmt(d){return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate())+' '+p(d.getHours())+':'+p(d.getMinutes())+':'+p(d.getSeconds())}
@@ -323,19 +450,34 @@ if(st.end&&st.end>st.start){logs.push({title:'上鎖：常駐營區',time:fmt(ne
 logs.reverse();
 var html='';for(var i=0;i<logs.length;i++){var log=logs[i];var num=1870+i*4;html+='<div class="log-item"><div class="log-title">'+num+'. '+log.title+'</div><div class="log-time">時間：'+log.time+'</div><div class="log-status">狀態：未上傳</div></div>'}
 logList.innerHTML=html;}
-queryBtn.addEventListener('click',function(){sidebar.classList.remove('open');overlay.classList.remove('open');queryPanel.classList.add('open');queryOverlay.classList.add('open');renderLogs()});
+queryBtn.addEventListener('click',function(){openPanel('query-panel');document.getElementById('query-overlay').classList.add('open');renderLogs()});
 doQueryBtn.addEventListener('click',function(){renderLogs()});
+
+// 定位資訊
+$('locBtn').addEventListener('click',function(){openPanel('locPanel')});
+$('locCloseBtn').addEventListener('click',function(){closePanel('locPanel')});
+
+// 船艦模式解鎖點列表
+$('shipBtn').addEventListener('click',function(){openPanel('shipPanel')});
+$('shipCloseBtn').addEventListener('click',function(){closePanel('shipPanel')});
+
+// 手機裝置資訊
+$('deviceBtn').addEventListener('click',function(){openPanel('devicePanel')});
+$('deviceCloseBtn').addEventListener('click',function(){closePanel('devicePanel')});
+
+// 設定上鎖提醒
+$('remindBtn').addEventListener('click',function(){openPanel('remindPanel')});
+$('remindCloseBtn').addEventListener('click',function(){closePanel('remindPanel')});
 
 // 任務模式
 var taskModalOverlay=$('taskModalOverlay'),taskTimeInput=$('taskTimeInput'),taskError=$('taskError');
 function closeTask(){taskModalOverlay.classList.remove('open');taskError.hidden=true;taskError.textContent=''}
 function showError(text){taskError.textContent=text;taskError.hidden=false;taskTimeInput.setAttribute('aria-invalid','true')}
 function parseRocTime(value){
-    // 只匹配到分鐘，不包含秒
     var match=value.trim().match(/^(\d{2,3})\/(\d{1,2})\/(\d{1,2})\s+(\d{1,2}):(\d{2})$/);
     if(!match)return null;
     var year=Number(match[1])+1911,month=Number(match[2]),day=Number(match[3]),hour=Number(match[4]),minute=Number(match[5]);
-    var d=new Date(year,month-1,day,hour,minute,0); // 秒數固定為 0
+    var d=new Date(year,month-1,day,hour,minute,0);
     if(d.getFullYear()!==year||d.getMonth()!==month-1||d.getDate()!==day||d.getHours()!==hour||d.getMinutes()!==minute)return null;
     return d.getTime();
 }
@@ -348,7 +490,7 @@ $('taskConfirmBtn').addEventListener('click',submitTask);
 taskTimeInput.addEventListener('keydown',function(e){if(e.key==='Enter')submitTask()});
 
 // 版本檢查
-var vcModal=document.getElementById('versionCheckModal'),checkVersionBtn=document.getElementById('checkVersionBtn'),vcCancelBtn=document.getElementById('vcCancelBtn'),vcConfirmBtn1=document.getElementById('vcConfirmBtn1'),vcConfirmBtn3=document.getElementById('vcConfirmBtn3'),checkView1=document.getElementById('checkView1'),checkView2=document.getElementById('checkView2'),checkView3=document.getElementById('checkView3'),vcTimer=null;
+var vcModal=$('versionCheckModal'),checkVersionBtn=$('checkVersionBtn'),vcCancelBtn=$('vcCancelBtn'),vcConfirmBtn1=$('vcConfirmBtn1'),vcConfirmBtn3=$('vcConfirmBtn3'),checkView1=$('checkView1'),checkView2=$('checkView2'),checkView3=$('checkView3'),vcTimer=null;
 function openVersionCheck(){checkView1.style.display='block';checkView2.style.display='none';checkView3.style.display='none';vcModal.classList.add('open');if(vcTimer)clearTimeout(vcTimer)}
 function closeVersionCheck(){vcModal.classList.remove('open');if(vcTimer)clearTimeout(vcTimer)}
 checkVersionBtn.addEventListener('click',function(){sidebar.classList.remove('open');overlay.classList.remove('open');openVersionCheck()});
@@ -357,10 +499,10 @@ vcConfirmBtn1.addEventListener('click',function(){checkView1.style.display='none
 vcConfirmBtn3.addEventListener('click',closeVersionCheck);
 vcModal.addEventListener('click',function(e){if(e.target===vcModal&&checkView2.style.display==='none'){closeVersionCheck()}});
 
-document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeTask();closeQuery();closeVersionCheck();sidebar.classList.remove('open');overlay.classList.remove('open')}});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeTask();closeQuery();closeVersionCheck();closePanel('locPanel');closePanel('shipPanel');closePanel('devicePanel');closePanel('remindPanel');sidebar.classList.remove('open');overlay.classList.remove('open')}});
 
 // 強制初始化
-taskModalOverlay.classList.remove('open');vcModal.classList.remove('open');queryPanel.classList.remove('open');queryOverlay.classList.remove('open');sidebar.classList.remove('open');overlay.classList.remove('open');
+taskModalOverlay.classList.remove('open');vcModal.classList.remove('open');queryPanel.classList.remove('open');queryOverlay.classList.remove('open');closePanel('locPanel');closePanel('shipPanel');closePanel('devicePanel');closePanel('remindPanel');sidebar.classList.remove('open');overlay.classList.remove('open');
 
 render();setInterval(render,250);
 })();
