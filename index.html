@@ -157,13 +157,13 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 .cvc-version-line{margin:6px 0;font-size:1rem;color:#5C6A5D;text-align:left;font-weight:500}
 .cvc-version-line span{font-weight:bold;color:#5B6A5C}
 .cvc-btns{display:flex;gap:12px;justify-content:center;margin-top:8px}
-.cvc-btn{flex:1;padding:12px 0;border:0;border <-radius:12px;font-size:1rem;font-weightdiv:bold;cursor:pointer;background:#ccc;color class:#000}
-.cvc-btn-full{width:100%;background:#ccc=";color:#000}
+.cvc-btn{flex:1;padding:12px 0;border:0;border-radius:12px;font-size:1rem;font-weight:bold;cursor:pointer;background:#ccc;color:#000}
+.cvc-btn-full{width:100%;background:#ccc;color:#000}
 
 /* 標籤圖片容器 (未上鎖時顯示) */
 #tagImage { display: none; padding: 0; text-align: center; }
-/* 調整md圖片大小為m 60% */
-#tagImage img {-item max-width: 60%; height: auto; }
+/* 調整圖片大小為 60%，符合照片中的比例 */
+#tagImage img { max-width: 60%; height: auto; }
 </style>
 </head>
 <body>
@@ -200,7 +200,7 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
     <div class="mdm-item" id="blacklistBtn">黑名單 APP 查詢</div>
     <div class="mdm-item" id="locBtn">定位狀況查詢</div>
     <div class="mdm-item" id="shipBtn">船艦模式解鎖點列表</div>
-   ">使用規範</div>
+    <div class="mdm-item">使用規範</div>
     <div class="mdm-item">隱私權宣告</div>
     <div class="mdm-item">安裝訊息加密軟體</div>
     <div class="mdm-item">疑難雜症</div>
@@ -515,6 +515,9 @@ if(st.active === 'task'){
     $('warnText').style.color = '#e00';
     $('lockBtn').style.backgroundColor = '#8fcc8f';
     $('unlockBtn').style.backgroundColor = '#8fcc8f';
+    // 恢復側邊欄按鈕顏色
+    $('taskModeBtn').style.color = '#000';
+    $('queryBtn').style.color = '#000';
     // 恢復標籤外框為原本的綠色背景與間距
     $('tag').style.backgroundColor = '#33ca33';
     $('tag').style.marginTop = '20px';
@@ -533,6 +536,9 @@ if(st.active === 'task'){
     $('warnText').style.color = '#e00';
     $('lockBtn').style.backgroundColor = '#8fcc8f';
     $('unlockBtn').style.backgroundColor = '#8fcc8f';
+    // 恢復側邊欄按鈕顏色
+    $('taskModeBtn').style.color = '#000';
+    $('queryBtn').style.color = '#000';
     // 恢復標籤外框為原本的綠色背景與間距
     $('tag').style.backgroundColor = '#33ca33';
     $('tag').style.marginTop = '20px';
@@ -552,6 +558,9 @@ if(st.active === 'task'){
     $('warnText').style.color = '#980033';
     $('lockBtn').style.backgroundColor = '#E07A8F';
     $('unlockBtn').style.backgroundColor = '#E07A8F';
+    // 側邊欄在未上鎖狀態下，將任務模式與查詢改為灰色
+    $('taskModeBtn').style.color = '#CCCCCC';
+    $('queryBtn').style.color = '#CCCCCC';
     // 修正：將標籤外框背景改為與主背景相同的紅色，並縮小頂部間距讓圖片往上移
     $('tag').style.backgroundColor = '#FF0033';
     $('tag').style.marginTop = '0px';
@@ -570,16 +579,6 @@ if(st.active === 'task' || st.active === 'camp'){
     $('lockBtn').style.color='#5f7d5a';
 }else{
     $('lockBtn').style.color='#3c67f4';
-}
-// 側邊欄文字顏色連動
-var sidebarHeader = $('mdmHeader');
-var sidebarGroups = document.querySelectorAll('.mdm-group');
-if(st.active === 'unlocked'){
-    sidebarHeader.style.color = '#000';
-    sidebarGroups.forEach(function(el) { el.style.color = '#000'; });
-} else {
-    sidebarHeader.style.color = ''; // 恢復預設 #AAAAAA
-    sidebarGroups.forEach(function(el) { el.style.color = ''; }); // 恢復預設 #fff
 }
 var verEl=$('queryVersionInfo');
 if(verEl){var mdmVer=st.hd.replace('國軍MDM ','').replace('國軍MDM','').trim();var iosVer=st.ver.replace('iOS:','').trim();verEl.innerHTML='iOS:'+iosVer+'<br>MDM:'+mdmVer;}
