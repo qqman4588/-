@@ -170,11 +170,11 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
     <div class="mdm-item disabled">常駐營區</div>
     <div class="mdm-item disabled">出差 (WiFi)</div>
     <div class="mdm-item disabled">出差 (QRCode)</div>
-    <div class="mdm-item disabled">近期到訪營區</div>
-    <div class="mdm-item disabled">船艦模式</div>
-    <div class="mdm-item bold" id="taskModeBtn">任務模式</div>
-    <div class="mdm-item disabled">轉換一般營區</div>
-    <div class="mdm-group">解鎖</div>
+    <div class="mdm-item disabled">近期到訪營區</div   >
+    <div class="mdm <-item disabled">船艦模式</div>
+    <div class="mdmdiv-item bold" id="taskModeBtn">任務模式</div class>
+    <div class="mdm-item disabled">轉換="一般營區</div>
+    <div classmd="mdm-group">解鎖</div>
     <div class="mdm-item disabled">定點解鎖</div>
     <div class="mdm-item disabled">密碼解鎖</div>
     <div class="mdm-group">紀錄</div>
@@ -189,7 +189,7 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
     <div class="mdm-group">設定</div>
     <div class="mdm-item" id="remindBtn">上鎖提醒設定</div>
     <div class="mdm-group">其它</div>
-    <div class="mdm-item">最新消息</div>
+m-item">最新消息</div>
     <div class="mdm-item" id="deviceBtn">手機裝置資訊</div>
     <div class="mdm-item" id="blacklistBtn">黑名單 APP 查詢</div>
     <div class="mdm-item" id="locBtn">定位狀況查詢</div>
@@ -467,7 +467,7 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 
 <script>
 (function(){
-var K='moyu.v14',st={start:null,end:null,active:true,t1:'虛構休閒中心',t2:'摸魚器材標籤',sn:'MOYU000001',ftag:0,fsn:0,fall:0,img:null,modeName:'任務模式',ver:'iOS:26.1',lt:'上鎖:進入管制模式',ut:'解鎖:離開管制模式',hd:'國軍MDM V9.1',prof:'V1.07(05/12 14:05:13)',color:'#000000',clear:true};
+var K='moyu.v15',st={start:null,end:null,active:true,t1:'虛構休閒中心',t2:'摸魚器材標籤',sn:'MOYU000001',ftag:0,fsn:0,fall:0,img:null,modeName:'任務模式',ver:'iOS:26.1',lt:'上鎖:進入管制模式',ut:'解鎖:離開管制模式',hd:'國軍MDM V9.1',prof:'V1.07(05/12 14:05:13)',color:'#000000',clear:true};
 var $=function(i){return document.getElementById(i)};
 var FONTS=[['標楷體','"DFKai-SB","BiauKai","標楷體","Kaiti TC",serif'],['楷體','"Kaiti TC","BiauKai","DFKai-SB",serif'],['黑體','-apple-system,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif'],['宋體','"Songti TC","PMingLiU",serif'],['圓體','"Yuanti TC","Arial Rounded MT Bold",sans-serif'],['等寬','ui-monospace,Menlo,monospace'],['Helvetica','"Helvetica Neue",Arial,sans-serif']];
 ['ftag','fsn','fall'].forEach(function(id){FONTS.forEach(function(f,i){var o=document.createElement('option');o.value=i;o.textContent=f[0];$(id).appendChild(o)})});
@@ -483,17 +483,22 @@ function fi(v){if(!v)return null;var d=new Date(v.replace(' ','T'));return isNaN
 function render(){
 var n=new Date(),r=document.documentElement.style;
 $('clock').textContent=roc(n)+' '+hms(n);
-// 大標題：任務模式啟用時顯示模式名稱，未啟用時顯示「太武營區」
-$('modeText').textContent=st.active?st.modeName:'太武營區';
+// 大標題與上方結束時間文字連動
+if(st.active){
+    $('modeText').textContent=st.modeName;
+    if(st.end){var e=new Date(st.end);$('endText').textContent='結束時間:'+roc(e)+' '+hm(e)}
+}else{
+    $('modeText').textContent='太武營區';
+    $('endText').textContent='已上鎖，可進入此管制營區';
+}
 r.setProperty('--taginkc',st.clear?'transparent':st.color);
 $('ver').textContent=st.ver;$('lt').textContent=st.lt;$('ut').textContent=st.ut;$('hd').textContent=st.hd;$('prof').textContent=st.prof;$('t1').textContent=st.t1;$('t2').textContent=st.t2;$('sn').textContent=st.sn;
 r.setProperty('--tagfont',FONTS[st.ftag][1]);
 r.setProperty('--serialfont',FONTS[st.fsn][1]);
 r.setProperty('--font',FONTS[st.fall][1]);
 r.setProperty('--tagbg',st.img?'url("'+st.img+'")':'none');
-if(st.end){var e=new Date(st.end);$('endText').textContent='結束時間:'+roc(e)+' '+hm(e)}
 if(st.start)$('lockedAt').textContent=roc(new Date(st.start))+' '+hms(new Date(st.start));
-// 按鈕顏色：任務模式時上鎖按鈕為灰色，非任務模式時為藍色
+// 上鎖按鈕顏色連動
 if(st.active){
     $('lockBtn').style.color='#5f7d5a';
 }else{
