@@ -80,14 +80,14 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 .ship-title{color:#2e5cfa;font-size:1.2rem;font-weight:400;margin-bottom:6px}
 .ship-content{color:#000;font-size:1.05rem;line-height:1.6}
 
-/* 手機裝置資訊 (1. 黑字改細體) */
+/* 手機裝置資訊 */
 .device-card{background:#f7f7f7;border-radius:20px;padding:0 16px;margin-top:16px}
 .device-row{display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid #e0e0e0}
 .device-row:last-child{border-bottom:0}
 .device-label{font-size:1rem;font-weight:400;color:#000}
 .device-value{font-size:1rem;color:#888;text-align:right;max-width:60%}
 
-/* 設定上鎖提醒 (2. 黑字改細體) */
+/* 設定上鎖提醒 */
 .remind-body{height:calc(100% - 70px);position:relative}
 .remind-text{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;font-size:1.1rem;font-weight:400;color:#000;line-height:1.6;width:80%}
 .remind-add-btn{position:absolute;bottom:0;left:0;right:0;background:#000;color:#fff;border:0;padding:16px 24px;font-size:1.1rem;font-weight:600;text-align:right;cursor:pointer}
@@ -100,7 +100,7 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 .bl-item{padding:20px 0;font-size:1.2rem;font-weight:600;border-bottom:1px solid #eee;color:#000;}
 .bl-footer{position:absolute;bottom:16px;right:16px;font-size:.95rem;color:#000;font-weight:500;}
 
-/* 彈窗通用 (3. 背景改 #E8F7E8，灰色字改 #5C6A5D) */
+/* 彈窗通用 */
 .modal-overlay{position:fixed;inset:0;z-index:4000;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.5);}
 .modal-overlay.open{display:flex;}
 .modal-card{width:80%;max-width:320px;background:#E8F7E8;border-radius:20px;padding:24px;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,.15);}
@@ -148,9 +148,12 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 #versionCheckCivilModal{position:fixed;inset:0;z-index:4000;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.5)}
 #versionCheckCivilModal.open{display:flex}
 .cvc-card{width:85%;max-width:340px;background:#E8F7E8;border-radius:20px;padding:24px;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,.15);position:relative}
+/* 「版本檢查 (民網)」標題保持粗體 */
 .cvc-title{margin:0 0 16px;font-size:1.15rem;font-weight:bold;color:#000;text-align:left}
+/* 說明文字與版本行維持原本字重 */
 .cvc-desc{margin:0 0 24px;font-size:1rem;color:#5C6A5D;text-align:left;line-height:1.6;font-weight:500}
 .cvc-version-line{margin:6px 0;font-size:1rem;color:#5C6A5D;text-align:left;font-weight:500}
+/* 版本數字顏色維持黑色 */
 .cvc-version-line span{font-weight:bold;color:#000}
 .cvc-btns{display:flex;gap:12px;justify-content:center;margin-top:8px}
 .cvc-btn{flex:1;padding:12px 0;border:0;border-radius:12px;font-size:1rem;font-weight:bold;cursor:pointer;background:#ccc;color:#000}
@@ -464,7 +467,7 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 
 <script>
 (function(){
-var K='moyu.v11',st={start:null,end:null,active:true,t1:'虛構休閒中心',t2:'摸魚器材標籤',sn:'MOYU000001',ftag:0,fsn:0,fall:0,img:null,modeName:'任務模式',ver:'iOS:26.1',lt:'上鎖:進入管制模式',ut:'解鎖:離開管制模式',hd:'國軍MDM V9.1',prof:'V1.07(05/12 14:05:13)',color:'#000000',clear:true};
+var K='moyu.v14',st={start:null,end:null,active:true,t1:'虛構休閒中心',t2:'摸魚器材標籤',sn:'MOYU000001',ftag:0,fsn:0,fall:0,img:null,modeName:'任務模式',ver:'iOS:26.1',lt:'上鎖:進入管制模式',ut:'解鎖:離開管制模式',hd:'國軍MDM V9.1',prof:'V1.07(05/12 14:05:13)',color:'#000000',clear:true};
 var $=function(i){return document.getElementById(i)};
 var FONTS=[['標楷體','"DFKai-SB","BiauKai","標楷體","Kaiti TC",serif'],['楷體','"Kaiti TC","BiauKai","DFKai-SB",serif'],['黑體','-apple-system,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif'],['宋體','"Songti TC","PMingLiU",serif'],['圓體','"Yuanti TC","Arial Rounded MT Bold",sans-serif'],['等寬','ui-monospace,Menlo,monospace'],['Helvetica','"Helvetica Neue",Arial,sans-serif']];
 ['ftag','fsn','fall'].forEach(function(id){FONTS.forEach(function(f,i){var o=document.createElement('option');o.value=i;o.textContent=f[0];$(id).appendChild(o)})});
@@ -480,7 +483,8 @@ function fi(v){if(!v)return null;var d=new Date(v.replace(' ','T'));return isNaN
 function render(){
 var n=new Date(),r=document.documentElement.style;
 $('clock').textContent=roc(n)+' '+hms(n);
-$('modeText').textContent=st.active?st.modeName:'一般模式';
+// 大標題：任務模式啟用時顯示模式名稱，未啟用時顯示「太武營區」
+$('modeText').textContent=st.active?st.modeName:'太武營區';
 r.setProperty('--taginkc',st.clear?'transparent':st.color);
 $('ver').textContent=st.ver;$('lt').textContent=st.lt;$('ut').textContent=st.ut;$('hd').textContent=st.hd;$('prof').textContent=st.prof;$('t1').textContent=st.t1;$('t2').textContent=st.t2;$('sn').textContent=st.sn;
 r.setProperty('--tagfont',FONTS[st.ftag][1]);
@@ -489,6 +493,12 @@ r.setProperty('--font',FONTS[st.fall][1]);
 r.setProperty('--tagbg',st.img?'url("'+st.img+'")':'none');
 if(st.end){var e=new Date(st.end);$('endText').textContent='結束時間:'+roc(e)+' '+hm(e)}
 if(st.start)$('lockedAt').textContent=roc(new Date(st.start))+' '+hms(new Date(st.start));
+// 按鈕顏色：任務模式時上鎖按鈕為灰色，非任務模式時為藍色
+if(st.active){
+    $('lockBtn').style.color='#5f7d5a';
+}else{
+    $('lockBtn').style.color='#3c67f4';
+}
 var verEl=$('queryVersionInfo');
 if(verEl){var mdmVer=st.hd.replace('國軍MDM ','').replace('國軍MDM','').trim();var iosVer=st.ver.replace('iOS:','').trim();verEl.innerHTML='iOS:'+iosVer+'<br>MDM:'+mdmVer;}
 var versionMatch = st.hd.match(/(\d+(\.\d+)?)/);
