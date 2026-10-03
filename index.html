@@ -526,10 +526,16 @@ if(st.active === 'task'){
     $('unlockBtn').style.color = '#3c67f4'; // 藍色
     $('taskModeBtn').style.color = '#000';
     $('queryBtn').style.color = '#000';
-    $('tag').style.background = '#33ca33';
+    // 修正：清除行內背景樣式，讓 CSS 變數 --tagbg 正確套用底圖
+    $('tag').style.backgroundColor = '';
+    $('tag').style.backgroundImage = '';
+    $('tag').style.backgroundSize = '';
+    $('tag').style.backgroundPosition = '';
+    $('tag').style.backgroundRepeat = '';
     $('tag').style.marginTop = '20px';
     $('tag').style.padding = '14px 10px';
     $('tag').style.border = '1px solid transparent';
+    r.setProperty('--tagbg', st.img ? 'url("' + st.img + '")' : 'none');
 } else if(st.active === 'camp'){
     $('modeText').textContent='太武營區';
     $('endText').textContent='已上鎖，可進入此管制營區';
@@ -547,10 +553,16 @@ if(st.active === 'task'){
     $('unlockBtn').style.color = '#3c67f4'; // 藍色
     $('taskModeBtn').style.color = '#000';
     $('queryBtn').style.color = '#000';
-    $('tag').style.background = '#33ca33';
+    // 修正：清除行內背景樣式，讓 CSS 變數 --tagbg 正確套用底圖
+    $('tag').style.backgroundColor = '';
+    $('tag').style.backgroundImage = '';
+    $('tag').style.backgroundSize = '';
+    $('tag').style.backgroundPosition = '';
+    $('tag').style.backgroundRepeat = '';
     $('tag').style.marginTop = '20px';
     $('tag').style.padding = '14px 10px';
     $('tag').style.border = '1px solid transparent';
+    r.setProperty('--tagbg', st.img ? 'url("' + st.img + '")' : 'none');
 } else if(st.active === 'unlocked'){
     $('modeText').textContent='未上鎖';
     $('endText').textContent='未上鎖，不得進入管制營區！';
@@ -569,9 +581,11 @@ if(st.active === 'task'){
     $('taskModeBtn').style.color = '#CCCCCC';
     $('queryBtn').style.color = '#CCCCCC';
     // 徹底清除標籤外框的所有背景，只留下內部圖片
-    $('tag').style.background = 'transparent';
     $('tag').style.backgroundColor = 'transparent';
     $('tag').style.backgroundImage = 'none';
+    $('tag').style.backgroundSize = '';
+    $('tag').style.backgroundPosition = '';
+    $('tag').style.backgroundRepeat = '';
     $('tag').style.marginTop = '0px';
     $('tag').style.padding = '0px';
     $('tag').style.border = 'none';
@@ -584,7 +598,6 @@ $('ver').textContent=st.ver;$('lt').textContent=st.lt;$('ut').textContent=st.ut;
 r.setProperty('--tagfont',FONTS[st.ftag][1]);
 r.setProperty('--serialfont',FONTS[st.fsn][1]);
 r.setProperty('--font',FONTS[st.fall][1]);
-r.setProperty('--tagbg',st.img?'url("'+st.img+'")':'none');
 if(st.start)$('lockedAt').textContent=roc(new Date(st.start))+' '+hms(new Date(st.start));
 var verEl=$('queryVersionInfo');
 if(verEl){var mdmVer=st.hd.replace('國軍MDM ','').replace('國軍MDM','').trim();var iosVer=st.ver.replace('iOS:','').trim();verEl.innerHTML='iOS:'+iosVer+'<br>MDM:'+mdmVer;}
