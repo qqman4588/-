@@ -162,7 +162,7 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 
 /* 標籤圖片容器 (未上鎖時顯示) */
 #tagImage { display: none; padding: 15px 0; text-align: center; }
-#tagImage img { max-width: 50%; height: auto; }
+#tagImage img { max-width: 60%; height: auto; }
 </style>
 </head>
 <body>
@@ -445,7 +445,7 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
         <div class="sn" id="sn">MOYU000001</div>
     </div>
     <div id="tagImage">
-        <img id="tagImgElement" src="shield.jpg" alt="標籤圖片">
+        <img id="tagImgElement" src="./shield.jpg" alt="標籤圖片">
     </div>
 </div>
 <!-- 上鎖時間加上 id 方便隱藏 -->
@@ -517,10 +517,12 @@ if(st.active === 'task'){
     $('unlockBtn').style.color = '#3c67f4'; // 藍色
     $('taskModeBtn').style.color = '#000';
     $('queryBtn').style.color = '#000';
+    // 恢復標籤外框為原本的綠色背景與間距
     $('tag').style.backgroundColor = '#33ca33';
     $('tag').style.marginTop = '20px';
     $('tag').style.padding = '14px 10px';
     $('tag').style.border = '1px solid transparent';
+    r.setProperty('--tagbg', st.img ? 'url("' + st.img + '")' : 'none');
 } else if(st.active === 'camp'){
     $('modeText').textContent='太武營區';
     $('endText').textContent='已上鎖，可進入此管制營區';
@@ -534,22 +536,25 @@ if(st.active === 'task'){
     $('warnText').style.color = '#e00';
     $('lockBtn').style.backgroundColor = '#8fcc8f';
     $('unlockBtn').style.backgroundColor = '#8fcc8f';
-    $('lockBtn').style.color = '#3c67f4'; // 太武營區：改為藍色
+    $('lockBtn').style.color = '#3c67f4'; // 太武營區：藍色
     $('unlockBtn').style.color = '#3c67f4'; // 藍色
     $('taskModeBtn').style.color = '#000';
     $('queryBtn').style.color = '#000';
+    // 恢復標籤外框為原本的綠色背景與間距
     $('tag').style.backgroundColor = '#33ca33';
     $('tag').style.marginTop = '20px';
     $('tag').style.padding = '14px 10px';
     $('tag').style.border = '1px solid transparent';
+    r.setProperty('--tagbg', st.img ? 'url("' + st.img + '")' : 'none');
 } else if(st.active === 'unlocked'){
     $('modeText').textContent='未上鎖';
     $('endText').textContent='未上鎖，不得進入管制營區！';
+    // 修正：文字大小與太武營區一致
     $('endText').classList.add('small-text');
     r.setProperty('--bg', '#FF0033');
     $('tagText').style.display = 'none';
     $('tagImage').style.display = 'block';
-    $('infoBlock').style.display = 'block';
+    $('infoBlock').style.display = 'block'; // 為了顯示設定檔，僅隱藏上鎖時間
     $('lockTimeBlock').style.display = 'none';
     $('settingSection').style.backgroundColor = '#FF0032';
     $('warnText').style.color = '#980033';
@@ -557,22 +562,25 @@ if(st.active === 'task'){
     $('unlockBtn').style.backgroundColor = '#E07A8F';
     $('lockBtn').style.color = '#3c67f4'; // 未上鎖：藍色
     $('unlockBtn').style.color = '#3c67f4'; // 藍色
+    // 側邊欄在未上鎖狀態下，將任務模式與查詢改為灰色
     $('taskModeBtn').style.color = '#CCCCCC';
     $('queryBtn').style.color = '#CCCCCC';
-    // 未上鎖時，標籤背景完全透明
+    // 修正：將標籤外框背景改為透明，且無邊框，只留下圖片
     $('tag').style.backgroundColor = 'transparent';
     $('tag').style.marginTop = '0px';
     $('tag').style.padding = '0px';
     $('tag').style.border = 'none';
+    // 關鍵修正：移除標籤外框的背景圖片，避免與內部圖片重疊
+    r.setProperty('--tagbg', 'none');
+    // 將上傳的圖片或預設圖片顯示在標籤內
     var tagImg = $('tagImgElement');
-    if (tagImg) { tagImg.src = st.img || 'shield.jpg'; }
+    if (tagImg) { tagImg.src = st.img || './shield.jpg'; }
 }
 r.setProperty('--taginkc',st.clear?'transparent':st.color);
 $('ver').textContent=st.ver;$('lt').textContent=st.lt;$('ut').textContent=st.ut;$('hd').textContent=st.hd;$('prof').textContent=st.prof;$('t1').textContent=st.t1;$('t2').textContent=st.t2;$('sn').textContent=st.sn;
 r.setProperty('--tagfont',FONTS[st.ftag][1]);
 r.setProperty('--serialfont',FONTS[st.fsn][1]);
 r.setProperty('--font',FONTS[st.fall][1]);
-r.setProperty('--tagbg',st.img?'url("'+st.img+'")':'none');
 if(st.start)$('lockedAt').textContent=roc(new Date(st.start))+' '+hms(new Date(st.start));
 var verEl=$('queryVersionInfo');
 if(verEl){var mdmVer=st.hd.replace('國軍MDM ','').replace('國軍MDM','').trim();var iosVer=st.ver.replace('iOS:','').trim();verEl.innerHTML='iOS:'+iosVer+'<br>MDM:'+mdmVer;}
