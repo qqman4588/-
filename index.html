@@ -172,11 +172,11 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 <div id="sidebar">
     <div class="mdm-header" id="mdmHeader">國軍MDM</div>
     <div class="mdm-group">上鎖</div>
-    <div class="mdm-item disabled">常駐營區</div>
-    <div class="mdm-item disabled">出差 (WiFi)</div>
-    <div class="mdm-item disabled">出差 (QRCode)</div>
-    <div class="mdm-item disabled">近期到訪營區</div>
-    <div class="mdm-item disabled">船艦模式</div>
+    <div class="mdm-item">常駐營區</div>
+    <div class="mdm-item">出差 (WiFi)</div>
+    <div class="mdm-item">出差 (QRCode)</div>
+    <div class="mdm-item">近期到訪營區</div>
+    <div class="mdm-item">船艦模式</div>
     <div class="mdm-item bold" id="taskModeBtn">任務模式</div>
     <div class="mdm-item disabled">轉換一般營區</div>
     <div class="mdm-group">解鎖</div>
@@ -184,7 +184,7 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
     <div class="mdm-item disabled">密碼解鎖</div>
     <div class="mdm-group">紀錄</div>
     <div class="mdm-item bold" id="queryBtn">查詢</div>
-    <div class="mdm-item disabled">上傳 (WiFi)</div>
+    <div class="mdm-item">上傳 (WiFi)</div>
     <div class="mdm-group">註冊與版本檢查更新</div>
     <div class="mdm-item" id="checkVersionBtn">新版檢查 (WiFi)</div>
     <div class="mdm-item" id="checkCivilVersionBtn">新版檢查 (民網)</div>
@@ -578,8 +578,9 @@ if(st.active === 'task'){
     $('unlockBtn').style.backgroundColor = '#E07A8F';
     $('lockBtn').style.color = '#3c67f4'; // 未上鎖：藍色
     $('unlockBtn').style.color = '#3c67f4'; // 藍色
-    $('taskModeBtn').style.color = '#CCCCCC';
-    $('queryBtn').style.color = '#CCCCCC';
+    // 修正：未上鎖時，側邊欄的「任務模式」與「查詢」保持黑色，不變灰
+    $('taskModeBtn').style.color = '#000';
+    $('queryBtn').style.color = '#000';
     // 徹底清除標籤外框的所有背景，只留下內部圖片
     $('tag').style.backgroundColor = 'transparent';
     $('tag').style.backgroundImage = 'none';
