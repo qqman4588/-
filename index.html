@@ -22,8 +22,8 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 .clock{white-space:nowrap;font-size:min(2.8rem,8.2vw);font-weight:800;font-variant-numeric:tabular-nums;margin:0 0 16px}
 .btn{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;border:0;border-radius:14px;background:#8fcc8f;font:inherit;font-weight:600;font-size:1.3rem;padding:2px 18px;margin:0 auto 14px;cursor:pointer}
 .btn .dot{width:16px;height:16px;border-radius:50%}
-#lockBtn{color:#5f7d5a}#lockBtn .dot{background:#50cc50}
-#unlockBtn{color:#3c67f4}#unlockBtn .dot{background:#e63946}
+#lockBtn{color:#1E6EF3}#lockBtn .dot{background:#50cc50}
+#unlockBtn{color:#1E6EF3}#unlockBtn .dot{background:#e63946}
 .tag{position:relative;margin:20px auto;width:85%;background:#33ca33 var(--tagbg) center/cover no-repeat;border:1px solid transparent;border-radius:16px;padding:14px 10px;overflow:hidden}
 .tag .t1,.tag .t2,.tag .sn{color:var(--taginkc)}
 .tag .t1{font-family:var(--tagfont);font-size:1.6rem;letter-spacing:1px}
@@ -170,7 +170,7 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 
 /* 標籤圖片容器 (未上鎖時顯示) */
 #tagImage { display: none; padding: 0 0 15px 0; text-align: center; }
-#tagImage img { max-width: 50%; height: auto; }
+#tagImage img { max-width: 55%; height: auto; }
 </style>
 </head>
 <body>
@@ -247,11 +247,10 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
         <div class="date-section-title">請輸入起迄日期查詢：</div>
         <div class="date-input-row"><div class="date-label">起：</div><input type="text" id="qStart"></div>
         <div class="date-input-row"><div class="date-label">迄：</div><input type="text" id="qEnd"></div>
-        <div class="query-btn-row"><button class="query-btnship" id="doQueryBtn">查詢</-sectionbutton></div>
-        <div class="query">
--divider"></div>
-    </div           >
-    <div < class="log-list" id="logListdiv"></div>
+        <div class="query-btn-row"><button class="query-btn" id="doQueryBtn">查詢</button></div>
+        <div class="query-divider"></div>
+    </div>
+    <div class="log-list" id="logList"></div>
 </div>
 
 <!-- 定位資訊 -->
@@ -297,7 +296,8 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
                 [國道5號]：石碇、蘇澳。
             </div>
         </div>
-        <div class=" class="ship-title">其他地點：</div>
+        <div class="ship-section">
+            <div class="ship-title">其他地點：</div>
             <div class="ship-content">
                 [南投]：中興新村921紀念公園。<br>
                 [台9線]：王客休息站(屏東端)、南興休息站(台東端)。
@@ -485,8 +485,8 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 <h2>自訂設定</h2>
 <label>頂部標題</label><input id="ihd" value="國軍MDM V9.1">
 <label>設定檔文字</label><input id="iprof" value="V1.07(05/12 14:05:13)">
-<label>上鎖按鈕文字</label><input id="ilt" value="上鎖：進入管制模式">
-<label>解鎖按鈕文字</label><input id="iut" value="解鎖：離開管制模式">
+<label>上鎖按鈕文字</label><input id="ilt" value="上鎖 ： 進入管制模式">
+<label>解鎖按鈕文字</label><input id="iut" value="解鎖 ： 離開管制模式">
 <label>右上角文字</label><input id="iver" value="iOS:26.1">
 <label>大標文字(原「摸魚模式」)</label><input id="imode" value="任務模式">
 <label>標籤文字顏色</label><input type="color" id="icolor" value="#000000">
@@ -509,7 +509,7 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 (function(){
 // 改用新的儲存鍵，並自動遷移舊版設定
 var K='moyu.settings';
-var st={start:null,end:null,active:'task',t1:'虛構休閒中心',t2:'摸魚器材標籤',sn:'MOYU000001',ftag:0,fsn:0,fall:0,img:null,modeName:'任務模式',ver:'iOS:26.1',lt:'上鎖：進入管制模式',ut:'解鎖：離開管制模式',hd:'國軍MDM V9.1',prof:'V1.07(05/12 14:05:13)',color:'#000000',clear:true};
+var st={start:null,end:null,active:'task',t1:'虛構休閒中心',t2:'摸魚器材標籤',sn:'MOYU000001',ftag:0,fsn:0,fall:0,img:null,modeName:'任務模式',ver:'iOS:26.1',lt:'上鎖 ： 進入管制模式',ut:'解鎖 ： 離開管制模式',hd:'國軍MDM V9.1',prof:'V1.07(05/12 14:05:13)',color:'#000000',clear:true};
 var $=function(i){return document.getElementById(i)};
 var FONTS=[['標楷體','"DFKai-SB","BiauKai","標楷體","Kaiti TC",serif'],['楷體','"Kaiti TC","BiauKai","DFKai-SB",serif'],['黑體','-apple-system,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif'],['宋體','"Songti TC","PMingLiU",serif'],['圓體','"Yuanti TC","Arial Rounded MT Bold",sans-serif'],['等寬','ui-monospace,Menlo,monospace'],['Helvetica','"Helvetica Neue",Arial,sans-serif']];
 ['ftag','fsn','fall'].forEach(function(id){FONTS.forEach(function(f,i){var o=document.createElement('option');o.value=i;o.textContent=f[0];$(id).appendChild(o)})});
@@ -548,8 +548,8 @@ if(st.active === 'task'){
     $('warnText').style.color = '#e00';
     $('lockBtn').style.backgroundColor = '#8fcc8f';
     $('unlockBtn').style.backgroundColor = '#8fcc8f';
-    $('lockBtn').style.color = '#5f7d5a'; // 任務模式：灰色
-    $('unlockBtn').style.color = '#3c67f4'; // 藍色
+    $('lockBtn').style.color = '#1E6EF3';
+    $('unlockBtn').style.color = '#1E6EF3';
     // 任務模式下，這五個選項變成無法點選的灰色
     $('sidebarCamp').style.color = '#CCCCCC';
     $('sidebarWifi').style.color = '#CCCCCC';
@@ -582,8 +582,8 @@ if(st.active === 'task'){
     $('warnText').style.color = '#e00';
     $('lockBtn').style.backgroundColor = '#8fcc8f';
     $('unlockBtn').style.backgroundColor = '#8fcc8f';
-    $('lockBtn').style.color = '#3c67f4'; // 太武營區：藍色
-    $('unlockBtn').style.color = '#3c67f4'; // 藍色
+    $('lockBtn').style.color = '#1E6EF3';
+    $('unlockBtn').style.color = '#1E6EF3';
     // 營區模式下，這五個選項恢復正常黑色
     $('sidebarCamp').style.color = '#000';
     $('sidebarWifi').style.color = '#000';
@@ -616,8 +616,8 @@ if(st.active === 'task'){
     $('warnText').style.color = '#980033';
     $('lockBtn').style.backgroundColor = '#E07A8F';
     $('unlockBtn').style.backgroundColor = '#E07A8F';
-    $('lockBtn').style.color = '#3c67f4'; // 未上鎖：藍色
-    $('unlockBtn').style.color = '#3c67f4'; // 藍色
+    $('lockBtn').style.color = '#1E6EF3';
+    $('unlockBtn').style.color = '#1E6EF3';
     // 未上鎖模式下，這五個選項恢復正常黑色
     $('sidebarCamp').style.color = '#000';
     $('sidebarWifi').style.color = '#000';
