@@ -55,7 +55,15 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 .panel-header{background:#000;color:#fff;text-align:center;font-weight:600;font-size:1.2rem;padding:calc(16px + env(safe-area-inset-top,0px)) 16px 16px;position:relative;display:flex;align-items:center;justify-content:center}
 .panel-header .menu-btn{position:absolute;left:16px;top:50%;transform:translateY(-50%);width:36px;height:36px;border-radius:50%;background:#1c1c1e;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:4px;cursor:pointer}
 .panel-header .menu-btn i{display:block;width:20px;height:3px;background:#fff;border-radius:2px}
-.panel-body{padding:20px;background:#fff}
+.panel-body{padding:20px;background:#fff;flex:1;overflow-y:auto;}
+
+/* 近期到訪營區 專屬樣式 */
+#recentCampPanel { display: flex; flex-direction: column; }
+#recentCampPanel .panel-body { padding-bottom: 80px; /* 預留底部按鈕空間 */ position: relative; }
+.recent-camp-subtitle { color: #4a7c59; font-size: 1.15rem; font-weight: 600; text-align: center; margin-bottom: 8px; }
+.recent-camp-format { color: #333; font-size: 0.85rem; text-align: center; margin-bottom: 15px; border-bottom: 1px solid #ccc; padding-bottom: 12px; }
+.recent-camp-item { font-size: 1.05rem; font-weight: 600; color: #000; padding: 14px 0; border-bottom: 1px solid #eee; text-align: left; }
+.recent-camp-btn { position: absolute; bottom: 20px; left: 20px; right: 20px; background: #4a7c59; color: #fff; border: 0; border-radius: 10px; padding: 16px; font-size: 1.1rem; font-weight: bold; cursor: pointer; text-align: center; }
 
 /* 紀錄-查詢 專屬樣式 */
 .query-form{padding:16px;background:#fff}
@@ -162,7 +170,7 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 
 /* 標籤圖片容器 (未上鎖時顯示) */
 #tagImage { display: none; padding: 15px 0; text-align: center; }
-#tagImage img { max-width: 50%; height: auto; }
+#tagImage img { max-width: 60%; height: auto; }
 </style>
 </head>
 <body>
@@ -175,7 +183,7 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
     <div class="mdm-item">常駐營區</div>
     <div class="mdm-item">出差 (WiFi)</div>
     <div class="mdm-item">出差 (QRCode)</div>
-    <div class="mdm-item">近期到訪營區</div>
+    <div class="mdm-item" id="recentCampBtn">近期到訪營區</div>
     <div class="mdm-item">船艦模式</div>
     <div class="mdm-item bold" id="taskModeBtn">任務模式</div>
     <div class="mdm-item disabled">轉換一般營區</div>
@@ -203,6 +211,24 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
     <div class="mdm-item">隱私權宣告</div>
     <div class="mdm-item">安裝訊息加密軟體</div>
     <div class="mdm-item">疑難雜症</div>
+</div>
+
+<!-- 近期到訪營區 -->
+<div id="recentCampPanel" class="full-panel">
+    <div class="panel-header">
+        <div class="menu-btn" id="recentCampCloseBtn"><i></i><i></i><i></i></div>
+        <span>近期到訪營區</span>
+    </div>
+    <div class="panel-body">
+        <div class="recent-camp-subtitle">上鎖後列表中營區均不能解鎖</div>
+        <div class="recent-camp-format">格式範例-編號：營區名稱(任務解鎖點數量)</div>
+        <div class="recent-camp-item">0: 太武營區 (0)</div>
+        <div class="recent-camp-item">1: 四支部 02 (2)</div>
+        <div class="recent-camp-item">2: 虎嶺營區 (0)</div>
+        <div class="recent-camp-item">3: 建國營區 (0)</div>
+        <div class="recent-camp-item">4: 育勤營區 (0)</div>
+        <button class="recent-camp-btn">上鎖：進入管制模式</button>
+    </div>
 </div>
 
 <!-- 紀錄-查詢 -->
@@ -652,6 +678,10 @@ document.getElementById('mdmHeader').addEventListener('click',function(){sidebar
 function openPanel(panelId){sidebar.classList.remove('open');overlay.classList.remove('open');document.getElementById(panelId).classList.add('open')}
 function closePanel(panelId){document.getElementById(panelId).classList.remove('open')}
 
+// 近期到訪營區 事件綁定
+$('recentCampBtn').addEventListener('click',function(){openPanel('recentCampPanel')});
+$('recentCampCloseBtn').addEventListener('click',function(){closePanel('recentCampPanel')});
+
 var queryPanel=$('query-panel'),queryOverlay=$('query-overlay'),queryBtn=$('queryBtn'),queryCloseBtn=$('queryCloseBtn'),doQueryBtn=$('doQueryBtn'),qStart=$('qStart'),qEnd=$('qEnd');
 function closeQuery(){closePanel('query-panel');document.getElementById('query-overlay').classList.remove('open')}
 $('queryCloseBtn').addEventListener('click',closeQuery);
@@ -746,9 +776,9 @@ vcConfirmBtn1.addEventListener('click',function(){checkView1.style.display='none
 vcConfirmBtn3.addEventListener('click',closeVersionCheck);
 vcModal.addEventListener('click',function(e){if(e.target===vcModal&&checkView2.style.display==='none'){closeVersionCheck()}});
 
-document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeTask();closeQuery();closeVersionCheck();closePanel('locPanel');closePanel('shipPanel');closePanel('devicePanel');closePanel('remindPanel');closePanel('blacklistPanel');blModal.classList.remove('open');cvcModal.classList.remove('open');sidebar.classList.remove('open');overlay.classList.remove('open')}});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeTask();closeQuery();closeVersionCheck();closePanel('locPanel');closePanel('shipPanel');closePanel('devicePanel');closePanel('remindPanel');closePanel('blacklistPanel');blModal.classList.remove('open');cvcModal.classList.remove('open');closePanel('recentCampPanel');sidebar.classList.remove('open');overlay.classList.remove('open')}});
 
-taskModalOverlay.classList.remove('open');vcModal.classList.remove('open');cvcModal.classList.remove('open');queryPanel.classList.remove('open');queryOverlay.classList.remove('open');blModal.classList.remove('open');closePanel('locPanel');closePanel('shipPanel');closePanel('devicePanel');closePanel('remindPanel');closePanel('blacklistPanel');sidebar.classList.remove('open');overlay.classList.remove('open');
+taskModalOverlay.classList.remove('open');vcModal.classList.remove('open');cvcModal.classList.remove('open');queryPanel.classList.remove('open');queryOverlay.classList.remove('open');blModal.classList.remove('open');closePanel('locPanel');closePanel('shipPanel');closePanel('devicePanel');closePanel('remindPanel');closePanel('blacklistPanel');closePanel('recentCampPanel');sidebar.classList.remove('open');overlay.classList.remove('open');
 
 render();setInterval(render,250);
 })();
