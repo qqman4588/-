@@ -458,7 +458,8 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 <section class="set" id="settingSection">
 <h2>自訂設定</h2>
 <label>頂部標題</label><input id="ihd" value="國軍MDM V9.1">
-<label>設定檔文字</label><input id="iprof" value="V1.07(05/12 14:05:13)">
+<label>設定檔文字</label><input id="iprof" value="V1.07(05/12 14:05};
+:13)">
 <label>上鎖按鈕文字</label><input id="ilt" value="上鎖:進入管制模式">
 <label>解鎖按鈕文字</label><input id="iut" value="解鎖:離開管制模式">
 <label>右上角文字</label><input id="iver" value="iOS:26.1">
@@ -483,8 +484,7 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 (function(){
 // 沿用 v29 的儲存鍵，並保留原有的所有設定
 var K='moyu.v29';
-var st={start:null,end:null,active:'task',t1:'虛構休閒中心',t2:'摸魚器材標籤',sn:'MOYU000001',ftag:0,fsn:0,fall:0,img:null,modeName:'任務模式',ver:'iOS:26.1',lt:'上鎖:進入管制模式',ut:'解鎖:離開管制模式',hd:'國軍MDM V9.1',prof:'V1.07(05/12 14:05:13)',color:'#000000',clear:true};
-var $=function(i){return document.getElementById(i)};
+var st={start:null,end:null,active:'task',t1:'虛構休閒中心',t2:'摸魚器材標籤',sn:'MOYU000001',ftag:0,fsn:0,fall:0,img:null,modeName:'任務模式',ver:'iOS:26.1',lt:'上鎖:進入管制模式',ut:'解鎖:離開管制模式',hd:'國軍MDM V9.1',prof:'V1.07(05/12 14:05:13)',color:'#000000',clear:truevar $=function(i){return document.getElementById(i)};
 var FONTS=[['標楷體','"DFKai-SB","BiauKai","標楷體","Kaiti TC",serif'],['楷體','"Kaiti TC","BiauKai","DFKai-SB",serif'],['黑體','-apple-system,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif'],['宋體','"Songti TC","PMingLiU",serif'],['圓體','"Yuanti TC","Arial Rounded MT Bold",sans-serif'],['等寬','ui-monospace,Menlo,monospace'],['Helvetica','"Helvetica Neue",Arial,sans-serif']];
 ['ftag','fsn','fall'].forEach(function(id){FONTS.forEach(function(f,i){var o=document.createElement('option');o.value=i;o.textContent=f[0];$(id).appendChild(o)})});
 function load(){try{var s=localStorage.getItem(K);if(s)st=Object.assign(st,JSON.parse(s))}catch(e){}}
@@ -518,11 +518,10 @@ if(st.active === 'task'){
     $('taskModeBtn').style.color = '#000';
     $('queryBtn').style.color = '#000';
     // 恢復標籤外框為原本的綠色背景與間距
-    $('tag').style.backgroundColor = '#33ca33';
+    $('tag').style.background = '#33ca33';
     $('tag').style.marginTop = '20px';
     $('tag').style.padding = '14px 10px';
     $('tag').style.border = '1px solid transparent';
-    r.setProperty('--tagbg', st.img ? 'url("' + st.img + '")' : 'none');
 } else if(st.active === 'camp'){
     $('modeText').textContent='太武營區';
     $('endText').textContent='已上鎖，可進入此管制營區';
@@ -541,11 +540,10 @@ if(st.active === 'task'){
     $('taskModeBtn').style.color = '#000';
     $('queryBtn').style.color = '#000';
     // 恢復標籤外框為原本的綠色背景與間距
-    $('tag').style.backgroundColor = '#33ca33';
+    $('tag').style.background = '#33ca33';
     $('tag').style.marginTop = '20px';
     $('tag').style.padding = '14px 10px';
     $('tag').style.border = '1px solid transparent';
-    r.setProperty('--tagbg', st.img ? 'url("' + st.img + '")' : 'none');
 } else if(st.active === 'unlocked'){
     $('modeText').textContent='未上鎖';
     $('endText').textContent='未上鎖，不得進入管制營區！';
@@ -565,22 +563,23 @@ if(st.active === 'task'){
     // 側邊欄在未上鎖狀態下，將任務模式與查詢改為灰色
     $('taskModeBtn').style.color = '#CCCCCC';
     $('queryBtn').style.color = '#CCCCCC';
-    // 修正：將標籤外框背景改為透明，且無邊框，只留下圖片
+    // 徹底清除標籤外框的所有背景，只留下內部圖片
+    $('tag').style.background = 'transparent'; // 使用 background 簡寫屬性，徹底覆蓋
     $('tag').style.backgroundColor = 'transparent';
+    $('tag').style.backgroundImage = 'none';
     $('tag').style.marginTop = '0px';
     $('tag').style.padding = '0px';
     $('tag').style.border = 'none';
-    // 關鍵修正：移除標籤外框的背景圖片，避免與內部圖片重疊
-    r.setProperty('--tagbg', 'none');
-    // 將上傳的圖片或預設圖片顯示在標籤內
+    // 修正：強制讀取同資料夾的 shield.jpg，避免被之前上傳的圖片覆蓋
     var tagImg = $('tagImgElement');
-    if (tagImg) { tagImg.src = st.img || './shield.jpg'; }
+    if (tagImg) { tagImg.src = './shield.jpg'; }
 }
 r.setProperty('--taginkc',st.clear?'transparent':st.color);
 $('ver').textContent=st.ver;$('lt').textContent=st.lt;$('ut').textContent=st.ut;$('hd').textContent=st.hd;$('prof').textContent=st.prof;$('t1').textContent=st.t1;$('t2').textContent=st.t2;$('sn').textContent=st.sn;
 r.setProperty('--tagfont',FONTS[st.ftag][1]);
 r.setProperty('--serialfont',FONTS[st.fsn][1]);
 r.setProperty('--font',FONTS[st.fall][1]);
+r.setProperty('--tagbg',st.img?'url("'+st.img+'")':'none');
 if(st.start)$('lockedAt').textContent=roc(new Date(st.start))+' '+hms(new Date(st.start));
 var verEl=$('queryVersionInfo');
 if(verEl){var mdmVer=st.hd.replace('國軍MDM ','').replace('國軍MDM','').trim();var iosVer=st.ver.replace('iOS:','').trim();verEl.innerHTML='iOS:'+iosVer+'<br>MDM:'+mdmVer;}
