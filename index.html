@@ -22,7 +22,7 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 .clock{white-space:nowrap;font-size:min(2.8rem,8.2vw);font-weight:800;font-variant-numeric:tabular-nums;margin:0 0 16px}
 .btn{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;border:0;border-radius:14px;background:#8fcc8f;font:inherit;font-weight:600;font-size:1.3rem;padding:2px 18px;margin:0 auto 14px;cursor:pointer}
 .btn .dot{width:16px;height:16px;border-radius:50%}
-#lockBtn{color:#1E6EF3}#lockBtn .dot{background:#50cc50}
+#lockBtn{color:#5f7d5a}#lockBtn .dot{background:#50cc50}
 #unlockBtn{color:#1E6EF3}#unlockBtn .dot{background:#e63946}
 .tag{position:relative;margin:20px auto;width:85%;background:#33ca33 var(--tagbg) center/cover no-repeat;border:1px solid transparent;border-radius:16px;padding:14px 10px;overflow:hidden}
 .tag .t1,.tag .t2,.tag .sn{color:var(--taginkc)}
@@ -227,7 +227,7 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
         <div class="recent-camp-item">2: 虎嶺營區 (0)</div>
         <div class="recent-camp-item">3: 建國營區 (0)</div>
         <div class="recent-camp-item">4: 育勤營區 (0)</div>
-        <button class="recent-camp-btn">上鎖：進入管制模式</button>
+        <button class="recent-camp-btn">上鎖 ： 進入管制模式</button>
     </div>
 </div>
 
@@ -548,7 +548,8 @@ if(st.active === 'task'){
     $('warnText').style.color = '#e00';
     $('lockBtn').style.backgroundColor = '#8fcc8f';
     $('unlockBtn').style.backgroundColor = '#8fcc8f';
-    $('lockBtn').style.color = '#1E6EF3';
+    // 任務模式下：上鎖按鈕灰色，解鎖按鈕藍色
+    $('lockBtn').style.color = '#5f7d5a';
     $('unlockBtn').style.color = '#1E6EF3';
     // 任務模式下，這五個選項變成無法點選的灰色
     $('sidebarCamp').style.color = '#CCCCCC';
@@ -582,6 +583,7 @@ if(st.active === 'task'){
     $('warnText').style.color = '#e00';
     $('lockBtn').style.backgroundColor = '#8fcc8f';
     $('unlockBtn').style.backgroundColor = '#8fcc8f';
+    // 太武營區：上鎖與解鎖都藍色
     $('lockBtn').style.color = '#1E6EF3';
     $('unlockBtn').style.color = '#1E6EF3';
     // 營區模式下，這五個選項恢復正常黑色
@@ -616,6 +618,7 @@ if(st.active === 'task'){
     $('warnText').style.color = '#980033';
     $('lockBtn').style.backgroundColor = '#E07A8F';
     $('unlockBtn').style.backgroundColor = '#E07A8F';
+    // 未上鎖：上鎖與解鎖都藍色
     $('lockBtn').style.color = '#1E6EF3';
     $('unlockBtn').style.color = '#1E6EF3';
     // 未上鎖模式下，這五個選項恢復正常黑色
