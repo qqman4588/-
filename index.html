@@ -153,38 +153,8 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 .vc-btn{flex:1;padding:12px 0;border:0;border-radius:12px;font-size:1rem;font-weight:bold;cursor:pointer;background:#ccc;color:#000}
 .vc-btn-full{width:100%;background:#ccc;color:#000}
 .vc-loading-text{margin-top:16px;font-size:1rem;font-weight:bold;color:#333}
-
-/* 修改：新版的菊花轉圈動畫 */
-.vc-spinner {
-    position: relative;
-    width: 40px;
-    height: 40px;
-    margin: 0 auto 16px;
-}
-.vc-spinner i {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    width: 4px;
-    height: 12px;
-    margin-left: -2px;
-    background-color: #888;
-    border-radius: 2px;
-    transform-origin: 50% 20px;
-    animation: vc-fade 1s linear infinite;
-}
-.vc-spinner i:nth-child(1) { animation-delay: 0s; }
-.vc-spinner i:nth-child(2) { animation-delay: 0.125s; }
-.vc-spinner i:nth-child(3) { animation-delay: 0.25s; }
-.vc-spinner i:nth-child(4) { animation-delay: 0.375s; }
-.vc-spinner i:nth-child(5) { animation-delay: 0.5s; }
-.vc-spinner i:nth-child(6) { animation-delay: 0.625s; }
-.vc-spinner i:nth-child(7) { animation-delay: 0.75s; }
-.vc-spinner i:nth-child(8) { animation-delay: 0.875s; }
-@keyframes vc-fade {
-    0% { opacity: 1; }
-    100% { opacity: 0.15; }
-}
+.vc-spinner{width:40px;height:40px;border:4px solid #ddd;border-top:4px solid #888;border-radius:50%;margin:0 auto;animation:vc-spin 1s linear infinite}
+@keyframes vc-spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
 
 /* 版本檢查彈窗 (民網) */
 #versionCheckCivilModal{position:fixed;inset:0;z-index:4000;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.5)}
@@ -447,18 +417,8 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
                 <button class="vc-btn" id="vcConfirmBtn1">確定</button>
             </div>
         </div>
-        <!-- 修改：新版的菊花轉圈結構 -->
         <div id="checkView2" class="check-view" style="display:none;padding:20px 0">
-            <div class="vc-spinner" aria-hidden="true">
-                <i style="transform: rotate(0deg);"></i>
-                <i style="transform: rotate(45deg);"></i>
-                <i style="transform: rotate(90deg);"></i>
-                <i style="transform: rotate(135deg);"></i>
-                <i style="transform: rotate(180deg);"></i>
-                <i style="transform: rotate(225deg);"></i>
-                <i style="transform: rotate(270deg);"></i>
-                <i style="transform: rotate(315deg);"></i>
-            </div>
+            <div class="vc-spinner"></div>
             <p class="vc-loading-text">正在與註冊電腦連線中，請稍等</p>
         </div>
         <div id="checkView3" class="check-view" style="display:none">
@@ -588,10 +548,10 @@ if(st.active === 'task'){
     $('warnText').style.color = '#e00';
     $('lockBtn').style.backgroundColor = '#8fcc8f';
     $('unlockBtn').style.backgroundColor = '#8fcc8f';
-    // 任務模式下：上鎖按鈕灰色').，解鎖按鈕藍色
-   style $('lockBtn').style.color =.color '#5f7d5a';
-    $(' =unlockBtn').style.color = '#1E6EF3';
-    '# // 任務模式下，這五個選000項變成無法點選的灰色
+    // 任務模式下：上鎖按鈕灰色，解鎖按鈕藍色
+    $('lockBtn').style.color = '#5f7d5a';
+    $('unlockBtn').style.color = '#1E6EF3';
+    // 任務模式下，這五個選項變成無法點選的灰色
     $('sidebarCamp').style.color = '#CCCCCC';
     $('sidebarWifi').style.color = '#CCCCCC';
     $('sidebarQrcode').style.color = '#CCCCCC';
@@ -627,7 +587,7 @@ if(st.active === 'task'){
     $('lockBtn').style.color = '#1E6EF3';
     $('unlockBtn').style.color = '#1E6EF3';
     // 營區模式下，這五個選項恢復正常黑色
-    $('sidebarCamp';
+    $('sidebarCamp').style.color = '#000';
     $('sidebarWifi').style.color = '#000';
     $('sidebarQrcode').style.color = '#000';
     $('recentCampBtn').style.color = '#000';
@@ -692,10 +652,10 @@ if(st.start)$('lockedAt').textContent=roc(new Date(st.start))+' '+hms(new Date(s
 var verEl=$('queryVersionInfo');
 if(verEl){var mdmVer=st.hd.replace('國軍MDM ','').replace('國軍MDM','').trim();var iosVer=st.ver.replace('iOS:','').trim();verEl.innerHTML='iOS:'+iosVer+'<br>MDM:'+mdmVer;}
 var versionMatch = st.hd.match(/(\d+(\.\d+)?)/);
-var versionNumber = version].Match ? versionMatch[1] : '9forEach.1';
-var elIos = $('cvcI(functionosVersion');
-var elAndroid = $('(acvcAndroidVersion');
-if(elIos){) elIos.textContent = versionNumber$(;
+var versionNumber = versionMatch ? versionMatch[1] : '9.1';
+var elIos = $('cvcIosVersion');
+var elAndroid = $('cvcAndroidVersion');
+if(elIos) elIos.textContent = versionNumber;
 if(elAndroid) elAndroid.textContent = versionNumber;
 }
 load();
@@ -706,7 +666,7 @@ if(!st.start)st.start=Date.now();if(!st.end)st.end=Date.now()+4*864e5;
 $('iver').value=st.ver;$('ilt').value=st.lt;$('iut').value=st.ut;$('ihd').value=st.hd;$('iprof').value=st.prof;$('imode').value=st.modeName;$('icolor').value=st.color;$('iclear').checked=!!st.clear;$('i1').value=st.t1;$('i2').value=st.t2;$('isn').value=st.sn;
 $('ftag').value=st.ftag;$('fsn').value=st.fsn;$('fall').value=st.fall;$('sIn').value=li(st.start);$('eIn').value=lim(st.end);
 [['ilt','lt'],['iut','ut'],['ihd','hd'],['iprof','prof'],['iver','ver'],['imode','modeName'],['i1','t1'],['i2','t2'],['isn','sn']].forEach(function(a){$(a[0]).addEventListener('input',function(){st[a[1]]=this.value;save();render()})});
-[['ftag','ftag'],['fsn','fsn'],['fall','fall']a[0]).addEventListener('change',function(){st[a[1]]=+this.value;save();render()})});
+[['ftag','ftag'],['fsn','fsn'],['fall','fall']].forEach(function(a){$(a[0]).addEventListener('change',function(){st[a[1]]=+this.value;save();render()})});
 $('icolor').addEventListener('input',function(){st.color=this.value;save();render()});
 $('iclear').addEventListener('change',function(){st.clear=this.checked;save();render()});
 $('sIn').addEventListener('change',function(){var v=fi(this.value);if(v){st.start=v;save();render()}else{this.value=li(st.start)}});
