@@ -20,10 +20,10 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 /* 中間大標題 */
 .mode{font-size:4.5rem;font-weight:500;line-height:1.1;margin:0 0 60px;letter-spacing:.02em}
 .clock{white-space:nowrap;font-size:min(2.8rem,8.2vw);font-weight:800;font-variant-numeric:tabular-nums;margin:0 0 16px}
-.btn{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;border:0;border-radius:14px;background:#8fcc8f;font:inherit;font-weight:600;font-size:1.3rem;padding:2px 18px;margin:0 auto 14px;cursor:pointer}
+.btn{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;border:0;border-radius:14px;background:#8fcc8f;font:inherit;font-size:1.3rem;padding:2px 18px;margin:0 auto 14px;cursor:pointer}
 .btn .dot{width:16px;height:16px;border-radius:50%}
 #lockBtn{color:#5f7d5a}#lockBtn .dot{background:#50cc50}
-#unlockBtn{color:#1E6EF3}#unlockBtn .dot{background:#e63946}
+#unlockBtn{color:#3c67f4}#unlockBtn .dot{background:#e63946}
 .tag{position:relative;margin:20px auto;width:85%;background:#33ca33 var(--tagbg) center/cover no-repeat;border:1px solid transparent;border-radius:16px;padding:14px 10px;overflow:hidden}
 .tag .t1,.tag .t2,.tag .sn{color:var(--taginkc)}
 .tag .t1{font-family:var(--tagfont);font-size:1.6rem;letter-spacing:1px}
@@ -55,20 +55,7 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 .panel-header{background:#000;color:#fff;text-align:center;font-weight:600;font-size:1.2rem;padding:calc(16px + env(safe-area-inset-top,0px)) 16px 16px;position:relative;display:flex;align-items:center;justify-content:center}
 .panel-header .menu-btn{position:absolute;left:16px;top:50%;transform:translateY(-50%);width:36px;height:36px;border-radius:50%;background:#1c1c1e;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:4px;cursor:pointer}
 .panel-header .menu-btn i{display:block;width:20px;height:3px;background:#fff;border-radius:2px}
-.panel-body{padding:20px;background:#fff;flex:1;overflow-y:auto;}
-
-/* 近期到訪營區 專屬樣式 */
-#recentCampPanel { display: flex; flex-direction: column; }
-#recentCampPanel .panel-body { padding-bottom: 150px; position: relative; }
-.recent-camp-subtitle { color: #2F6E65; font-size: 1.15rem; font-weight: 400; text-align: center; margin-bottom: 8px; }
-.recent-camp-format { color: #333; font-size: 0.85rem; text-align: center; margin-bottom: 15px; border-bottom: 1px solid #ccc; padding-bottom: 12px; font-weight: 400; }
-.recent-camp-item { font-size: 1.15rem; font-weight: 400; color: #000; padding: 14px 30px 14px 0; border-bottom: 1px solid #eee; text-align: left; position: relative; cursor: pointer; user-select: none; -webkit-user-select: none; }
-.recent-camp-item:active { background: #f5f5f5; }
-.recent-camp-check { position: absolute; right: 4px; top: 50%; transform: translateY(-50%); color: #1E6EF3; font-size: 1.5rem; font-weight: 700; line-height: 1; }
-.recent-camp-actions { position: absolute; bottom: 20px; left: 20px; right: 20px; display: flex; flex-direction: column; gap: 12px; }
-.recent-camp-btn { width: 100%; background: #469D72; color: #fff; border: 0; border-radius: 10px; padding: 16px; font-size: 1.1rem; font-weight: 400; cursor: pointer; text-align: center; }
-.recent-camp-del-btn { width: 100%; background: #ccc; color: #666; border: 0; border-radius: 10px; padding: 16px; font-size: 1.1rem; font-weight: 600; cursor: not-allowed; text-align: center; letter-spacing: 4px; }
-.recent-camp-del-btn.active { background: #c62828; color: #fff; cursor: pointer; }
+.panel-body{padding:20px;background:#fff}
 
 /* 紀錄-查詢 專屬樣式 */
 .query-form{padding:16px;background:#fff}
@@ -130,7 +117,7 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 /* 任務模式彈窗（背景為 #FFFFFF） */
 #taskModalOverlay{position:fixed;inset:0;z-index:3000;display:none;align-items:flex-end;justify-content:center;padding:0 26px max(54px,env(safe-area-inset-bottom));background:rgba(0,0,0,.65)}
 #taskModalOverlay.open{display:flex;animation:taskFade .25s ease-out}
-.task-modal-card{width:min(100%,520px);height:min(86vh,760px);taskmax-height:calc(100dvh - -modal85px);overflow-y:auto;border-radius:8px-d;background:#FFFFFF;color:#111;padding:esc25px 10px 28px;{mbox-shadow:0 8px 30pxargin rgba(0,0,0,.15);animation:taskUp .34s cubic-bezier(.2,.8,.2,1)}
+.task-modal-card{width:min(100%,520px);height:min(86vh,760px);max-height:calc(100dvh - 85px);overflow-y:auto;border-radius:8px;background:#FFFFFF;color:#111;padding:25px 10px 28px;box-shadow:0 8px 30px rgba(0,0,0,.15);animation:taskUp .34s cubic-bezier(.2,.8,.2,1)}
 .task-modal-title{margin:0;text-align:center;font-size:1.8rem;font-weight:800;line-height:1.25}
 .task-modal-desc{margin:33px 19px 0;font-size:1.15rem;font-weight:600;line-height:1.55}
 .task-modal-input-row{display:flex;align-items:center;gap:12px;margin:49px 0 0}
@@ -144,7 +131,7 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 .task-modal-btn-secondary{background:#ccc}
 @keyframes taskFade{from{opacity:0}}
 @keyframes taskUp{from{transform:translateY(110%)}}
-@media (max-width:370px){#taskModalOverlay{padding-inline:18px}.task-modal-title{font-size:1.6rem}.-inline:12px;font-size:1.05rem}.task-modal-input-row{gap:5px}.task-modal-label{font-size:1.1rem}.task-modal-input-row input{font-size:1rem}.task-modal-btn-primary,.task-modal-btn-secondary{font-size:1rem}}
+@media (max-width:370px){#taskModalOverlay{padding-inline:18px}.task-modal-title{font-size:1.6rem}.task-modal-desc{margin-inline:12px;font-size:1.05rem}.task-modal-input-row{gap:5px}.task-modal-label{font-size:1.1rem}.task-modal-input-row input{font-size:1rem}.task-modal-btn-primary,.task-modal-btn-secondary{font-size:1rem}}
 @media (prefers-reduced-motion:reduce){#taskModalOverlay.open,.task-modal-card{animation:none}}
 @media(max-width:639px){.desktop-break{display:none}}
 
@@ -174,8 +161,8 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 .cvc-btn-full{width:100%;background:#ccc;color:#000}
 
 /* 標籤圖片容器 (未上鎖時顯示) */
-#tagImage { display: none; padding: 0 0 15px 0; text-align: center; }
-#tagImage img { max-width: 55%; height: auto; }
+#tagImage { display: none; padding: 10px; text-align: center; }
+#tagImage img { max-width: 80%; height: auto; }
 </style>
 </head>
 <body>
@@ -185,11 +172,11 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 <div id="sidebar">
     <div class="mdm-header" id="mdmHeader">國軍MDM</div>
     <div class="mdm-group">上鎖</div>
-    <div class="mdm-item" id="sidebarCamp">常駐營區</div>
-    <div class="mdm-item" id="sidebarWifi">出差 (WiFi)</div>
-    <div class="mdm-item" id="sidebarQrcode">出差 (QRCode)</div>
-    <div class="mdm-item" id="recentCampBtn">近期到訪營區</div>
-    <div class="mdm-item" id="sidebarShip">船艦模式</div>
+    <div class="mdm-item disabled">常駐營區</div>
+    <div class="mdm-item disabled">出差 (WiFi)</div>
+    <div class="mdm-item disabled">出差 (QRCode)</div>
+    <div class="mdm-item disabled">近期到訪營區</div>
+    <div class="mdm-item disabled">船艦模式</div>
     <div class="mdm-item bold" id="taskModeBtn">任務模式</div>
     <div class="mdm-item disabled">轉換一般營區</div>
     <div class="mdm-group">解鎖</div>
@@ -197,7 +184,7 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
     <div class="mdm-item disabled">密碼解鎖</div>
     <div class="mdm-group">紀錄</div>
     <div class="mdm-item bold" id="queryBtn">查詢</div>
-    <div class="mdm-item">上傳 (WiFi)</div>
+    <div class="mdm-item disabled">上傳 (WiFi)</div>
     <div class="mdm-group">註冊與版本檢查更新</div>
     <div class="mdm-item" id="checkVersionBtn">新版檢查 (WiFi)</div>
     <div class="mdm-item" id="checkCivilVersionBtn">新版檢查 (民網)</div>
@@ -216,23 +203,6 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
     <div class="mdm-item">隱私權宣告</div>
     <div class="mdm-item">安裝訊息加密軟體</div>
     <div class="mdm-item">疑難雜症</div>
-</div>
-
-<!-- 近期到訪營區 -->
-<div id="recentCampPanel" class="full-panel">
-    <div class="panel-header">
-        <div class="menu-btn" id="recentCampCloseBtn"><i></i><i></i><i></i></div>
-        <span>近期到訪營區</span>
-    </div>
-    <div class="panel-body">
-        <div class="recent-camp-subtitle">上鎖後列表中營區均不能解鎖</div>
-        <div class="recent-camp-format">格式範例-編號：營區名稱(任務解鎖點數量)</div>
-        <div id="recentCampList"></div>
-        <div class="recent-camp-actions">
-            <button class="recent-camp-btn" id="recentCampLockBtn">上鎖 ： 進入管制模式</button>
-            <button class="recent-camp-del-btn" id="recentCampDelBtn" disabled>刪 除 該 項 目</button>
-        </div>
-    </div>
 </div>
 
 <!-- 紀錄-查詢 -->
@@ -475,7 +445,8 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
         <div class="sn" id="sn">MOYU000001</div>
     </div>
     <div id="tagImage">
-        <img id="tagImgElement" src="./shield.jpg" alt="標籤圖片">
+        <!-- 請將下方的 src 替換成你自己的盾牌圖片路徑，例如 "shield.png" -->
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/ROC_Military_Academy_Logo.svg/200px-ROC_Military_Academy_Logo.svg.png" alt="標籤圖片">
     </div>
 </div>
 <!-- 上鎖時間加上 id 方便隱藏 -->
@@ -489,8 +460,8 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 <h2>自訂設定</h2>
 <label>頂部標題</label><input id="ihd" value="國軍MDM V9.1">
 <label>設定檔文字</label><input id="iprof" value="V1.07(05/12 14:05:13)">
-<label>上鎖按鈕文字</label><input id="ilt" value="上鎖 ： 進入管制模式">
-<label>解鎖按鈕文字</label><input id="iut" value="解鎖 ： 離開管制模式">
+<label>上鎖按鈕文字</label><input id="ilt" value="上鎖:進入管制模式">
+<label>解鎖按鈕文字</label><input id="iut" value="解鎖:離開管制模式">
 <label>右上角文字</label><input id="iver" value="iOS:26.1">
 <label>大標文字(原「摸魚模式」)</label><input id="imode" value="任務模式">
 <label>標籤文字顏色</label><input type="color" id="icolor" value="#000000">
@@ -511,22 +482,11 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 
 <script>
 (function(){
-// 改用新的儲存鍵，並自動遷移舊版設定
-var K='moyu.settings';
-var st={start:null,end:null,active:'task',t1:'虛構休閒中心',t2:'摸魚器材標籤',sn:'MOYU000001',ftag:0,fsn:0,fall:0,img:null,modeName:'任務模式',campName:'太武營區',ver:'iOS:26.1',lt:'上鎖 ： 進入管制模式',ut:'解鎖 ： 離開管制模式',hd:'國軍MDM V9.1',prof:'V1.07(05/12 14:05:13)',color:'#000000',clear:true};
+var K='moyu.v29',st={start:null,end:null,active:'task',t1:'虛構休閒中心',t2:'摸魚器材標籤',sn:'MOYU000001',ftag:0,fsn:0,fall:0,img:null,modeName:'任務模式',ver:'iOS:26.1',lt:'上鎖:進入管制模式',ut:'解鎖:離開管制模式',hd:'國軍MDM V9.1',prof:'V1.07(05/12 14:05:13)',color:'#000000',clear:true};
 var $=function(i){return document.getElementById(i)};
 var FONTS=[['標楷體','"DFKai-SB","BiauKai","標楷體","Kaiti TC",serif'],['楷體','"Kaiti TC","BiauKai","DFKai-SB",serif'],['黑體','-apple-system,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif'],['宋體','"Songti TC","PMingLiU",serif'],['圓體','"Yuanti TC","Arial Rounded MT Bold",sans-serif'],['等寬','ui-monospace,Menlo,monospace'],['Helvetica','"Helvetica Neue",Arial,sans-serif']];
 ['ftag','fsn','fall'].forEach(function(id){FONTS.forEach(function(f,i){var o=document.createElement('option');o.value=i;o.textContent=f[0];$(id).appendChild(o)})});
-function load(){
-    try{
-        var s=localStorage.getItem(K);
-        // 自動遷移舊版設定，避免設定跳回預設值
-        if(!s) s=localStorage.getItem('moyu.v29');
-        if(!s) s=localStorage.getItem('moyu.v28');
-        if(!s) s=localStorage.getItem('moyu.v27');
-        if(s) st=Object.assign(st,JSON.parse(s));
-    }catch(e){}
-}
+function load(){try{var s=localStorage.getItem(K);if(s)st=Object.assign(st,JSON.parse(s))}catch(e){}}
 function save(){try{localStorage.setItem(K,JSON.stringify(st))}catch(e){}}
 function p(n){return String(n).padStart(2,'0')}
 function roc(d){return(d.getFullYear()-1911)+'/'+p(d.getMonth()+1)+'/'+p(d.getDate())}
@@ -547,112 +507,49 @@ if(st.active === 'task'){
     $('tagText').style.display = 'block';
     $('tagImage').style.display = 'none';
     $('infoBlock').style.display = 'block';
-    $('lockTimeBlock').style.display = 'block';
     $('settingSection').style.backgroundColor = '#32CC33';
     $('warnText').style.color = '#e00';
     $('lockBtn').style.backgroundColor = '#8fcc8f';
     $('unlockBtn').style.backgroundColor = '#8fcc8f';
-    // 任務模式下：上鎖按鈕灰色，解鎖按鈕藍色
-    $('lockBtn').style.color = '#5f7d5a';
-    $('unlockBtn').style.color = '#1E6EF3';
-    // 任務模式下，這五個選項變成無法點選的灰色
-    $('sidebarCamp').style.color = '#CCCCCC';
-    $('sidebarWifi').style.color = '#CCCCCC';
-    $('sidebarQrcode').style.color = '#CCCCCC';
-    $('recentCampBtn').style.color = '#CCCCCC';
-    $('sidebarShip').style.color = '#CCCCCC';
-    // 任務模式與查詢保持黑色
-    $('taskModeBtn').style.color = '#000';
-    $('queryBtn').style.color = '#000';
-    // 清除行內背景樣式，讓 CSS 變數 --tagbg 正確套用底圖
-    $('tag').style.backgroundColor = '';
-    $('tag').style.backgroundImage = '';
-    $('tag').style.backgroundSize = '';
-    $('tag').style.backgroundPosition = '';
-    $('tag').style.backgroundRepeat = '';
-    $('tag').style.marginTop = '20px';
-    $('tag').style.padding = '14px 10px';
-    $('tag').style.border = '1px solid transparent';
-    r.setProperty('--tagbg', st.img ? 'url("' + st.img + '")' : 'none');
 } else if(st.active === 'camp'){
-    $('modeText').textContent = st.campName || '太武營區';
+    $('modeText').textContent='太武營區';
     $('endText').textContent='已上鎖，可進入此管制營區';
     $('endText').classList.add('small-text');
     r.setProperty('--bg', '#33ca33');
     $('tagText').style.display = 'block';
     $('tagImage').style.display = 'none';
     $('infoBlock').style.display = 'block';
-    $('lockTimeBlock').style.display = 'block';
     $('settingSection').style.backgroundColor = '#32CC33';
     $('warnText').style.color = '#e00';
     $('lockBtn').style.backgroundColor = '#8fcc8f';
     $('unlockBtn').style.backgroundColor = '#8fcc8f';
-    // 太武營區：上鎖與解鎖都藍色
-    $('lockBtn').style.color = '#1E6EF3';
-    $('unlockBtn').style.color = '#1E6EF3';
-    // 營區模式下，這五個選項恢復正常黑色
-    $('sidebarCamp').style.color = '#000';
-    $('sidebarWifi').style.color = '#000';
-    $('sidebarQrcode').style.color = '#000';
-    $('recentCampBtn').style.color = '#000';
-    $('sidebarShip').style.color = '#000';
-    // 任務模式與查詢保持黑色
-    $('taskModeBtn').style.color = '#000';
-    $('queryBtn').style.color = '#000';
-    // 清除行內背景樣式，讓 CSS 變數 --tagbg 正確套用底圖
-    $('tag').style.backgroundColor = '';
-    $('tag').style.backgroundImage = '';
-    $('tag').style.backgroundSize = '';
-    $('tag').style.backgroundPosition = '';
-    $('tag').style.backgroundRepeat = '';
-    $('tag').style.marginTop = '20px';
-    $('tag').style.padding = '14px 10px';
-    $('tag').style.border = '1px solid transparent';
-    r.setProperty('--tagbg', st.img ? 'url("' + st.img + '")' : 'none');
 } else if(st.active === 'unlocked'){
     $('modeText').textContent='未上鎖';
     $('endText').textContent='未上鎖，不得進入管制營區！';
-    $('endText').classList.add('small-text');
+    $('endText').classList.remove('small-text');
     r.setProperty('--bg', '#FF0033');
     $('tagText').style.display = 'none';
     $('tagImage').style.display = 'block';
-    $('infoBlock').style.display = 'block';
+    $('infoBlock').style.display = 'block'; // 為了顯示設定檔，僅隱藏上鎖時間
     $('lockTimeBlock').style.display = 'none';
     $('settingSection').style.backgroundColor = '#FF0032';
     $('warnText').style.color = '#980033';
     $('lockBtn').style.backgroundColor = '#E07A8F';
     $('unlockBtn').style.backgroundColor = '#E07A8F';
-    // 未上鎖：上鎖與解鎖都藍色
-    $('lockBtn').style.color = '#1E6EF3';
-    $('unlockBtn').style.color = '#1E6EF3';
-    // 未上鎖模式下，這五個選項恢復正常黑色
-    $('sidebarCamp').style.color = '#000';
-    $('sidebarWifi').style.color = '#000';
-    $('sidebarQrcode').style.color = '#000';
-    $('recentCampBtn').style.color = '#000';
-    $('sidebarShip').style.color = '#000';
-    // 任務模式與查詢保持黑色
-    $('taskModeBtn').style.color = '#000';
-    $('queryBtn').style.color = '#000';
-    // 徹底清除標籤外框的所有背景，只留下內部圖片
-    $('tag').style.backgroundColor = 'transparent';
-    $('tag').style.backgroundImage = 'none';
-    $('tag').style.backgroundSize = '';
-    $('tag').style.backgroundPosition = '';
-    $('tag').style.backgroundRepeat = '';
-    $('tag').style.marginTop = '0px';
-    $('tag').style.padding = '0px';
-    $('tag').style.border = 'none';
-    // 強制讀取同資料夾的 shield.jpg
-    var tagImg = $('tagImgElement');
-    if (tagImg) { tagImg.src = './shield.jpg'; }
 }
 r.setProperty('--taginkc',st.clear?'transparent':st.color);
 $('ver').textContent=st.ver;$('lt').textContent=st.lt;$('ut').textContent=st.ut;$('hd').textContent=st.hd;$('prof').textContent=st.prof;$('t1').textContent=st.t1;$('t2').textContent=st.t2;$('sn').textContent=st.sn;
 r.setProperty('--tagfont',FONTS[st.ftag][1]);
 r.setProperty('--serialfont',FONTS[st.fsn][1]);
 r.setProperty('--font',FONTS[st.fall][1]);
+r.setProperty('--tagbg',st.img?'url("'+st.img+'")':'none');
 if(st.start)$('lockedAt').textContent=roc(new Date(st.start))+' '+hms(new Date(st.start));
+// 上鎖按鈕顏色連動
+if(st.active === 'task' || st.active === 'camp'){
+    $('lockBtn').style.color='#5f7d5a';
+}else{
+    $('lockBtn').style.color='#3c67f4';
+}
 var verEl=$('queryVersionInfo');
 if(verEl){var mdmVer=st.hd.replace('國軍MDM ','').replace('國軍MDM','').trim();var iosVer=st.ver.replace('iOS:','').trim();verEl.innerHTML='iOS:'+iosVer+'<br>MDM:'+mdmVer;}
 var versionMatch = st.hd.match(/(\d+(\.\d+)?)/);
@@ -675,13 +572,9 @@ $('icolor').addEventListener('input',function(){st.color=this.value;save();rende
 $('iclear').addEventListener('change',function(){st.clear=this.checked;save();render()});
 $('sIn').addEventListener('change',function(){var v=fi(this.value);if(v){st.start=v;save();render()}else{this.value=li(st.start)}});
 $('eIn').addEventListener('change',function(){var v=fi(this.value);if(v){st.end=v;save();render();this.value=lim(st.end)}else{this.value=lim(st.end)}});
-// 按鈕事件（未上鎖狀態下點擊上鎖或解鎖都會回到太武營區）
+// 按鈕事件
 $('lockBtn').onclick=function(){
-    if(st.active === 'unlocked'){
-        st.active = 'camp';
-    } else {
-        st.active = 'task';
-    }
+    st.active = 'task';
     save();render();
 };
 $('unlockBtn').onclick=function(){
@@ -690,8 +583,7 @@ $('unlockBtn').onclick=function(){
     } else if(st.active === 'camp'){
         st.active = 'unlocked';
     } else if(st.active === 'unlocked'){
-        // 未上鎖狀態下按解鎖：維持未上鎖，不動作
-        return;
+        st.active = 'camp';
     }
     save();render();
 };
@@ -705,66 +597,6 @@ document.getElementById('mdmHeader').addEventListener('click',function(){sidebar
 
 function openPanel(panelId){sidebar.classList.remove('open');overlay.classList.remove('open');document.getElementById(panelId).classList.add('open')}
 function closePanel(panelId){document.getElementById(panelId).classList.remove('open')}
-
-// ===== 近期到訪營區 =====
-var recentCamps = ['太武營區 (0)', '四支部 02 (2)', '虎嶺營區 (0)', '建國營區 (0)', '育勤營區 (0)'];
-var selectedCampIdx = -1;
-
-function renderRecentCamps() {
-    var list = $('recentCampList');
-    var html = '';
-    for (var i = 0; i < recentCamps.length; i++) {
-        var check = (i === selectedCampIdx) ? '<span class="recent-camp-check">✓</span>' : '';
-        html += '<div class="recent-camp-item" data-idx="' + i + '">' + i + ': ' + recentCamps[i] + check + '</div>';
-    }
-    list.innerHTML = html;
-    var items = list.querySelectorAll('.recent-camp-item');
-    for (var j = 0; j < items.length; j++) {
-        (function (el) {
-            el.addEventListener('click', function () {
-                var idx = parseInt(el.getAttribute('data-idx'), 10);
-                selectedCampIdx = (selectedCampIdx === idx) ? -1 : idx;
-                renderRecentCamps();
-            });
-        })(items[j]);
-    }
-    var delBtn = $('recentCampDelBtn');
-    if (selectedCampIdx === -1) {
-        delBtn.disabled = true;
-        delBtn.classList.remove('active');
-    } else {
-        delBtn.disabled = false;
-        delBtn.classList.add('active');
-    }
-}
-
-$('recentCampBtn').addEventListener('click', function () {
-    selectedCampIdx = -1;
-    renderRecentCamps();
-    openPanel('recentCampPanel');
-});
-$('recentCampCloseBtn').addEventListener('click', function () {
-    closePanel('recentCampPanel');
-});
-
-// 上鎖 ： 進入管制模式 → 主畫面切成選取的營區名稱，並關閉面板
-$('recentCampLockBtn').addEventListener('click', function () {
-    if (selectedCampIdx >= 0) {
-        st.campName = recentCamps[selectedCampIdx].replace(/\s*\(\d+\)\s*$/, '');
-    }
-    st.active = 'camp';
-    save();
-    render();
-    closePanel('recentCampPanel');
-});
-
-// 刪除該項目
-$('recentCampDelBtn').addEventListener('click', function () {
-    if (selectedCampIdx === -1) return;
-    recentCamps.splice(selectedCampIdx, 1);
-    selectedCampIdx = -1;
-    renderRecentCamps();
-});
 
 var queryPanel=$('query-panel'),queryOverlay=$('query-overlay'),queryBtn=$('queryBtn'),queryCloseBtn=$('queryCloseBtn'),doQueryBtn=$('doQueryBtn'),qStart=$('qStart'),qEnd=$('qEnd');
 function closeQuery(){closePanel('query-panel');document.getElementById('query-overlay').classList.remove('open')}
@@ -856,14 +688,13 @@ function openVersionCheck(){checkView1.style.display='block';checkView2.style.di
 function closeVersionCheck(){vcModal.classList.remove('open');if(vcTimer)clearTimeout(vcTimer)}
 checkVersionBtn.addEventListener('click',function(){sidebar.classList.remove('open');overlay.classList.remove('open');openVersionCheck()});
 vcCancelBtn.addEventListener('click',closeVersionCheck);
-// 修改：將計時器從 5000 改為 3000（3 秒）
-vcConfirmBtn1.addEventListener('click',function(){checkView1.style.display='none';checkView2.style.display='block';vcTimer=setTimeout(function(){checkView2.style.display='none';checkView3.style.display='block'},3000)});
+vcConfirmBtn1.addEventListener('click',function(){checkView1.style.display='none';checkView2.style.display='block';vcTimer=setTimeout(function(){checkView2.style.display='none';checkView3.style.display='block'},5000)});
 vcConfirmBtn3.addEventListener('click',closeVersionCheck);
 vcModal.addEventListener('click',function(e){if(e.target===vcModal&&checkView2.style.display==='none'){closeVersionCheck()}});
 
-document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeTask();closeQuery();closeVersionCheck();closePanel('locPanel');closePanel('shipPanel');closePanel('devicePanel');closePanel('remindPanel');closePanel('blacklistPanel');blModal.classList.remove('open');cvcModal.classList.remove('open');closePanel('recentCampPanel');sidebar.classList.remove('open');overlay.classList.remove('open')}});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeTask();closeQuery();closeVersionCheck();closePanel('locPanel');closePanel('shipPanel');closePanel('devicePanel');closePanel('remindPanel');closePanel('blacklistPanel');blModal.classList.remove('open');cvcModal.classList.remove('open');sidebar.classList.remove('open');overlay.classList.remove('open')}});
 
-taskModalOverlay.classList.remove('open');vcModal.classList.remove('open');cvcModal.classList.remove('open');queryPanel.classList.remove('open');queryOverlay.classList.remove('open');blModal.classList.remove('open');closePanel('locPanel');closePanel('shipPanel');closePanel('devicePanel');closePanel('remindPanel');closePanel('blacklistPanel');closePanel('recentCampPanel');sidebar.classList.remove('open');overlay.classList.remove('open');
+taskModalOverlay.classList.remove('open');vcModal.classList.remove('open');cvcModal.classList.remove('open');queryPanel.classList.remove('open');queryOverlay.classList.remove('open');blModal.classList.remove('open');closePanel('locPanel');closePanel('shipPanel');closePanel('devicePanel');closePanel('remindPanel');closePanel('blacklistPanel');sidebar.classList.remove('open');overlay.classList.remove('open');
 
 render();setInterval(render,250);
 })();
