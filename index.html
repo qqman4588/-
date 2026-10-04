@@ -59,11 +59,16 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 
 /* 近期到訪營區 專屬樣式 */
 #recentCampPanel { display: flex; flex-direction: column; }
-#recentCampPanel .panel-body { padding-bottom: 80px; /* 預留底部按鈕空間 */ position: relative; }
+#recentCampPanel .panel-body { padding-bottom: 150px; position: relative; }
 .recent-camp-subtitle { color: #2F6E65; font-size: 1.15rem; font-weight: 400; text-align: center; margin-bottom: 8px; }
 .recent-camp-format { color: #333; font-size: 0.85rem; text-align: center; margin-bottom: 15px; border-bottom: 1px solid #ccc; padding-bottom: 12px; font-weight: 400; }
-.recent-camp-item { font-size: 1.15rem; font-weight: 400; color: #000; padding: 14px 0; border-bottom: 1px solid #eee; text-align: left; }
-.recent-camp-btn { position: absolute; bottom: 20px; left: 20px; right: 20px; background: #469D72; color: #fff; border: 0; border-radius: 10px; padding: 16px; font-size: 1.1rem; font-weight: 400; cursor: pointer; text-align: center; }
+.recent-camp-item { font-size: 1.15rem; font-weight: 400; color: #000; padding: 14px 30px 14px 0; border-bottom: 1px solid #eee; text-align: left; position: relative; cursor: pointer; user-select: none; -webkit-user-select: none; }
+.recent-camp-item:active { background: #f5f5f5; }
+.recent-camp-check { position: absolute; right: 4px; top: 50%; transform: translateY(-50%); color: #1E6EF3; font-size: 1.5rem; font-weight: 700; line-height: 1; }
+.recent-camp-actions { position: absolute; bottom: 20px; left: 20px; right: 20px; display: flex; flex-direction: column; gap: 12px; }
+.recent-camp-btn { width: 100%; background: #469D72; color: #fff; border: 0; border-radius: 10px; padding: 16px; font-size: 1.1rem; font-weight: 400; cursor: pointer; text-align: center; }
+.recent-camp-del-btn { width: 100%; background: #ccc; color: #666; border: 0; border-radius: 10px; padding: 16px; font-size: 1.1rem; font-weight: 600; cursor: not-allowed; text-align: center; letter-spacing: 4px; }
+.recent-camp-del-btn.active { background: #c62828; color: #fff; cursor: pointer; }
 
 /* 紀錄-查詢 專屬樣式 */
 .query-form{padding:16px;background:#fff}
@@ -222,12 +227,11 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
     <div class="panel-body">
         <div class="recent-camp-subtitle">上鎖後列表中營區均不能解鎖</div>
         <div class="recent-camp-format">格式範例-編號：營區名稱(任務解鎖點數量)</div>
-        <div class="recent-camp-item">0: 太武營區 (0)</div>
-        <div class="recent-camp-item">1: 四支部 02 (2)</div>
-        <div class="recent-camp-item">2: 虎嶺營區 (0)</div>
-        <div class="recent-camp-item">3: 建國營區 (0)</div>
-        <div class="recent-camp-item">4: 育勤營區 (0)</div>
-        <button class="recent-camp-btn">上鎖 ： 進入管制模式</button>
+        <div id="recentCampList"></div>
+        <div class="recent-camp-actions">
+            <button class="recent-camp-btn" id="recentCampLockBtn">上鎖 ： 進入管制模式</button>
+            <button class="recent-camp-del-btn" id="recentCampDelBtn" disabled>刪 除 該 項 目</button>
+        </div>
     </div>
 </div>
 
@@ -509,7 +513,7 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 (function(){
 // 改用新的儲存鍵，並自動遷移舊版設定
 var K='moyu.settings';
-var st={start:null,end:null,active:'task',t1:'虛構休閒中心',t2:'摸魚器材標籤',sn:'MOYU000001',ftag:0,fsn:0,fall:0,img:null,modeName:'任務模式',ver:'iOS:26.1',lt:'上鎖 ： 進入管制模式',ut:'解鎖 ： 離開管制模式',hd:'國軍MDM V9.1',prof:'V1.07(05/12 14:05:13)',color:'#000000',clear:true};
+var st={start:null,end:null,active:'task',t1:'虛構休閒中心',t2:'摸魚器材標籤',sn:'MOYU000001',ftag:0,fsn:0,fall:0,img:null,modeName:'任務模式',campName:'太武營區',ver:'iOS:26.1',lt:'上鎖 ： 進入管制模式',ut:'解鎖 ： 離開管制模式',hd:'國軍MDM V9.1',prof:'V1.07(05/12 14:05:13)',color:'#000000',clear:true};
 var $=function(i){return document.getElementById(i)};
 var FONTS=[['標楷體','"DFKai-SB","BiauKai","標楷體","Kaiti TC",serif'],['楷體','"Kaiti TC","BiauKai","DFKai-SB",serif'],['黑體','-apple-system,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif'],['宋體','"Songti TC","PMingLiU",serif'],['圓體','"Yuanti TC","Arial Rounded MT Bold",sans-serif'],['等寬','ui-monospace,Menlo,monospace'],['Helvetica','"Helvetica Neue",Arial,sans-serif']];
 ['ftag','fsn','fall'].forEach(function(id){FONTS.forEach(function(f,i){var o=document.createElement('option');o.value=i;o.textContent=f[0];$(id).appendChild(o)})});
@@ -571,7 +575,7 @@ if(st.active === 'task'){
     $('tag').style.border = '1px solid transparent';
     r.setProperty('--tagbg', st.img ? 'url("' + st.img + '")' : 'none');
 } else if(st.active === 'camp'){
-    $('modeText').textContent='太武營區';
+    $('modeText').textContent = st.campName || '太武營區';
     $('endText').textContent='已上鎖，可進入此管制營區';
     $('endText').classList.add('small-text');
     r.setProperty('--bg', '#33ca33');
@@ -635,10 +639,10 @@ if(st.active === 'task'){
     $('tag').style.backgroundImage = 'none';
     $('tag').style.backgroundSize = '';
     $('tag').style.backgroundPosition = '';
-    $('tag').style.backgroundRepeat = '';
-    $('tag').style.marginTop = '0px';
-    $('tag').style.padding = '0px';
-    $('tag').style.border = 'none';
+    $('('tag').style.backgroundRepeat = '';
+   i $('tag').style.m2arginTop = '0px';
+    $('tag').').style.padding = '0px';
+   value $('tag').style.border = '=none';
     // 強制讀取同資料夾的 shield.jpg
     var tagImg = $('tagImgElement');
     if (tagImg) { tagImg.src = './shield.jpg'; }
@@ -663,7 +667,7 @@ load();
 if(st.active === true) st.active = 'task';
 if(st.active === false) st.active = 'camp';
 if(!st.start)st.start=Date.now();if(!st.end)st.end=Date.now()+4*864e5;
-$('iver').value=st.ver;$('ilt').value=st.lt;$('iut').value=st.ut;$('ihd').value=st.hd;$('iprof').value=st.prof;$('imode').value=st.modeName;$('icolor').value=st.color;$('iclear').checked=!!st.clear;$('i1').value=st.t1;$('i2').value=st.t2;$('isn').value=st.sn;
+$('iver').value=st.ver;$('ilt').value=st.lt;$('iut').value=st.ut;$('ihd').value=st.hd;$('iprof').value=st.prof;$('imode').value=st.modeName;$('icolor').value=st.color;$('iclear').checked=!!st.clear;$('i1').value=st.t1;$st.t2;$('isn').value=st.sn;
 $('ftag').value=st.ftag;$('fsn').value=st.fsn;$('fall').value=st.fall;$('sIn').value=li(st.start);$('eIn').value=lim(st.end);
 [['ilt','lt'],['iut','ut'],['ihd','hd'],['iprof','prof'],['iver','ver'],['imode','modeName'],['i1','t1'],['i2','t2'],['isn','sn']].forEach(function(a){$(a[0]).addEventListener('input',function(){st[a[1]]=this.value;save();render()})});
 [['ftag','ftag'],['fsn','fsn'],['fall','fall']].forEach(function(a){$(a[0]).addEventListener('change',function(){st[a[1]]=+this.value;save();render()})});
@@ -671,7 +675,7 @@ $('icolor').addEventListener('input',function(){st.color=this.value;save();rende
 $('iclear').addEventListener('change',function(){st.clear=this.checked;save();render()});
 $('sIn').addEventListener('change',function(){var v=fi(this.value);if(v){st.start=v;save();render()}else{this.value=li(st.start)}});
 $('eIn').addEventListener('change',function(){var v=fi(this.value);if(v){st.end=v;save();render();this.value=lim(st.end)}else{this.value=lim(st.end)}});
-// 按鈕事件（未上鎖狀態下點擊上鎖或解鎖都會回到太武營區）
+// 按鈕事件（未上鎖狀態下點擊上鎖會回到任務模式；解鎖則無反應）
 $('lockBtn').onclick=function(){
     if(st.active === 'unlocked'){
         st.active = 'camp';
@@ -686,7 +690,8 @@ $('unlockBtn').onclick=function(){
     } else if(st.active === 'camp'){
         st.active = 'unlocked';
     } else if(st.active === 'unlocked'){
-        st.active = 'camp';
+        // 未上鎖狀態下按解鎖：維持未上鎖，不動作
+        return;
     }
     save();render();
 };
@@ -701,9 +706,66 @@ document.getElementById('mdmHeader').addEventListener('click',function(){sidebar
 function openPanel(panelId){sidebar.classList.remove('open');overlay.classList.remove('open');document.getElementById(panelId).classList.add('open')}
 function closePanel(panelId){document.getElementById(panelId).classList.remove('open')}
 
-// 近期到訪營區 事件綁定
-$('recentCampBtn').addEventListener('click',function(){openPanel('recentCampPanel')});
-$('recentCampCloseBtn').addEventListener('click',function(){closePanel('recentCampPanel')});
+// ===== 近期到訪營區 =====
+var recentCamps = ['太武營區 (0)', '四支部 02 (2)', '虎嶺營區 (0)', '建國營區 (0)', '育勤營區 (0)'];
+var selectedCampIdx = -1;
+
+function renderRecentCamps() {
+    var list = $('recentCampList');
+    var html = '';
+    for (var i = 0; i < recentCamps.length; i++) {
+        var check = (i === selectedCampIdx) ? '<span class="recent-camp-check">✓</span>' : '';
+        html += '<div class="recent-camp-item" data-idx="' + i + '">' + i + ': ' + recentCamps[i] + check + '</div>';
+    }
+    list.innerHTML = html;
+    var items = list.querySelectorAll('.recent-camp-item');
+    for (var j = 0; j < items.length; j++) {
+        (function (el) {
+            el.addEventListener('click', function () {
+                var idx = parseInt(el.getAttribute('data-idx'), 10);
+                selectedCampIdx = (selectedCampIdx === idx) ? -1 : idx;
+                renderRecentCamps();
+            });
+        })(items[j]);
+    }
+    var delBtn = $('recentCampDelBtn');
+    if (selectedCampIdx === -1) {
+        delBtn.disabled = true;
+        delBtn.classList.remove('active');
+    } else {
+        delBtn.disabled = false;
+        delBtn.classList.add('active');
+    }
+}
+
+$('recentCampBtn').addEventListener('click', function () {
+    selectedCampIdx = -1;
+    renderRecentCamps();
+    openPanel('recentCampPanel');
+});
+$('recentCampCloseBtn').addEventListener('click', function () {
+    closePanel('recentCampPanel');
+});
+
+// 上鎖 ： 進入管制模式 → 主畫面切成選取的營區名稱，並關閉面板
+$('recentCampLockBtn').addEventListener('click', function () {
+    if (selectedCampIdx >= 0) {
+        // 去掉尾端的 " (數字)" 只留營區名稱
+        st.campName = recentCamps[selectedCampIdx].replace(/\s*\(\d+\)\s*$/, '');
+    }
+    st.active = 'camp';
+    save();
+    render();
+    closePanel('recentCampPanel');
+});
+
+// 刪除該項目
+$('recentCampDelBtn').addEventListener('click', function () {
+    if (selectedCampIdx === -1) return;
+    recentCamps.splice(selectedCampIdx, 1);
+    selectedCampIdx = -1;
+    renderRecentCamps();
+});
 
 var queryPanel=$('query-panel'),queryOverlay=$('query-overlay'),queryBtn=$('queryBtn'),queryCloseBtn=$('queryCloseBtn'),doQueryBtn=$('doQueryBtn'),qStart=$('qStart'),qEnd=$('qEnd');
 function closeQuery(){closePanel('query-panel');document.getElementById('query-overlay').classList.remove('open')}
