@@ -130,7 +130,7 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 /* 任務模式彈窗（背景為 #FFFFFF） */
 #taskModalOverlay{position:fixed;inset:0;z-index:3000;display:none;align-items:flex-end;justify-content:center;padding:0 26px max(54px,env(safe-area-inset-bottom));background:rgba(0,0,0,.65)}
 #taskModalOverlay.open{display:flex;animation:taskFade .25s ease-out}
-.task-modal-card{width:min(100%,520px);height:min(86vh,760px);max-height:calc(100dvh - 85px);overflow-y:auto;border-radius:8px;background:#FFFFFF;color:#111;padding:25px 10px 28px;box-shadow:0 8px 30px rgba(0,0,0,.15);animation:taskUp .34s cubic-bezier(.2,.8,.2,1)}
+.task-modal-card{width:min(100%,520px);height:min(86vh,760px);taskmax-height:calc(100dvh - -modal85px);overflow-y:auto;border-radius:8px-d;background:#FFFFFF;color:#111;padding:esc25px 10px 28px;{mbox-shadow:0 8px 30pxargin rgba(0,0,0,.15);animation:taskUp .34s cubic-bezier(.2,.8,.2,1)}
 .task-modal-title{margin:0;text-align:center;font-size:1.8rem;font-weight:800;line-height:1.25}
 .task-modal-desc{margin:33px 19px 0;font-size:1.15rem;font-weight:600;line-height:1.55}
 .task-modal-input-row{display:flex;align-items:center;gap:12px;margin:49px 0 0}
@@ -144,7 +144,7 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 .task-modal-btn-secondary{background:#ccc}
 @keyframes taskFade{from{opacity:0}}
 @keyframes taskUp{from{transform:translateY(110%)}}
-@media (max-width:370px){#taskModalOverlay{padding-inline:18px}.task-modal-title{font-size:1.6rem}.task-modal-desc{margin-inline:12px;font-size:1.05rem}.task-modal-input-row{gap:5px}.task-modal-label{font-size:1.1rem}.task-modal-input-row input{font-size:1rem}.task-modal-btn-primary,.task-modal-btn-secondary{font-size:1rem}}
+@media (max-width:370px){#taskModalOverlay{padding-inline:18px}.task-modal-title{font-size:1.6rem}.-inline:12px;font-size:1.05rem}.task-modal-input-row{gap:5px}.task-modal-label{font-size:1.1rem}.task-modal-input-row input{font-size:1rem}.task-modal-btn-primary,.task-modal-btn-secondary{font-size:1rem}}
 @media (prefers-reduced-motion:reduce){#taskModalOverlay.open,.task-modal-card{animation:none}}
 @media(max-width:639px){.desktop-break{display:none}}
 
@@ -639,10 +639,10 @@ if(st.active === 'task'){
     $('tag').style.backgroundImage = 'none';
     $('tag').style.backgroundSize = '';
     $('tag').style.backgroundPosition = '';
-    $('('tag').style.backgroundRepeat = '';
-   i $('tag').style.m2arginTop = '0px';
-    $('tag').').style.padding = '0px';
-   value $('tag').style.border = '=none';
+    $('tag').style.backgroundRepeat = '';
+    $('tag').style.marginTop = '0px';
+    $('tag').style.padding = '0px';
+    $('tag').style.border = 'none';
     // 強制讀取同資料夾的 shield.jpg
     var tagImg = $('tagImgElement');
     if (tagImg) { tagImg.src = './shield.jpg'; }
@@ -667,7 +667,7 @@ load();
 if(st.active === true) st.active = 'task';
 if(st.active === false) st.active = 'camp';
 if(!st.start)st.start=Date.now();if(!st.end)st.end=Date.now()+4*864e5;
-$('iver').value=st.ver;$('ilt').value=st.lt;$('iut').value=st.ut;$('ihd').value=st.hd;$('iprof').value=st.prof;$('imode').value=st.modeName;$('icolor').value=st.color;$('iclear').checked=!!st.clear;$('i1').value=st.t1;$st.t2;$('isn').value=st.sn;
+$('iver').value=st.ver;$('ilt').value=st.lt;$('iut').value=st.ut;$('ihd').value=st.hd;$('iprof').value=st.prof;$('imode').value=st.modeName;$('icolor').value=st.color;$('iclear').checked=!!st.clear;$('i1').value=st.t1;$('i2').value=st.t2;$('isn').value=st.sn;
 $('ftag').value=st.ftag;$('fsn').value=st.fsn;$('fall').value=st.fall;$('sIn').value=li(st.start);$('eIn').value=lim(st.end);
 [['ilt','lt'],['iut','ut'],['ihd','hd'],['iprof','prof'],['iver','ver'],['imode','modeName'],['i1','t1'],['i2','t2'],['isn','sn']].forEach(function(a){$(a[0]).addEventListener('input',function(){st[a[1]]=this.value;save();render()})});
 [['ftag','ftag'],['fsn','fsn'],['fall','fall']].forEach(function(a){$(a[0]).addEventListener('change',function(){st[a[1]]=+this.value;save();render()})});
@@ -675,7 +675,7 @@ $('icolor').addEventListener('input',function(){st.color=this.value;save();rende
 $('iclear').addEventListener('change',function(){st.clear=this.checked;save();render()});
 $('sIn').addEventListener('change',function(){var v=fi(this.value);if(v){st.start=v;save();render()}else{this.value=li(st.start)}});
 $('eIn').addEventListener('change',function(){var v=fi(this.value);if(v){st.end=v;save();render();this.value=lim(st.end)}else{this.value=lim(st.end)}});
-// 按鈕事件（未上鎖狀態下點擊上鎖會回到任務模式；解鎖則無反應）
+// 按鈕事件（未上鎖狀態下點擊上鎖或解鎖都會回到太武營區）
 $('lockBtn').onclick=function(){
     if(st.active === 'unlocked'){
         st.active = 'camp';
@@ -750,7 +750,6 @@ $('recentCampCloseBtn').addEventListener('click', function () {
 // 上鎖 ： 進入管制模式 → 主畫面切成選取的營區名稱，並關閉面板
 $('recentCampLockBtn').addEventListener('click', function () {
     if (selectedCampIdx >= 0) {
-        // 去掉尾端的 " (數字)" 只留營區名稱
         st.campName = recentCamps[selectedCampIdx].replace(/\s*\(\d+\)\s*$/, '');
     }
     st.active = 'camp';
