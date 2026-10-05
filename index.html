@@ -127,6 +127,16 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 .modal-btn{flex:1;padding:12px 0;border:0;border-radius:12px;font-size:1rem;font-weight:bold;cursor:pointer;background:#ccc;color:#000;}
 .modal-btn-full{width:100%;background:#ccc;color:#000;}
 
+/* 任務模式選擇彈窗 */
+#taskSelectModal{position:fixed;inset:0;z-index:3500;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.5);padding:26px}
+#taskSelectModal.open{display:flex;animation:taskFade .25s ease-out}
+.task-select-card{width:100%;max-width:340px;background:#E8F7E8;border-radius:20px;padding:24px;box-shadow:0 4px 12px rgba(0,0,0,.15)}
+.task-select-title{margin:0 0 12px;font-size:1.2rem;font-weight:800;color:#000;text-align:left}
+.task-select-desc{margin:0 0 12px;font-size:1rem;color:#111;line-height:1.5;text-align:left}
+.task-select-desc p{margin:0 0 10px 0;text-indent:2em}
+.task-select-btns{display:grid;gap:12px;margin-top:20px}
+.task-select-btn{width:100%;padding:12px;border:0;border-radius:10px;background:#ccc;color:#000;font:bold 1rem var(--font);cursor:pointer}
+
 /* 任務模式彈窗（背景為 #FFFFFF） */
 #taskModalOverlay{position:fixed;inset:0;z-index:3000;display:none;align-items:flex-end;justify-content:center;padding:0 26px max(54px,env(safe-area-inset-bottom));background:rgba(0,0,0,.65)}
 #taskModalOverlay.open{display:flex;animation:taskFade .25s ease-out}
@@ -318,30 +328,12 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
     </div>
     <div class="panel-body" style="background:#e8e8e8;min-height:100%;">
         <div class="device-card">
-            <div class="device-row">
-                <div class="device-label">設備類型</div>
-                <div class="device-value">iOS</div>
-            </div>
-            <div class="device-row">
-                <div class="device-label">設備型號</div>
-                <div class="device-value">iPhone14,7</div>
-            </div>
-            <div class="device-row">
-                <div class="device-label">設備序號</div>
-                <div class="device-value">27495141-EFDE-442D-8BBE-7DA20EC25A81</div>
-            </div>
-            <div class="device-row">
-                <div class="device-label">用戶名稱</div>
-                <div class="device-value">iPhone</div>
-            </div>
-            <div class="device-row">
-                <div class="device-label">用戶作業系統</div>
-                <div class="device-value">iOS 26.1</div>
-            </div>
-            <div class="device-row">
-                <div class="device-label">用戶帳號</div>
-                <div class="device-value">iPhone</div>
-            </div>
+            <div class="device-row"><div class="device-label">設備類型</div><div class="device-value">iOS</div></div>
+            <div class="device-row"><div class="device-label">設備型號</div><div class="device-value">iPhone14,7</div></div>
+            <div class="device-row"><div class="device-label">設備序號</div><div class="device-value">27495141-EFDE-442D-8BBE-7DA20EC25A81</div></div>
+            <div class="device-row"><div class="device-label">用戶名稱</div><div class="device-value">iPhone</div></div>
+            <div class="device-row"><div class="device-label">用戶作業系統</div><div class="device-value">iOS 26.1</div></div>
+            <div class="device-row"><div class="device-label">用戶帳號</div><div class="device-value">iPhone</div></div>
         </div>
     </div>
 </div>
@@ -353,9 +345,7 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
         <span>設定上鎖提醒</span>
     </div>
     <div class="remind-body">
-        <div class="remind-text">
-            請點選右下方「新增」按鈕<br>設定提示上鎖時間
-        </div>
+        <div class="remind-text">請點選右下方「新增」按鈕<br>設定提示上鎖時間</div>
         <button class="remind-add-btn">新增</button>
     </div>
 </div>
@@ -386,6 +376,25 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
         <div class="modal-btns">
             <button class="modal-btn" id="blCancelBtn">取消</button>
             <button class="modal-btn" id="blUpdateBtn">更新</button>
+        </div>
+    </div>
+</div>
+
+<!-- 任務模式選擇彈窗 -->
+<div id="taskSelectModal">
+    <div class="task-select-card">
+        <h3 class="task-select-title">提示</h3>
+        <div class="task-select-desc">
+            進入任務模式將會上鎖並管制手機。<br><br>
+            「範圍任務模式」：<br>
+            此模式下進行解鎖，若"在營區外"且"於任務解除範圍內"，方可解鎖，並結束任務模式。<br><br>
+            「時間任務模式」：<br>
+            此模式需輸入任務結束時間，任務時間結束或超過時，按下解鎖按鈕，則改為常駐營區上鎖模式，使用者離營即可依一般解鎖方式解鎖。
+        </div>
+        <div class="task-select-btns">
+            <button class="task-select-btn" id="taskRangeBtn">範圍任務模式</button>
+            <button class="task-select-btn" id="taskTimeBtn">時間任務模式</button>
+            <button class="task-select-btn" id="taskSelectCancelBtn">取 消</button>
         </div>
     </div>
 </div>
@@ -478,7 +487,6 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
         <img id="tagImgElement" src="./shield.jpg" alt="標籤圖片">
     </div>
 </div>
-<!-- 上鎖時間加上 id 方便隱藏 -->
 <div class="info" id="infoBlock">
     <span id="lockTimeBlock">上鎖時間:<span id="lockedAt"></span><br></span>
     設定檔:<span id="prof"></span>
@@ -728,6 +736,7 @@ $('recentCampCloseBtn').addEventListener('click', function () {
     closePanel('recentCampPanel');
 });
 
+// 上鎖 ： 進入管制模式 → 主畫面切成選取的營區名稱，並關閉面板
 $('recentCampLockBtn').addEventListener('click', function () {
     if (selectedCampIdx >= 0) {
         st.campName = recentCamps[selectedCampIdx].replace(/\s*\(\d+\)\s*$/, '');
@@ -738,6 +747,7 @@ $('recentCampLockBtn').addEventListener('click', function () {
     closePanel('recentCampPanel');
 });
 
+// 刪除該項目
 $('recentCampDelBtn').addEventListener('click', function () {
     if (selectedCampIdx === -1) return;
     recentCamps.splice(selectedCampIdx, 1);
@@ -811,6 +821,8 @@ $('cvcCancelBtn').addEventListener('click', function() { cvcModal.classList.remo
 $('cvcCheckBtn').addEventListener('click', function() { cvcView1.style.display = 'none'; cvcView2.style.display = 'block'; });
 $('cvcConfirmBtn').addEventListener('click', function() { cvcModal.classList.remove('open'); });
 
+// ===== 任務模式選擇彈窗 =====
+var taskSelectModal = $('taskSelectModal');
 var taskModalOverlay=$('taskModalOverlay'),taskTimeInput=$('taskTimeInput'),taskError=$('taskError');
 function closeTask(){taskModalOverlay.classList.remove('open');taskError.hidden=true;taskError.textContent=''}
 function showError(text){taskError.textContent=text;taskError.hidden=false;taskTimeInput.setAttribute('aria-invalid','true')}
@@ -822,7 +834,36 @@ function parseRocTime(value){
     if(d.getFullYear()!==year||d.getMonth()!==month-1||d.getDate()!==day||d.getHours()!==hour||d.getMinutes()!==minute)return null;
     return d.getTime();
 }
-$('taskModeBtn').addEventListener('click',function(){sidebar.classList.remove('open');overlay.classList.remove('open');var d=new Date(st.end||Date.now()+4*864e5);taskTimeInput.value=roc(d)+' '+hm(d);taskTimeInput.removeAttribute('aria-invalid');taskError.hidden=true;taskError.textContent='';taskModalOverlay.classList.add('open')});
+function openTaskTimeModal(){
+    var d=new Date(st.end||Date.now()+4*864e5);
+    taskTimeInput.value=roc(d)+' '+hm(d);
+    taskTimeInput.removeAttribute('aria-invalid');
+    taskError.hidden=true;taskError.textContent='';
+    taskModalOverlay.classList.add('open');
+}
+$('taskModeBtn').addEventListener('click',function(){
+    sidebar.classList.remove('open');overlay.classList.remove('open');
+    if(st.active === 'task'){
+        openTaskTimeModal();
+    } else {
+        taskSelectModal.classList.add('open');
+    }
+});
+$('taskRangeBtn').addEventListener('click',function(){
+    taskSelectModal.classList.remove('open');
+    st.active = 'task';
+    save();render();
+});
+$('taskTimeBtn').addEventListener('click',function(){
+    taskSelectModal.classList.remove('open');
+    openTaskTimeModal();
+});
+$('taskSelectCancelBtn').addEventListener('click',function(){
+    taskSelectModal.classList.remove('open');
+});
+taskSelectModal.addEventListener('click',function(e){
+    if(e.target === taskSelectModal) taskSelectModal.classList.remove('open');
+});
 $('taskCancelBtn').addEventListener('click',closeTask);
 taskModalOverlay.addEventListener('click',function(e){if(e.target===taskModalOverlay)closeTask()});
 taskTimeInput.addEventListener('input',function(){taskError.hidden=true;taskError.textContent='';taskTimeInput.removeAttribute('aria-invalid')});
@@ -841,7 +882,7 @@ vcModal.addEventListener('click',function(e){if(e.target===vcModal&&checkView2.s
 
 document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeTask();closeQuery();closeVersionCheck();closePanel('locPanel');closePanel('shipPanel');closePanel('devicePanel');closePanel('remindPanel');closePanel('blacklistPanel');blModal.classList.remove('open');cvcModal.classList.remove('open');closePanel('recentCampPanel');sidebar.classList.remove('open');overlay.classList.remove('open')}});
 
-taskModalOverlay.classList.remove('open');vcModal.classList.remove('open');cvcModal.classList.remove('open');queryPanel.classList.remove('open');queryOverlay.classList.remove('open');blModal.classList.remove('open');closePanel('locPanel');closePanel('shipPanel');closePanel('devicePanel');closePanel('remindPanel');closePanel('blacklistPanel');closePanel('recentCampPanel');sidebar.classList.remove('open');overlay.classList.remove('open');
+taskSelectModal.classList.remove('open');taskModalOverlay.classList.remove('open');vcModal.classList.remove('open');cvcModal.classList.remove('open');queryPanel.classList.remove('open');queryOverlay.classList.remove('open');blModal.classList.remove('open');closePanel('locPanel');closePanel('shipPanel');closePanel('devicePanel');closePanel('remindPanel');closePanel('blacklistPanel');closePanel('recentCampPanel');sidebar.classList.remove('open');overlay.classList.remove('open');
 
 render();setInterval(render,250);
 })();
