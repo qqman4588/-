@@ -91,11 +91,10 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 .device-row{display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid #e0e0e0}
 .device-row:last-child{border-bottom:0}
 .device-label{font-size:1rem;font-weight:400;color:#000}
-.device-value{font-size:1rem;color:#888;text-align:right;max-width:>
-60%}
+.device-value{font-size:1rem;color:#888;text-align:right;max-width:60%}
 
-.remind-body{height:calc(100       % - 70px);position:relative}
-.remind <-text{position:absolute;top:50%;leftp:50%;transform:translate(-50%,-50%);text-align: classcenter;font-size:1.1rem;font-weight:400;color:#000;line-height:1.6;width:80%}
+.remind-body{height:calc(100% - 70px);position:relative}
+.remind-text{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;font-size:1.1rem;font-weight:400;color:#000;line-height:1.6;width:80%}
 .remind-add-btn{position:absolute;bottom:0;left:0;right:0;background:#000;color:#fff;border:0;padding:16px 24px;font-size:1.1rem;font-weight:600;text-align:right;cursor:pointer}
 
 .bl-search-bar{display:flex;align-items:center;background:#e8e8e8;border-radius:20px;padding:10px 16px;margin:16px;}
@@ -105,7 +104,6 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 .bl-item{padding:20px 0;font-size:1.2rem;font-weight:600;border-bottom:1px solid #eee;color:#000;}
 .bl-footer{position:absolute;bottom:16px;right:16px;font-size:.95rem;color:#000;font-weight:500;}
 
-/* 通用彈窗 */
 .modal-overlay{position:fixed;inset:0;z-index:4000;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.5);}
 .modal-overlay.open{display:flex;}
 .modal-card{width:80%;max-width:320px;background:#E8F7E8;border-radius:20px;padding:24px;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,.15);}
@@ -115,7 +113,6 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 .modal-btn{flex:1;padding:12px 0;border:0;border-radius:12px;font-size:1rem;font-weight:bold;cursor:pointer;background:#ccc;color:#000;}
 .modal-btn-full{width:100%;background:#ccc;color:#000;}
 
-/* 任務模式選擇彈窗 */
 #taskSelectModal{position:fixed;inset:0;z-index:3500;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.5);padding:26px}
 #taskSelectModal.open{display:flex;animation:taskFade .25s ease-out}
 .task-select-card{width:100%;max-width:340px;background:#E8F7E8;border-radius:20px;padding:24px;box-shadow:0 4px 12px rgba(0,0,0,.15)}
@@ -125,7 +122,6 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 .task-select-btns{display:grid;gap:12px;margin-top:20px}
 .task-select-btn{width:100%;padding:12px;border:0;border-radius:10px;background:#ccc;color:#000;font:bold 1rem var(--font);cursor:pointer}
 
-/* 任務模式彈窗（背景為 #FFFFFF） */
 #taskModalOverlay{position:fixed;inset:0;z-index:3000;display:none;align-items:flex-end;justify-content:center;padding:0 26px max(54px,env(safe-area-inset-bottom));background:rgba(0,0,0,.65)}
 #taskModalOverlay.open{display:flex;animation:taskFade .25s ease-out}
 .task-modal-card{width:min(100%,520px);height:min(86vh,760px);max-height:calc(100dvh - 85px);overflow-y:auto;border-radius:8px;background:#FFFFFF;color:#111;padding:25px 10px 28px;box-shadow:0 8px 30px rgba(0,0,0,.15);animation:taskUp .34s cubic-bezier(.2,.8,.2,1)}
@@ -169,7 +165,6 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 .cvc-btn{flex:1;padding:12px 0;border:0;border-radius:12px;font-size:1rem;font-weight:bold;cursor:pointer;background:#ccc;color:#000}
 .cvc-btn-full{width:100%;background:#ccc;color:#000}
 
-/* 常駐營區/出差 確認彈窗（字體加粗） */
 #customConfirmModal{position:fixed;inset:0;z-index:4000;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.4)}
 #customConfirmModal.open{display:flex}
 .custom-confirm-card{width:82%;max-width:320px;background:#F2F2F7;border-radius:20px;padding:24px;box-shadow:0 4px 12px rgba(0,0,0,.15)}
@@ -368,7 +363,8 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 <!-- 常駐營區/出差 確認彈窗 -->
 <div id="customConfirmModal">
     <div class="custom-confirm-card">
-        <h3 class="custom-confirm-title" id="customConfirmTitle">提示</h3="custom-confirm-desc" id="customConfirmDesc">請問您確定要進入常駐營區嗎？</p>
+        <h3 class="custom-confirm-title" id="customConfirmTitle">提示</h3>
+        <p class="custom-confirm-desc" id="customConfirmDesc">請問您確定要進入常駐營區嗎？</p>
         <div class="custom-confirm-btns">
             <button class="custom-confirm-btn" id="customConfirmCancel">取消</button>
             <button class="custom-confirm-btn" id="customConfirmOk">確定</button>
@@ -692,21 +688,21 @@ function closePanel(panelId){document.getElementById(panelId).classList.remove('
 var customConfirmModal = $('customConfirmModal');
 var pendingAction = null;
 
+function showCustomConfirm(text, action) {
+    $('customConfirmDesc').textContent = text;
+    pendingAction = action;
+    customConfirmModal.classList.add('open');
+}
+
 $('sidebarCamp').addEventListener('click', function() {
-    if (st.active === 'unlocked' || st.active === 'camp') {
-        sidebar.classList.remove('open'); overlay.classList.remove('open');
-        $('customConfirmDesc').textContent = '請問您確定要進入常駐營區嗎？';
-        pendingAction = 'camp';
-        customConfirmModal.classList.add('open');
-    }
+    sidebar.classList.remove('open'); overlay.classList.remove('open');
+    if (st.active === 'task') return;
+    showCustomConfirm('請問您確定要進入常駐營區嗎？', 'camp');
 });
 $('sidebarWifi').addEventListener('click', function() {
-    if (st.active === 'unlocked' || st.active === 'camp') {
-        sidebar.classList.remove('open'); overlay.classList.remove('open');
-        $('customConfirmDesc').textContent = '請問您確定進入出差 (Wifi) 嗎？';
-        pendingAction = 'wifi';
-        customConfirmModal.classList.add('open');
-    }
+    sidebar.classList.remove('open'); overlay.classList.remove('open');
+    if (st.active === 'task') return;
+    showCustomConfirm('請問您確定進入出差 (Wifi) 嗎？', 'wifi');
 });
 $('customConfirmCancel').addEventListener('click', function() {
     customConfirmModal.classList.remove('open');
