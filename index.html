@@ -8,16 +8,13 @@
 :root{--bg:#33ca33;--taginkc:#000;--ink:#000;--font:-apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;--tagfont:"Kaiti TC","BiauKai","DFKai-SB",serif;--serialfont:-apple-system,"Helvetica Neue",Arial,sans-serif;--tagbg:none;box-sizing:border-box;padding-bottom:env(safe-area-inset-bottom,0px)}
 *{box-sizing:border-box}
 html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font-family:var(--font);overflow-x:hidden}
-/* 主畫面 */
 header{background:#000;color:#fff;text-align:center;font-weight:600;font-size:1.2rem;padding:calc(16px + env(safe-area-inset-top,0px)) 16px 16px;position:relative;z-index:10}
 .menu{position:absolute;left:16px;bottom:12px;width:36px;height:36px;border-radius:50%;background:#1c1c1e;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:4px;cursor:pointer}
 .menu i{display:block;width:20px;height:3px;background:#fff;border-radius:2px}
 .ver{text-align:right;font-size:1.15rem;font-weight:500;padding:2px 12px 0 0;line-height:1.1}
 main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
-/* 上方文字 */
 .end{white-space:normal;font-size:min(2.4rem,6.6vw);font-weight:400;margin:0 0 68px;line-height:1.15;word-break:break-word}
 .end.small-text{font-size:min(1.6rem, 4.5vw)}
-/* 中間大標題 */
 .mode{font-size:4.5rem;font-weight:500;line-height:1.1;margin:0 0 60px;letter-spacing:.02em}
 .clock{white-space:nowrap;font-size:min(2.8rem,8.2vw);font-weight:800;font-variant-numeric:tabular-nums;margin:0 0 16px}
 .btn{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;border:0;border-radius:14px;background:#8fcc8f;font:inherit;font-weight:600;font-size:1.3rem;padding:2px 18px;margin:0 auto 14px;cursor:pointer}
@@ -31,7 +28,6 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 .tag .sn{font-family:var(--serialfont);font-size:2.2rem;font-weight:800;margin-top:6px}
 .info{font-size:1.4rem;font-weight:500;line-height:1.4;margin-top:16px}
 .warn{color:#e00;text-align:center;font-size:1.1rem;font-weight:600;margin-top:2px}
-/* 自訂設定背景顏色為 #32CC33 */
 .set{margin-top:28px;background:#32CC33;border-radius:18px;padding:16px;text-align:left}
 .set h2{margin:0 0 8px;font-size:1.05rem}
 .set label{display:block;font-size:.9rem;margin:10px 0 4px}
@@ -39,7 +35,6 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 .set button{margin-top:10px;font:inherit;padding:8px 12px;border-radius:10px;border:1px solid rgba(0,0,0,.25);background:#fff}
 .hint{font-size:.8rem;opacity:.75;margin-top:10px}
 
-/* MDM 側邊選單 */
 #sidebar-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);z-index:1000;display:none;opacity:0;transition:opacity .3s ease}
 #sidebar-overlay.open{display:block;opacity:1}
 #sidebar{position:fixed;top:0;left:-100%;width:96%;height:100%;background:#f7f7f7;z-index:1001;overflow-y:auto;transition:left .3s ease-in-out;box-shadow:2px 0 8px rgba(0,0,0,.2);font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;-webkit-overflow-scrolling:touch}
@@ -49,7 +44,6 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 .mdm-item{padding:14px 16px;font-size:.95rem;border-bottom:1px solid #e0e0e0;color:#000;background:#fff;cursor:pointer}
 .mdm-item.disabled{color:#CCCCCC}
 
-/* 通用全螢幕面板 */
 .full-panel{position:fixed;top:0;right:-100%;width:100%;max-width:520px;height:100%;background:#fff;z-index:2001;overflow-y:auto;transition:right .3s ease-in-out;box-shadow:-2px 0 8px rgba(0,0,0,.2);font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;-webkit-overflow-scrolling:touch}
 .full-panel.open{right:0}
 .panel-header{background:#000;color:#fff;text-align:center;font-weight:600;font-size:1.2rem;padding:calc(16px + env(safe-area-inset-top,0px)) 16px 16px;position:relative;display:flex;align-items:center;justify-content:center}
@@ -57,7 +51,6 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 .panel-header .menu-btn i{display:block;width:20px;height:3px;background:#fff;border-radius:2px}
 .panel-body{padding:20px;background:#fff;flex:1;overflow-y:auto;}
 
-/* 近期到訪營區 專屬樣式 */
 #recentCampPanel { display: flex; flex-direction: column; }
 #recentCampPanel .panel-body { padding-bottom: 150px; position: relative; }
 .recent-camp-subtitle { color: #2F6E65; font-size: 1.15rem; font-weight: 400; text-align: center; margin-bottom: 8px; }
@@ -70,7 +63,6 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 .recent-camp-del-btn { width: 100%; background: #ccc; color: #666; border: 0; border-radius: 10px; padding: 16px; font-size: 1.1rem; font-weight: 600; cursor: not-allowed; text-align: center; letter-spacing: 4px; }
 .recent-camp-del-btn.active { background: #c62828; color: #fff; cursor: pointer; }
 
-/* 紀錄-查詢 專屬樣式 */
 .query-form{padding:16px;background:#fff}
 .form-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
 .form-row .label{font-size:1.1rem;font-weight:500;color:#000}
@@ -89,27 +81,23 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 .log-item .log-title{font-size:1.05rem;font-weight:400;color:#FE0000;margin-bottom:6px}
 .log-item .log-time,.log-item .log-status{font-size:1rem;color:#000;margin-bottom:4px}
 
-/* 定位資訊 */
 .loc-item{margin-bottom:24px;font-size:1.3rem;font-weight:400;color:#000;text-align:left}
 
-/* 船艦模式解鎖點列表 */
 .ship-section{margin-bottom:24px;text-align:left}
 .ship-title{color:#2e5cfa;font-size:1.2rem;font-weight:400;margin-bottom:6px}
 .ship-content{color:#000;font-size:1.05rem;line-height:1.6}
 
-/* 手機裝置資訊 */
 .device-card{background:#f7f7f7;border-radius:20px;padding:0 16px;margin-top:16px}
 .device-row{display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid #e0e0e0}
 .device-row:last-child{border-bottom:0}
 .device-label{font-size:1rem;font-weight:400;color:#000}
-.device-value{font-size:1rem;color:#888;text-align:right;max-width:60%}
+.device-value{font-size:1rem;color:#888;text-align:right;max-width:>
+60%}
 
-/* 設定上鎖提醒 */
-.remind-body{height:calc(100% - 70px);position:relative}
-.remind-text{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;font-size:1.1rem;font-weight:400;color:#000;line-height:1.6;width:80%}
+.remind-body{height:calc(100       % - 70px);position:relative}
+.remind <-text{position:absolute;top:50%;leftp:50%;transform:translate(-50%,-50%);text-align: classcenter;font-size:1.1rem;font-weight:400;color:#000;line-height:1.6;width:80%}
 .remind-add-btn{position:absolute;bottom:0;left:0;right:0;background:#000;color:#fff;border:0;padding:16px 24px;font-size:1.1rem;font-weight:600;text-align:right;cursor:pointer}
 
-/* 黑名單 App 查詢 (列表界面) */
 .bl-search-bar{display:flex;align-items:center;background:#e8e8e8;border-radius:20px;padding:10px 16px;margin:16px;}
 .bl-search-icon{font-size:1.2rem;margin-right:8px;color:#888;}
 .bl-search-bar input{border:0;background:transparent;outline:none;font-size:1.1rem;width:100%;color:#000;font-family:inherit;}
@@ -117,7 +105,7 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 .bl-item{padding:20px 0;font-size:1.2rem;font-weight:600;border-bottom:1px solid #eee;color:#000;}
 .bl-footer{position:absolute;bottom:16px;right:16px;font-size:.95rem;color:#000;font-weight:500;}
 
-/* 彈窗通用 */
+/* 通用彈窗 */
 .modal-overlay{position:fixed;inset:0;z-index:4000;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.5);}
 .modal-overlay.open{display:flex;}
 .modal-card{width:80%;max-width:320px;background:#E8F7E8;border-radius:20px;padding:24px;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,.15);}
@@ -158,7 +146,6 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 @media (prefers-reduced-motion:reduce){#taskModalOverlay.open,.task-modal-card{animation:none}}
 @media(max-width:639px){.desktop-break{display:none}}
 
-/* 版本檢查彈窗 (WiFi) */
 #versionCheckModal{position:fixed;inset:0;z-index:4000;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.5)}
 #versionCheckModal.open{display:flex}
 .vc-card{width:80%;max-width:320px;background:#E8F7E8;border-radius:20px;padding:24px;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,.15)}
@@ -171,7 +158,6 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 .vc-spinner{width:40px;height:40px;border:4px solid #ddd;border-top:4px solid #888;border-radius:50%;margin:0 auto;animation:vc-spin 1s linear infinite}
 @keyframes vc-spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
 
-/* 版本檢查彈窗 (民網) */
 #versionCheckCivilModal{position:fixed;inset:0;z-index:4000;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.5)}
 #versionCheckCivilModal.open{display:flex}
 .cvc-card{width:85%;max-width:340px;background:#E8F7E8;border-radius:20px;padding:24px;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,.15);position:relative}
@@ -183,14 +169,21 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 .cvc-btn{flex:1;padding:12px 0;border:0;border-radius:12px;font-size:1rem;font-weight:bold;cursor:pointer;background:#ccc;color:#000}
 .cvc-btn-full{width:100%;background:#ccc;color:#000}
 
-/* 標籤圖片容器 (未上鎖時顯示) */
+/* 常駐營區/出差 確認彈窗（字體加粗） */
+#customConfirmModal{position:fixed;inset:0;z-index:4000;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.4)}
+#customConfirmModal.open{display:flex}
+.custom-confirm-card{width:82%;max-width:320px;background:#F2F2F7;border-radius:20px;padding:24px;box-shadow:0 4px 12px rgba(0,0,0,.15)}
+.custom-confirm-title{margin:0 0 12px;font-size:1.2rem;font-weight:800;color:#000;text-align:left}
+.custom-confirm-desc{margin:0 0 24px;font-size:1.1rem;font-weight:800;color:#000;text-align:left;line-height:1.5}
+.custom-confirm-btns{display:flex;gap:12px;justify-content:center}
+.custom-confirm-btn{flex:1;padding:12px 0;border:0;border-radius:12px;font-size:1rem;font-weight:800;cursor:pointer;background:#ccc;color:#000}
+
 #tagImage { display: none; padding: 0 0 15px 0; text-align: center; }
 #tagImage img { max-width: 55%; height: auto; }
 </style>
 </head>
 <body>
 
-<!-- 側邊選單 -->
 <div id="sidebar-overlay"></div>
 <div id="sidebar">
     <div class="mdm-header" id="mdmHeader">國軍MDM</div>
@@ -228,7 +221,6 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
     <div class="mdm-item">疑難雜症</div>
 </div>
 
-<!-- 近期到訪營區 -->
 <div id="recentCampPanel" class="full-panel">
     <div class="panel-header">
         <div class="menu-btn" id="recentCampCloseBtn"><i></i><i></i><i></i></div>
@@ -245,7 +237,6 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
     </div>
 </div>
 
-<!-- 紀錄-查詢 -->
 <div id="query-overlay"></div>
 <div id="query-panel" class="full-panel">
     <div class="panel-header">
@@ -267,7 +258,6 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
     <div class="log-list" id="logList"></div>
 </div>
 
-<!-- 定位資訊 -->
 <div id="locPanel" class="full-panel">
     <div class="panel-header">
         <div class="menu-btn" id="locCloseBtn"><i></i><i></i><i></i></div>
@@ -283,7 +273,6 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
     </div>
 </div>
 
-<!-- 船艦模式解鎖點列表 -->
 <div id="shipPanel" class="full-panel">
     <div class="panel-header">
         <div class="menu-btn" id="shipCloseBtn"><i></i><i></i><i></i></div>
@@ -320,7 +309,6 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
     </div>
 </div>
 
-<!-- 手機裝置資訊 -->
 <div id="devicePanel" class="full-panel">
     <div class="panel-header">
         <div class="menu-btn" id="deviceCloseBtn"><i></i><i></i><i></i></div>
@@ -338,7 +326,6 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
     </div>
 </div>
 
-<!-- 設定上鎖提醒 -->
 <div id="remindPanel" class="full-panel">
     <div class="panel-header">
         <div class="menu-btn" id="remindCloseBtn"><i></i><i></i><i></i></div>
@@ -350,7 +337,6 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
     </div>
 </div>
 
-<!-- 黑名單 App 查詢 (列表界面) -->
 <div id="blacklistPanel" class="full-panel">
     <div class="panel-header">
         <div class="menu-btn" id="blCloseBtn"><i></i><i></i><i></i></div>
@@ -368,7 +354,6 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
     <div class="bl-footer">共 3 筆 資料庫版本：V4.0</div>
 </div>
 
-<!-- 黑名單彈窗 (更新提示) -->
 <div id="blacklistModal" class="modal-overlay">
     <div class="modal-card">
         <h3 class="modal-title">提示</h3>
@@ -376,6 +361,17 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
         <div class="modal-btns">
             <button class="modal-btn" id="blCancelBtn">取消</button>
             <button class="modal-btn" id="blUpdateBtn">更新</button>
+        </div>
+    </div>
+</div>
+
+<!-- 常駐營區/出差 確認彈窗 -->
+<div id="customConfirmModal">
+    <div class="custom-confirm-card">
+        <h3 class="custom-confirm-title" id="customConfirmTitle">提示</h3="custom-confirm-desc" id="customConfirmDesc">請問您確定要進入常駐營區嗎？</p>
+        <div class="custom-confirm-btns">
+            <button class="custom-confirm-btn" id="customConfirmCancel">取消</button>
+            <button class="custom-confirm-btn" id="customConfirmOk">確定</button>
         </div>
     </div>
 </div>
@@ -419,7 +415,6 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
     </div>
 </div>
 
-<!-- 版本檢查彈窗 (WiFi) -->
 <div id="versionCheckModal">
     <div class="vc-card">
         <div id="checkView1" class="check-view">
@@ -442,7 +437,6 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
     </div>
 </div>
 
-<!-- 版本檢查彈窗 (民網) -->
 <div id="versionCheckCivilModal">
     <div class="cvc-card">
         <div id="cvcView1" class="cvc-view">
@@ -465,7 +459,6 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
     </div>
 </div>
 
-<!-- 主畫面 -->
 <header>
     <div class="menu" id="menuBtn"><i></i><i></i><i></i></div>
     <span id="hd"></span>
@@ -695,6 +688,45 @@ document.getElementById('mdmHeader').addEventListener('click',function(){sidebar
 function openPanel(panelId){sidebar.classList.remove('open');overlay.classList.remove('open');document.getElementById(panelId).classList.add('open')}
 function closePanel(panelId){document.getElementById(panelId).classList.remove('open')}
 
+// ===== 常駐營區 / 出差 確認彈窗 =====
+var customConfirmModal = $('customConfirmModal');
+var pendingAction = null;
+
+$('sidebarCamp').addEventListener('click', function() {
+    if (st.active === 'unlocked' || st.active === 'camp') {
+        sidebar.classList.remove('open'); overlay.classList.remove('open');
+        $('customConfirmDesc').textContent = '請問您確定要進入常駐營區嗎？';
+        pendingAction = 'camp';
+        customConfirmModal.classList.add('open');
+    }
+});
+$('sidebarWifi').addEventListener('click', function() {
+    if (st.active === 'unlocked' || st.active === 'camp') {
+        sidebar.classList.remove('open'); overlay.classList.remove('open');
+        $('customConfirmDesc').textContent = '請問您確定進入出差 (Wifi) 嗎？';
+        pendingAction = 'wifi';
+        customConfirmModal.classList.add('open');
+    }
+});
+$('customConfirmCancel').addEventListener('click', function() {
+    customConfirmModal.classList.remove('open');
+    pendingAction = null;
+});
+$('customConfirmOk').addEventListener('click', function() {
+    customConfirmModal.classList.remove('open');
+    if (pendingAction === 'camp') {
+        st.active = 'camp';
+        save(); render();
+    }
+    pendingAction = null;
+});
+customConfirmModal.addEventListener('click', function(e) {
+    if (e.target === customConfirmModal) {
+        customConfirmModal.classList.remove('open');
+        pendingAction = null;
+    }
+});
+
 // ===== 近期到訪營區 =====
 var recentCamps = ['太武營區 (0)', '四支部 02 (2)', '虎嶺營區 (0)', '建國營區 (0)', '育勤營區 (0)'];
 var selectedCampIdx = -1;
@@ -736,7 +768,6 @@ $('recentCampCloseBtn').addEventListener('click', function () {
     closePanel('recentCampPanel');
 });
 
-// 上鎖 ： 進入管制模式 → 主畫面切成選取的營區名稱，並關閉面板
 $('recentCampLockBtn').addEventListener('click', function () {
     if (selectedCampIdx >= 0) {
         st.campName = recentCamps[selectedCampIdx].replace(/\s*\(\d+\)\s*$/, '');
@@ -747,7 +778,6 @@ $('recentCampLockBtn').addEventListener('click', function () {
     closePanel('recentCampPanel');
 });
 
-// 刪除該項目
 $('recentCampDelBtn').addEventListener('click', function () {
     if (selectedCampIdx === -1) return;
     recentCamps.splice(selectedCampIdx, 1);
