@@ -117,7 +117,7 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 #taskSelectModal.open{display:flex;animation:taskFade .25s ease-out}
 .task-select-card{width:100%;max-width:340px;background:#E8F7E8;border-radius:20px;padding:24px;box-shadow:0 4px 12px rgba(0,0,0,.15)}
 .task-select-title{margin:0 0 12px;font-size:1.2rem;font-weight:800;color:#000;text-align:left}
-.task-select-desc{margin:0 0 12px;font-size:1rem;color:#111;line-height:1.5;text-align:left}
+.task-select-desc{margin:0 0 12px;font-size:1rem;color:#111;font-weight:700;line-height:1.5;text-align:left}
 .task-select-desc p{margin:0 0 10px 0;text-indent:2em}
 .task-select-btns{display:grid;gap:12px;margin-top:20px}
 .task-select-btn{width:100%;padding:12px;border:0;border-radius:10px;background:#ccc;color:#000;font:bold 1rem var(--font);cursor:pointer}
@@ -165,13 +165,25 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
 .cvc-btn{flex:1;padding:12px 0;border:0;border-radius:12px;font-size:1rem;font-weight:bold;cursor:pointer;background:#ccc;color:#000}
 .cvc-btn-full{width:100%;background:#ccc;color:#000}
 
+/* 常駐營區 / 出差 確認彈窗（說明文字細體） */
 #customConfirmModal{position:fixed;inset:0;z-index:4000;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.4)}
 #customConfirmModal.open{display:flex}
 .custom-confirm-card{width:82%;max-width:320px;background:#F2F2F7;border-radius:20px;padding:24px;box-shadow:0 4px 12px rgba(0,0,0,.15)}
 .custom-confirm-title{margin:0 0 12px;font-size:1.2rem;font-weight:800;color:#000;text-align:left}
-.custom-confirm-desc{margin:0 0 24px;font-size:1.1rem;font-weight:800;color:#000;text-align:left;line-height:1.5}
+.custom-confirm-desc{margin:0 0 24px;font-size:1.1rem;font-weight:400;color:#000;text-align:left;line-height:1.5}
 .custom-confirm-btns{display:flex;gap:12px;justify-content:center}
 .custom-confirm-btn{flex:1;padding:12px 0;border:0;border-radius:12px;font-size:1rem;font-weight:800;cursor:pointer;background:#ccc;color:#000}
+
+/* 船艦模式確認彈窗 */
+#shipConfirmModal{position:fixed;inset:0;z-index:4000;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.4)}
+#shipConfirmModal.open{display:flex}
+.ship-confirm-card{width:82%;max-width:320px;background:#F2F2F7;border-radius:20px;padding:24px;box-shadow:0 4px 12px rgba(0,0,0,.15)}
+.ship-confirm-title{margin:0 0 12px;font-size:1.2rem;font-weight:800;color:#000;text-align:left}
+.ship-confirm-desc{margin:0 0 22px;font-size:1.05rem;font-weight:400;color:#000;text-align:left;line-height:1.55}
+.ship-confirm-question{margin:0 0 22px;font-size:1.05rem;font-weight:400;color:#000;text-align:left}
+.ship-confirm-btns{display:flex;gap:12px;justify-content:center}
+.ship-confirm-btn{flex:1;padding:12px 0;border:0;border-radius:12px;font-size:1rem;font-weight:800;cursor:pointer;background:#ccc;color:#000}
+.ship-confirm-btn.cancel{color:#e63946}
 
 #tagImage { display: none; padding: 0 0 15px 0; text-align: center; }
 #tagImage img { max-width: 55%; height: auto; }
@@ -368,6 +380,22 @@ main{max-width:520px;margin:0 auto;padding:0 20px 40px;text-align:center}
         <div class="custom-confirm-btns">
             <button class="custom-confirm-btn" id="customConfirmCancel">取消</button>
             <button class="custom-confirm-btn" id="customConfirmOk">確定</button>
+        </div>
+    </div>
+</div>
+
+<!-- 船艦模式確認彈窗 -->
+<div id="shipConfirmModal">
+    <div class="ship-confirm-card">
+        <h3 class="ship-confirm-title">提示</h3>
+        <div class="ship-confirm-desc">
+            [ 1/3 ]<br>
+            以船艦模式上鎖後，需執行轉換一般營區、定點解鎖、出差 (Wi-Fi) 才能進行解鎖。
+        </div>
+        <p class="ship-confirm-question">請問您確定要進入船艦模式嗎？</p>
+        <div class="ship-confirm-btns">
+            <button class="ship-confirm-btn cancel" id="shipConfirmCancel">取消</button>
+            <button class="ship-confirm-btn" id="shipConfirmOk">繼續</button>
         </div>
     </div>
 </div>
@@ -721,6 +749,23 @@ customConfirmModal.addEventListener('click', function(e) {
         customConfirmModal.classList.remove('open');
         pendingAction = null;
     }
+});
+
+// ===== 船艦模式確認彈窗 =====
+var shipConfirmModal = $('shipConfirmModal');
+$('sidebarShip').addEventListener('click', function() {
+    sidebar.classList.remove('open'); overlay.classList.remove('open');
+    if (st.active === 'task') return;
+    shipConfirmModal.classList.add('open');
+});
+$('shipConfirmCancel').addEventListener('click', function() {
+    shipConfirmModal.classList.remove('open');
+});
+$('shipConfirmOk').addEventListener('click', function() {
+    shipConfirmModal.classList.remove('open');
+});
+shipConfirmModal.addEventListener('click', function(e) {
+    if (e.target === shipConfirmModal) shipConfirmModal.classList.remove('open');
 });
 
 // ===== 近期到訪營區 =====
