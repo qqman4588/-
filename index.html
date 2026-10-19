@@ -213,24 +213,26 @@ body{position:fixed;inset:0;width:100%;height:100%;min-height:0;margin:0;overflo
 .full-panel.open,#sidebar.open{visibility:visible;pointer-events:auto}
 .reference-overlay{position:fixed;inset:0;z-index:5000;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.22);padding:24px}
 .reference-overlay.open{display:flex}
-.reference-card{width:100%;max-width:340px;max-height:88vh;overflow:auto;background:#ffedf3;border-radius:34px;padding:24px 16px 16px;color:#000;text-align:left;font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Microsoft JhengHei",sans-serif;font-weight:400}
-.reference-card h2{font-size:1.25rem;margin:0 14px 12px;font-weight:400}
-.reference-copy{margin:0 14px 22px;font-size:1.05rem;line-height:1.42;font-weight:400;color:#716568;white-space:pre-line}
+.reference-card{width:100%;max-width:340px;max-height:88vh;overflow:auto;background:#ffedf3;border-radius:34px;padding:24px 16px 16px;color:#000;text-align:left;font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Microsoft JhengHei",sans-serif}
+.reference-card,.reference-card *{font-weight:400}
+.reference-card h2{font-size:1.25rem;margin:0 14px 12px}
+.reference-copy{margin:0 14px 22px;font-size:1.05rem;line-height:1.42;color:#716568;white-space:pre-line}
 .reference-actions{display:flex;gap:9px}
 .reference-actions button,.reference-actions a{flex:1;display:flex;align-items:center;justify-content:center;min-height:50px;border:0;border-radius:30px;background:#e1d0d6;color:#000;font:400 1.2rem -apple-system,BlinkMacSystemFont,"PingFang TC",sans-serif;text-decoration:none;cursor:pointer}
 #rulesPanel{display:flex;flex-direction:column;right:0;transform:translateX(100%);visibility:hidden;pointer-events:none;transition:transform .3s ease-in-out,visibility 0s linear .3s}
 #rulesPanel.open{right:0;transform:translateX(0);visibility:visible;pointer-events:auto;transition:transform .3s ease-in-out,visibility 0s}
 #rulesPanel .panel-header{font-weight:400}
 .rules-body{padding:28px 6px 20px;flex:1;min-height:0;overflow:auto;color:#000;background:#fff;font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Microsoft JhengHei",sans-serif;font-size:1.13rem;font-weight:400;line-height:1.35}
-.rules-body p{margin:0 0 26px}
-.rules-body .indent{text-indent:2em}
-.rules-body ol{padding:0;list-style-position:inside;margin:0 0 26px}
+.rules-body p{margin:0 0 26px}.rules-body .indent{text-indent:2em}.rules-body ol{padding:0;list-style-position:inside;margin:0 0 26px}
 .rules-actions{display:flex;justify-content:space-between;gap:14px;margin-top:48px;padding:0 14px}
 .rules-actions button{border:0;background:none;color:#2874e8;font-family:inherit;font-size:1em;font-weight:400;line-height:inherit;padding:4px 0;cursor:pointer}
 #rulesActionNote{font-size:.9rem;font-weight:400;margin:16px 14px 0;color:#666}
-/* Dialog typography defaults to regular weight unless explicitly overridden later. */
-[role="dialog"],[role="dialog"] *, .reference-card *{font-weight:400}
 @media(prefers-reduced-motion:reduce){#rulesPanel,#rulesPanel.open{transition:none}}
+.task-picker-wrap{position:relative;flex:1;min-width:0;height:36px}
+.task-modal-input-row .task-picker-wrap #taskTimeInput{width:100%;height:36px;font-weight:400;pointer-events:none}
+.task-modal-input-row .task-picker-wrap #taskNativePicker{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:.015;cursor:pointer;font-size:16px;color:transparent;z-index:1}
+.task-picker-wrap:focus-within{outline:2px solid #2e7d55;outline-offset:1px}
+.task-modal-card,.task-modal-card *{font-weight:400}
 </style>
 </head>
 <body>
@@ -473,7 +475,7 @@ body{position:fixed;inset:0;width:100%;height:100%;min-height:0;margin:0;overflo
         </p>
         <div class="task-modal-input-row">
             <label class="task-modal-label" for="taskTimeInput">時間:</label>
-            <input type="text" id="taskTimeInput" inputmode="numeric" placeholder="115/10/2 16:30" aria-describedby="taskError">
+            <div class="task-picker-wrap"><input type="text" id="taskTimeInput" readonly tabindex="-1" aria-label="已選任務結束時間" placeholder="請選擇時間"><input type="datetime-local" id="taskNativePicker" step="60" aria-label="選擇任務結束日期與時間" aria-describedby="taskError"></div>
         </div>
         <p id="taskError" class="task-error" role="alert" hidden></p>
         <div class="task-actions">
@@ -945,6 +947,7 @@ function openTaskTimeModal(){
     taskTimeInput.removeAttribute('aria-invalid');
     taskError.hidden=true;taskError.textContent='';
     taskModalOverlay.classList.add('open');
+    syncNativePicker();
 }
 $('taskModeBtn').addEventListener('click',function(){
     sidebar.classList.remove('open');overlay.classList.remove('open');
@@ -969,6 +972,12 @@ $('taskSelectCancelBtn').addEventListener('click',function(){
 taskSelectModal.addEventListener('click',function(e){
     if(e.target === taskSelectModal) taskSelectModal.classList.remove('open');
 });
+function localPickerValue(ms){var d=new Date(ms);return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate())+'T'+hm(d)}
+function syncNativePicker(){var picker=$('taskNativePicker');picker.value=localPickerValue(st.end||Date.now()+4*864e5);var minimum=Math.ceil((Date.now()+1)/60000)*60000;if(st.active==='task'&&st.end)minimum=Math.max(minimum,Math.floor(st.end/60000)*60000);picker.min=localPickerValue(minimum)}
+function acceptNativePicker(){var picker=$('taskNativePicker');if(!picker.value)return;var d=new Date(picker.value);if(isNaN(d.getTime()))return;taskTimeInput.value=roc(d)+' '+hm(d);taskError.hidden=true;taskError.textContent='';taskTimeInput.removeAttribute('aria-invalid')}
+$('taskNativePicker').addEventListener('input',acceptNativePicker);
+$('taskNativePicker').addEventListener('change',acceptNativePicker);
+$('taskNativePicker').addEventListener('click',function(){if(typeof this.showPicker==='function'){try{this.showPicker()}catch(e){}}});
 $('taskCancelBtn').addEventListener('click',closeTask);
 taskModalOverlay.addEventListener('click',function(e){if(e.target===taskModalOverlay)closeTask()});
 taskTimeInput.addEventListener('input',function(){taskError.hidden=true;taskError.textContent='';taskTimeInput.removeAttribute('aria-invalid')});
@@ -1021,23 +1030,13 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape'){closePanel(
 render();setInterval(render,250);
 })();
 </script>
-
 <div id="privacyReference" class="reference-overlay"><div class="reference-card" role="dialog" aria-modal="true" aria-labelledby="privacyRefTitle" tabindex="-1"><h2 id="privacyRefTitle">提示</h2><p class="reference-copy">此MDM註冊時，回傳之資訊非個人隱私。
 軟體內僅收集 MDM 系統日誌。
  ● 定位權限僅於解鎖使用
  ● 相機權限僅於掃描 QRCode 使用
  ● 通知權限於提醒上鎖與違規警示時使用</p><div class="reference-actions"><button id="privacyRefOk">確 定</button></div></div></div>
 <div id="newsReference" class="reference-overlay"><div class="reference-card" role="dialog" aria-modal="true" aria-labelledby="newsRefTitle" tabindex="-1"><h2 id="newsRefTitle">提示</h2><p class="reference-copy">請問是否前往最新消息?</p><div class="reference-actions"><button id="newsRefCancel">取消</button><a id="newsRefOk" href="https://update.mdm.mil.tw/tech/news.html" target="_blank" rel="noopener noreferrer">確 定</a></div></div></div>
-<div id="rulesPanel" class="full-panel"><div class="panel-header"><div class="menu-btn" id="rulesCloseBtn" role="button" tabindex="0" aria-label="返回"><i></i><i></i><i></i></div><span>使用規範</span></div><div class="rules-body">
-<p>Apple 企業憑證期限：2027年06月18日。</p>
-<p class="indent">謝謝您安裝手機管控系統 MDM，當您攜帶智慧型手機進入營區前，請先完成「上鎖」動作，上鎖後禁止使用相機、藍牙、定位服務、熱點分享等功能，以免違反手機管制規定，請注意下列行為亦被禁止請勿嘗試：</p>
-<ol><li>上鎖後開啟定位服務功能。</li><li>上鎖後開啟熱點分享功能。</li><li>修改任何有關本程式之通知設定，包含提示類型與音效。</li><li>上鎖後終止本程式。</li><li>移除本程式。</li><li>上鎖中進行手機作業系統升級。</li></ol>
-<p class="indent">上述行為將導致連續警示，並且產生違規紀錄。</p>
-<p>MDM:V9.1 Build1<br>版本日期:2026-06-18</p>
-<p><span id="rulesMonth">115年10月份</span>密碼解鎖資訊：<br>密碼解鎖失敗次數：0</p>
-<div class="rules-actions"><button id="rulesDeleteProfile">刪除無效描述檔</button><button id="rulesVerifyProfile">驗證描述檔</button></div><p id="rulesActionNote" role="status" hidden></p>
-</div></div>
-<script>
+<div id="rulesPanel" class="full-panel"><div class="panel-header"><div class="menu-btn" id="rulesCloseBtn" role="button" tabindex="0" aria-label="返回"><i></i><i></i><i></i></div><span>使用規範</span></div><div class="rules-body"><p>Apple 企業憑證期限：2027年06月18日。</p><p class="indent">謝謝您安裝手機管控系統 MDM，當您攜帶智慧型手機進入營區前，請先完成「上鎖」動作，上鎖後禁止使用相機、藍牙、定位服務、熱點分享等功能，以免違反手機管制規定，請注意下列行為亦被禁止請勿嘗試：</p><ol><li>上鎖後開啟定位服務功能。</li><li>上鎖後開啟熱點分享功能。</li><li>修改任何有關本程式之通知設定，包含提示類型與音效。</li><li>上鎖後終止本程式。</li><li>移除本程式。</li><li>上鎖中進行手機作業系統升級。</li></ol><p class="indent">上述行為將導致連續警示，並且產生違規紀錄。</p><p>MDM:V9.1 Build1<br>版本日期:2026-06-18</p><p><span id="rulesMonth">115年10月份</span>密碼解鎖資訊：<br>密碼解鎖失敗次數：0</p><div class="rules-actions"><button id="rulesDeleteProfile">刪除無效描述檔</button><button id="rulesVerifyProfile">驗證描述檔</button></div><p id="rulesActionNote" role="status" hidden></p></div></div><script>
 (function(){
 try{if('scrollRestoration' in history)history.scrollRestoration='manual'}catch(e){}
 function resetViewport(){window.scrollTo(0,0);document.documentElement.scrollTop=0;document.body.scrollTop=0;var main=document.querySelector('#appShell>main');if(main)main.scrollTop=0;}
@@ -1047,15 +1046,11 @@ function hideMenu(){el('sidebar').classList.remove('open');el('sidebar-overlay')
 function openDialog(id){hideMenu();el(id).classList.add('open');el(id).querySelector('.reference-card').focus()}
 function closeDialog(id){el(id).classList.remove('open');el('menuBtn').focus()}
 el('faqLinkItem').addEventListener('click',function(){hideMenu();window.open('https://update.mdm.mil.tw/imdm/faq/faq.pdf','_blank','noopener,noreferrer')});
-el('privacyLinkItem').addEventListener('click',function(){openDialog('privacyReference')});
-el('privacyRefOk').addEventListener('click',function(){closeDialog('privacyReference')});
-el('newsLinkItem').addEventListener('click',function(){openDialog('newsReference')});
-el('newsRefCancel').addEventListener('click',function(){closeDialog('newsReference')});
-el('newsRefOk').addEventListener('click',function(){closeDialog('newsReference')});
+el('privacyLinkItem').addEventListener('click',function(){openDialog('privacyReference')});el('privacyRefOk').addEventListener('click',function(){closeDialog('privacyReference')});
+el('newsLinkItem').addEventListener('click',function(){openDialog('newsReference')});el('newsRefCancel').addEventListener('click',function(){closeDialog('newsReference')});el('newsRefOk').addEventListener('click',function(){closeDialog('newsReference')});
 el('rulesLinkItem').addEventListener('click',function(){hideMenu();var d=new Date();el('rulesMonth').textContent=(d.getFullYear()-1911)+'年'+(d.getMonth()+1)+'月份';el('rulesPanel').classList.add('open');el('rulesPanel').querySelector('.rules-body').scrollTop=0});
 function closeRules(){el('rulesPanel').classList.remove('open')}
-el('rulesCloseBtn').addEventListener('click',closeRules);
-el('rulesCloseBtn').addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();closeRules()}});
+el('rulesCloseBtn').addEventListener('click',closeRules);el('rulesCloseBtn').addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();closeRules()}});
 ['rulesDeleteProfile','rulesVerifyProfile'].forEach(function(id){el(id).addEventListener('click',function(){el('rulesActionNote').hidden=false;el('rulesActionNote').textContent='此網頁無法讀取、刪除或驗證手機的系統描述檔。'})});
 document.addEventListener('keydown',function(e){var overlay=document.querySelector('.reference-overlay.open');if(e.key==='Escape'){if(overlay)closeDialog(overlay.id);closeRules()}if(e.key==='Tab'&&overlay){var list=overlay.querySelectorAll('button,a[href]'),first=list[0],last=list[list.length-1];if(e.shiftKey&&(document.activeElement===first||document.activeElement===overlay.querySelector('.reference-card'))){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}});
 })();
