@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-Hant-TW">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -203,36 +203,23 @@ main{height:calc(100dvh - 100px - env(safe-area-inset-top,0px));overflow-y:auto;
 #cameraVideo{width:100%;max-height:65dvh;background:#111;object-fit:contain}
 .camera-body{padding:16px;overflow:auto}
 
-html{height:100%;min-height:0;overflow:hidden;background:#000}
-body{position:fixed;inset:0;width:100%;height:100%;min-height:0;margin:0;overflow:hidden}
-#appShell{position:absolute;inset:0;display:flex;flex-direction:column;overflow:hidden;background:var(--bg)}
-#appShell>header{flex:0 0 auto;background:#000;color:#fff}
-#appShell>.ver{flex:0 0 auto}
-#appShell>main{flex:1 1 0;min-height:0;height:auto;width:100%;overflow-x:hidden;overflow-y:auto;overscroll-behavior-y:none;-webkit-overflow-scrolling:touch}
-.full-panel:not(.open),#sidebar:not(.open){visibility:hidden;pointer-events:none}
-.full-panel.open,#sidebar.open{visibility:visible;pointer-events:auto}
-.reference-overlay{position:fixed;inset:0;z-index:5000;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.22);padding:24px}
-.reference-overlay.open{display:flex}
-.reference-card{width:100%;max-width:340px;max-height:88vh;overflow:auto;background:#ffedf3;border-radius:34px;padding:24px 16px 16px;color:#000;text-align:left;font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Microsoft JhengHei",sans-serif}
-.reference-card,.reference-card *{font-weight:400}
-.reference-card h2{font-size:1.25rem;margin:0 14px 12px}
-.reference-copy{margin:0 14px 22px;font-size:1.05rem;line-height:1.42;color:#716568;white-space:pre-line}
-.reference-actions{display:flex;gap:9px}
-.reference-actions button,.reference-actions a{flex:1;display:flex;align-items:center;justify-content:center;min-height:50px;border:0;border-radius:30px;background:#e1d0d6;color:#000;font:400 1.2rem -apple-system,BlinkMacSystemFont,"PingFang TC",sans-serif;text-decoration:none;cursor:pointer}
-#rulesPanel{display:flex;flex-direction:column;right:0;transform:translateX(100%);visibility:hidden;pointer-events:none;transition:transform .3s ease-in-out,visibility 0s linear .3s}
-#rulesPanel.open{right:0;transform:translateX(0);visibility:visible;pointer-events:auto;transition:transform .3s ease-in-out,visibility 0s}
-#rulesPanel .panel-header{font-weight:400}
-.rules-body{padding:28px 6px 20px;flex:1;min-height:0;overflow:auto;color:#000;background:#fff;font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Microsoft JhengHei",sans-serif;font-size:1.13rem;font-weight:400;line-height:1.35}
-.rules-body p{margin:0 0 26px}.rules-body .indent{text-indent:2em}.rules-body ol{padding:0;list-style-position:inside;margin:0 0 26px}
-.rules-actions{display:flex;justify-content:space-between;gap:14px;margin-top:48px;padding:0 14px}
-.rules-actions button{border:0;background:none;color:#2874e8;font-family:inherit;font-size:1em;font-weight:400;line-height:inherit;padding:4px 0;cursor:pointer}
-#rulesActionNote{font-size:.9rem;font-weight:400;margin:16px 14px 0;color:#666}
+html{height:100%;min-height:0;overflow:hidden;background:#000}body{position:fixed;inset:0;width:100%;height:100%;min-height:0;margin:0;overflow:hidden}
+#appShell{position:absolute;inset:0;display:flex;flex-direction:column;overflow:hidden;background:var(--bg)}#appShell>header{flex:0 0 auto;background:#000;color:#fff}#appShell>.ver{flex:0 0 auto}#appShell>main{flex:1 1 0;min-height:0;height:auto;width:100%;overflow-x:hidden;overflow-y:auto;overscroll-behavior-y:none;-webkit-overflow-scrolling:touch}
+.full-panel:not(.open),#sidebar:not(.open){visibility:hidden;pointer-events:none}.full-panel.open,#sidebar.open{visibility:visible;pointer-events:auto}
+.reference-overlay{position:fixed;inset:0;z-index:5000;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.22);padding:24px}.reference-overlay.open{display:flex}
+.reference-card{width:100%;max-width:340px;max-height:88vh;overflow:auto;background:#ffedf3;border-radius:34px;padding:24px 16px 16px;color:#000;text-align:left;font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Microsoft JhengHei",sans-serif}.reference-card,.reference-card *{font-weight:400}.reference-card h2{font-size:1.25rem;margin:0 14px 12px}.reference-copy{margin:0 14px 22px;font-size:1.05rem;line-height:1.42;color:#716568;white-space:pre-line}.reference-actions{display:flex;gap:9px}.reference-actions button,.reference-actions a{flex:1;display:flex;align-items:center;justify-content:center;min-height:50px;border:0;border-radius:30px;background:#e1d0d6;color:#000;font:400 1.2rem -apple-system,BlinkMacSystemFont,"PingFang TC",sans-serif;text-decoration:none;cursor:pointer}
+#rulesPanel{display:flex;flex-direction:column;right:0;transform:translateX(100%);visibility:hidden;pointer-events:none;transition:transform .3s ease-in-out,visibility 0s linear .3s}#rulesPanel.open{right:0;transform:translateX(0);visibility:visible;pointer-events:auto;transition:transform .3s ease-in-out,visibility 0s}#rulesPanel .panel-header{font-weight:400}
+.rules-body{padding:28px 6px 20px;flex:1;min-height:0;overflow:auto;color:#000;background:#fff;font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Microsoft JhengHei",sans-serif;font-size:1.13rem;font-weight:400;line-height:1.35}.rules-body p{margin:0 0 26px}.rules-body .indent{text-indent:2em}.rules-body ol{padding:0;list-style-position:inside;margin:0 0 26px}.rules-actions{display:flex;justify-content:space-between;gap:14px;margin-top:48px;padding:0 14px}.rules-actions button{border:0;background:none;color:#2874e8;font-family:inherit;font-size:1em;font-weight:400;line-height:inherit;padding:4px 0;cursor:pointer}#rulesActionNote{font-size:.9rem;font-weight:400;margin:16px 14px 0;color:#666}
+.task-modal-card,.task-modal-card *{font-weight:400}#taskTimeInput{cursor:pointer}
+#zhPicker{position:fixed;inset:0;z-index:6000;display:none;align-items:flex-end;background:rgba(0,0,0,.25)}#zhPicker.open{display:flex}
+.zh-sheet{width:100%;max-width:520px;margin:0 auto;padding:12px 10px max(20px,env(safe-area-inset-bottom));border-radius:24px 24px 0 0;background:#eeeef3;color:#111;font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Microsoft JhengHei",sans-serif;font-weight:400}
+.zh-toolbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}.zh-toolbar h3{font-size:1rem;font-weight:400;margin:0}.zh-toolbar button{border:0;background:none;color:#176bea;font:400 1.1rem inherit;padding:8px;cursor:pointer}
+.zh-labels,.zh-wheels{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr 1fr;text-align:center;gap:3px}.zh-labels{font-size:.85rem;color:#555;margin-bottom:5px}.zh-wheels{position:relative}.zh-wheels:before{content:'';position:absolute;top:80px;left:0;right:0;height:40px;background:rgba(0,0,0,.08);border-radius:10px;pointer-events:none}
+.zh-wheel{height:200px;overflow-y:auto;scroll-snap-type:y mandatory;overscroll-behavior:contain;scrollbar-width:none;padding:80px 0;position:relative;touch-action:pan-y;-webkit-overflow-scrolling:touch}.zh-wheel::-webkit-scrollbar{display:none}.zh-option{height:40px;line-height:40px;scroll-snap-align:center;font-size:1.12rem;white-space:nowrap;color:#777;cursor:pointer}.zh-option[aria-selected="true"]{color:#000}
+.zh-preview{text-align:center;font-size:1rem;margin:12px 0 0;font-weight:400}
+#portraitGuard{position:fixed;inset:0;z-index:99999;background:#000;color:#fff;display:none;align-items:center;justify-content:center;text-align:center;font-family:var(--font);font-size:1.15rem;font-weight:400;padding:24px}
+@media(orientation:landscape){#portraitGuard{display:flex}}
 @media(prefers-reduced-motion:reduce){#rulesPanel,#rulesPanel.open{transition:none}}
-.task-picker-wrap{position:relative;flex:1;min-width:0;height:36px}
-.task-modal-input-row .task-picker-wrap #taskTimeInput{width:100%;height:36px;font-weight:400;pointer-events:none}
-.task-modal-input-row .task-picker-wrap #taskNativePicker{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:.015;cursor:pointer;font-size:16px;color:transparent;z-index:1}
-.task-picker-wrap:focus-within{outline:2px solid #2e7d55;outline-offset:1px}
-.task-modal-card,.task-modal-card *{font-weight:400}
 </style>
 </head>
 <body>
@@ -475,7 +462,7 @@ body{position:fixed;inset:0;width:100%;height:100%;min-height:0;margin:0;overflo
         </p>
         <div class="task-modal-input-row">
             <label class="task-modal-label" for="taskTimeInput">時間:</label>
-            <div class="task-picker-wrap"><input type="text" id="taskTimeInput" readonly tabindex="-1" aria-label="已選任務結束時間" placeholder="請選擇時間"><input type="datetime-local" id="taskNativePicker" step="60" aria-label="選擇任務結束日期與時間" aria-describedby="taskError"></div>
+            <input type="text" id="taskTimeInput" readonly role="button" aria-haspopup="dialog" aria-controls="zhPicker" aria-label="選擇任務結束日期與時間" aria-describedby="taskError">
         </div>
         <p id="taskError" class="task-error" role="alert" hidden></p>
         <div class="task-actions">
@@ -947,7 +934,6 @@ function openTaskTimeModal(){
     taskTimeInput.removeAttribute('aria-invalid');
     taskError.hidden=true;taskError.textContent='';
     taskModalOverlay.classList.add('open');
-    syncNativePicker();
 }
 $('taskModeBtn').addEventListener('click',function(){
     sidebar.classList.remove('open');overlay.classList.remove('open');
@@ -972,12 +958,6 @@ $('taskSelectCancelBtn').addEventListener('click',function(){
 taskSelectModal.addEventListener('click',function(e){
     if(e.target === taskSelectModal) taskSelectModal.classList.remove('open');
 });
-function localPickerValue(ms){var d=new Date(ms);return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate())+'T'+hm(d)}
-function syncNativePicker(){var picker=$('taskNativePicker');picker.value=localPickerValue(st.end||Date.now()+4*864e5);var minimum=Math.ceil((Date.now()+1)/60000)*60000;if(st.active==='task'&&st.end)minimum=Math.max(minimum,Math.floor(st.end/60000)*60000);picker.min=localPickerValue(minimum)}
-function acceptNativePicker(){var picker=$('taskNativePicker');if(!picker.value)return;var d=new Date(picker.value);if(isNaN(d.getTime()))return;taskTimeInput.value=roc(d)+' '+hm(d);taskError.hidden=true;taskError.textContent='';taskTimeInput.removeAttribute('aria-invalid')}
-$('taskNativePicker').addEventListener('input',acceptNativePicker);
-$('taskNativePicker').addEventListener('change',acceptNativePicker);
-$('taskNativePicker').addEventListener('click',function(){if(typeof this.showPicker==='function'){try{this.showPicker()}catch(e){}}});
 $('taskCancelBtn').addEventListener('click',closeTask);
 taskModalOverlay.addEventListener('click',function(e){if(e.target===taskModalOverlay)closeTask()});
 taskTimeInput.addEventListener('input',function(){taskError.hidden=true;taskError.textContent='';taskTimeInput.removeAttribute('aria-invalid')});
@@ -1030,13 +1010,17 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape'){closePanel(
 render();setInterval(render,250);
 })();
 </script>
+
 <div id="privacyReference" class="reference-overlay"><div class="reference-card" role="dialog" aria-modal="true" aria-labelledby="privacyRefTitle" tabindex="-1"><h2 id="privacyRefTitle">提示</h2><p class="reference-copy">此MDM註冊時，回傳之資訊非個人隱私。
 軟體內僅收集 MDM 系統日誌。
  ● 定位權限僅於解鎖使用
  ● 相機權限僅於掃描 QRCode 使用
  ● 通知權限於提醒上鎖與違規警示時使用</p><div class="reference-actions"><button id="privacyRefOk">確 定</button></div></div></div>
 <div id="newsReference" class="reference-overlay"><div class="reference-card" role="dialog" aria-modal="true" aria-labelledby="newsRefTitle" tabindex="-1"><h2 id="newsRefTitle">提示</h2><p class="reference-copy">請問是否前往最新消息?</p><div class="reference-actions"><button id="newsRefCancel">取消</button><a id="newsRefOk" href="https://update.mdm.mil.tw/tech/news.html" target="_blank" rel="noopener noreferrer">確 定</a></div></div></div>
-<div id="rulesPanel" class="full-panel"><div class="panel-header"><div class="menu-btn" id="rulesCloseBtn" role="button" tabindex="0" aria-label="返回"><i></i><i></i><i></i></div><span>使用規範</span></div><div class="rules-body"><p>Apple 企業憑證期限：2027年06月18日。</p><p class="indent">謝謝您安裝手機管控系統 MDM，當您攜帶智慧型手機進入營區前，請先完成「上鎖」動作，上鎖後禁止使用相機、藍牙、定位服務、熱點分享等功能，以免違反手機管制規定，請注意下列行為亦被禁止請勿嘗試：</p><ol><li>上鎖後開啟定位服務功能。</li><li>上鎖後開啟熱點分享功能。</li><li>修改任何有關本程式之通知設定，包含提示類型與音效。</li><li>上鎖後終止本程式。</li><li>移除本程式。</li><li>上鎖中進行手機作業系統升級。</li></ol><p class="indent">上述行為將導致連續警示，並且產生違規紀錄。</p><p>MDM:V9.1 Build1<br>版本日期:2026-06-18</p><p><span id="rulesMonth">115年10月份</span>密碼解鎖資訊：<br>密碼解鎖失敗次數：0</p><div class="rules-actions"><button id="rulesDeleteProfile">刪除無效描述檔</button><button id="rulesVerifyProfile">驗證描述檔</button></div><p id="rulesActionNote" role="status" hidden></p></div></div><script>
+<div id="rulesPanel" class="full-panel"><div class="panel-header"><div class="menu-btn" id="rulesCloseBtn" role="button" tabindex="0" aria-label="返回"><i></i><i></i><i></i></div><span>使用規範</span></div><div class="rules-body"><p>Apple 企業憑證期限：2027年06月18日。</p><p class="indent">謝謝您安裝手機管控系統 MDM，當您攜帶智慧型手機進入營區前，請先完成「上鎖」動作，上鎖後禁止使用相機、藍牙、定位服務、熱點分享等功能，以免違反手機管制規定，請注意下列行為亦被禁止請勿嘗試：</p><ol><li>上鎖後開啟定位服務功能。</li><li>上鎖後開啟熱點分享功能。</li><li>修改任何有關本程式之通知設定，包含提示類型與音效。</li><li>上鎖後終止本程式。</li><li>移除本程式。</li><li>上鎖中進行手機作業系統升級。</li></ol><p class="indent">上述行為將導致連續警示，並且產生違規紀錄。</p><p>MDM:V9.1 Build1<br>版本日期:2026-06-18</p><p><span id="rulesMonth">115年10月份</span>密碼解鎖資訊：<br>密碼解鎖失敗次數：0</p><div class="rules-actions"><button id="rulesDeleteProfile">刪除無效描述檔</button><button id="rulesVerifyProfile">驗證描述檔</button></div><p id="rulesActionNote" role="status" hidden></p></div></div>
+<div id="zhPicker"><section class="zh-sheet" role="dialog" aria-modal="true" aria-labelledby="zhTitle"><div class="zh-toolbar"><button id="zhCancel">取消</button><h3 id="zhTitle">選擇結束時間</h3><button id="zhDone">完成</button></div><div class="zh-labels"><span>民國年</span><span>月份</span><span>日期</span><span>小時</span><span>分鐘</span></div><div class="zh-wheels"><div id="wheelYear" class="zh-wheel" role="listbox" tabindex="0" aria-label="民國年"></div><div id="wheelMonth" class="zh-wheel" role="listbox" tabindex="0" aria-label="月份"></div><div id="wheelDay" class="zh-wheel" role="listbox" tabindex="0" aria-label="日期"></div><div id="wheelHour" class="zh-wheel" role="listbox" tabindex="0" aria-label="小時，二十四小時制"></div><div id="wheelMinute" class="zh-wheel" role="listbox" tabindex="0" aria-label="分鐘"></div></div><p class="zh-preview" id="zhPreview" aria-live="polite"></p></section></div>
+<div id="portraitGuard" role="alert"><div>請將手機轉回直向使用<br><small>本頁僅提供直向操作</small></div></div>
+<script>
 (function(){
 try{if('scrollRestoration' in history)history.scrollRestoration='manual'}catch(e){}
 function resetViewport(){window.scrollTo(0,0);document.documentElement.scrollTop=0;document.body.scrollTop=0;var main=document.querySelector('#appShell>main');if(main)main.scrollTop=0;}
@@ -1053,6 +1037,25 @@ function closeRules(){el('rulesPanel').classList.remove('open')}
 el('rulesCloseBtn').addEventListener('click',closeRules);el('rulesCloseBtn').addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();closeRules()}});
 ['rulesDeleteProfile','rulesVerifyProfile'].forEach(function(id){el(id).addEventListener('click',function(){el('rulesActionNote').hidden=false;el('rulesActionNote').textContent='此網頁無法讀取、刪除或驗證手機的系統描述檔。'})});
 document.addEventListener('keydown',function(e){var overlay=document.querySelector('.reference-overlay.open');if(e.key==='Escape'){if(overlay)closeDialog(overlay.id);closeRules()}if(e.key==='Tab'&&overlay){var list=overlay.querySelectorAll('button,a[href]'),first=list[0],last=list[list.length-1];if(e.shiftKey&&(document.activeElement===first||document.activeElement===overlay.querySelector('.reference-card'))){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}});
+var wheels={},selected={},draftYear,prevFocus;
+function pad(n){return String(n).padStart(2,'0')}
+function range(a,b){var r=[];for(var i=a;i<=b;i++)r.push(i);return r}
+function days(){return new Date(selected.Year,selected.Month,0).getDate()}
+function preview(){el('zhPreview').textContent='民國 '+(selected.Year-1911)+' 年 '+selected.Month+' 月 '+selected.Day+' 日 '+pad(selected.Hour)+' 時 '+pad(selected.Minute)+' 分'}
+function mark(key,index){var w=wheels[key];index=Math.max(0,Math.min(w.values.length-1,index));selected[key]=w.values[index];Array.from(w.el.children).forEach(function(o,i){o.setAttribute('aria-selected',String(i===index))});w.el.setAttribute('aria-activedescendant','opt'+key+index);return index}
+function build(key,values,value,format){var e=el('wheel'+key);wheels[key]={el:e,values:values,format:format};e.innerHTML='';values.forEach(function(v,i){var o=document.createElement('div');o.className='zh-option';o.id='opt'+key+i;o.setAttribute('role','option');o.textContent=format(v);o.addEventListener('click',function(){e.scrollTo({top:i*40,behavior:'smooth'})});e.appendChild(o)});var index=Math.max(0,values.indexOf(value));mark(key,index);e.scrollTop=index*40}
+function reconcileDays(){var max=days();if(wheels.Day.values.length!==max){build('Day',range(1,max),Math.min(selected.Day,max),function(v){return v+'日'})}}
+function readWheel(key){var w=wheels[key];if(!w)return;var old=selected[key];mark(key,Math.round(w.el.scrollTop/40));if((key==='Year'||key==='Month')&&old!==selected[key])reconcileDays();preview()}
+['Year','Month','Day','Hour','Minute'].forEach(function(key){var e=el('wheel'+key);e.addEventListener('scroll',function(){if(el('zhPicker').classList.contains('open'))readWheel(key)},{passive:true});e.addEventListener('keydown',function(event){var delta=event.key==='ArrowDown'?1:event.key==='ArrowUp'?-1:0;if(!delta)return;event.preventDefault();var w=wheels[key],idx=Math.round(e.scrollTop/40)+delta;e.scrollTop=Math.max(0,Math.min(w.values.length-1,idx))*40;readWheel(key)})});
+function openPicker(){var m=el('taskTimeInput').value.match(/^(\d+)\/(\d+)\/(\d+)\s+(\d+):(\d+)$/),d=m?new Date(+m[1]+1911,+m[2]-1,+m[3],+m[4],+m[5]):new Date();if(isNaN(d.getTime()))d=new Date();selected={Year:d.getFullYear(),Month:d.getMonth()+1,Day:d.getDate(),Hour:d.getHours(),Minute:d.getMinutes()};prevFocus=document.activeElement;el('zhPicker').classList.add('open');var now=new Date().getFullYear();build('Year',range(Math.min(now-1,selected.Year),Math.max(now+20,selected.Year+5)),selected.Year,function(v){return(v-1911)+'年'});build('Month',range(1,12),selected.Month,function(v){return v+'月'});build('Day',range(1,days()),selected.Day,function(v){return v+'日'});build('Hour',range(0,23),selected.Hour,function(v){return pad(v)+'時'});build('Minute',range(0,59),selected.Minute,function(v){return pad(v)+'分'});preview();el('zhDone').focus()}
+function closePicker(){el('zhPicker').classList.remove('open');if(prevFocus)prevFocus.focus()}
+el('taskTimeInput').addEventListener('click',openPicker);el('taskTimeInput').addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();e.stopPropagation();openPicker()}});
+el('zhCancel').addEventListener('click',closePicker);
+el('zhDone').addEventListener('click',function(){['Year','Month','Day','Hour','Minute'].forEach(readWheel);el('taskTimeInput').value=(selected.Year-1911)+'/'+pad(selected.Month)+'/'+pad(selected.Day)+' '+pad(selected.Hour)+':'+pad(selected.Minute);el('taskTimeInput').dispatchEvent(new Event('input',{bubbles:true}));closePicker()});
+el('zhPicker').addEventListener('click',function(e){if(e.target===this)closePicker()});
+document.addEventListener('keydown',function(e){if(!el('zhPicker').classList.contains('open'))return;if(e.key==='Escape')closePicker();if(e.key==='Tab'){var f=[el('zhCancel'),el('zhDone'),el('wheelYear'),el('wheelMonth'),el('wheelDay'),el('wheelHour'),el('wheelMinute')],i=f.indexOf(document.activeElement);if(e.shiftKey&&i===0){e.preventDefault();f[f.length-1].focus()}else if(!e.shiftKey&&i===f.length-1){e.preventDefault();f[0].focus()}}},true);
+function tryPortrait(){try{if(screen.orientation&&typeof screen.orientation.lock==='function')screen.orientation.lock('portrait').catch(function(){})}catch(e){}}
+window.addEventListener('load',tryPortrait);document.addEventListener('pointerup',tryPortrait,{once:true});
 })();
 </script></body>
 </html>
